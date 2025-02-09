@@ -8,6 +8,8 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import Footer from "@/components/app/Footer";
 import Header from "@/components/app/Header";
 
+import { Toaster } from "@/components/ui/sonner"
+import Society from "./page/headAdmin/Society";
 
 function App() {
   return (
@@ -16,8 +18,10 @@ function App() {
         <Header />
 
         <div className="flex-grow">
+          <Toaster />
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/society" element={<Society />} />
             <Route path="/event" element={<Event />} />
             <Route path="/create-event" element={<CreateEvent />} />
           </Routes>
