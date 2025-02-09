@@ -11,7 +11,7 @@ type LoginInput = {
   password: string;
 };
 
-export function Login() {
+export function SocietyLogin() {
   const {
     register,
     handleSubmit,
@@ -22,7 +22,7 @@ export function Login() {
   const onSubmit = async (data: LoginInput) => {
     console.log("Submitted", data, import.meta.env.PRODUCTION_API_URI);
     try {
-      const response = await fetch(`${import.meta.env.VITE_PRODUCTION_API_URI}/api/auth/admin/login`, {
+      const response = await fetch(`${import.meta.env.VITE_PRODUCTION_API_URI}/api/society/login-society`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ export function Login() {
         body: JSON.stringify(data),
       });
       const apiData = await response.json();
-      toast.success(`Welcome, ${apiData.adminName} 🤝🤝`, { description: "Login successfully" })
+      toast.success(`${apiData.societyData.name}`, { description: "Login successfully" })
 
     } catch (error) {
       console.log("Error", error)
@@ -42,7 +42,7 @@ export function Login() {
     <Dialog>
       <DialogTrigger asChild>
         <Button variant="outline" className="border-none text-base">
-          Login
+          Login to Society
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">

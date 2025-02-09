@@ -10,6 +10,7 @@ import Header from "@/components/app/Header";
 
 import { Toaster } from "@/components/ui/sonner"
 import Society from "./page/headAdmin/Society";
+import RegisterSociety from "./page/headAdmin/RegisterSociety";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/society" element={<Society />} />
+            <Route path="/society/register-society" element={<RegisterSociety />} />
             <Route path="/event" element={<Event />} />
             <Route path="/create-event" element={<CreateEvent />} />
           </Routes>
