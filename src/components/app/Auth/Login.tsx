@@ -22,8 +22,9 @@ type AuthInput = {
   role?: Role;
 };
 
-export function Login(){
-const [role, setRole] = useState<Role>("");
+export function Login() {
+  
+  const [role, setRole] = useState<Role>("");
   const [isLogin, setIsLogin] = useState(true); // Toggle between Login and Signup
 
   const {
@@ -59,7 +60,7 @@ const [role, setRole] = useState<Role>("");
     } catch (error) {
       console.log(error)
       toast.error(isLogin ? "Login failed" : "Signup failed", {
-        description:"Please check your details",
+        description: "Please check your details",
       });
     }
   };
@@ -145,7 +146,7 @@ const [role, setRole] = useState<Role>("");
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="password" className="text-right">Password*</Label>
               <div className="col-span-3">
-                <Input id="password" type="password" {...register("password", { required: "Password is required"})} />
+                <Input id="password" type="password" {...register("password", { required: "Password is required" })} />
                 {errors.password && <p className="text-red-500 text-sm">{errors.password.message || "Password length is between 6 and 12"}</p>}
               </div>
             </div>
