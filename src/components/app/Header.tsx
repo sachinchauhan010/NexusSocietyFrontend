@@ -1,6 +1,5 @@
-import { Link } from "react-router-dom";
 import { ThemeToggle } from "../ThemeToggle";
-import User from "./Auth/User";
+import UserLogin from "./Auth/UserLogin";
 
 function Header() {
   return (
@@ -10,8 +9,7 @@ function Header() {
         <span className="text-blue-700">Society</span>
       </div>
       <div className="flex justify-start items-center gap-x-10">
-        <Link to="/login" className="text-lg">Login</Link>
-        <User />
+        <UserLogin />
         <ThemeToggle />
       </div>
     </div>
