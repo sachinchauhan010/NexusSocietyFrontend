@@ -1,4 +1,4 @@
-import { Login } from "./Auth/Login";
+import { Link } from "react-router-dom";
 import { ThemeToggle } from "../ThemeToggle";
 
 function Header() {
@@ -9,7 +9,7 @@ function Header() {
         <span className="text-blue-700">Society</span>
       </div>
       <div className="flex justify-start items-center gap-x-10">
-        <Login/>
+        <Link to="/login" className="text-lg">Login</Link>
         <ThemeToggle />
       </div>
     </div>
