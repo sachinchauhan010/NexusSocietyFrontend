@@ -68,12 +68,12 @@ const AuthForm: React.FC = () => {
 
   return (
     <div className="">
-    <div className={`container mt-10 ${isActive ? "active" : ""}`} id="container">
+    <div className={`container border mx-auto shadow-md dark:bg-black ${isActive ? "active" : ""}`} id="container">
 
 
       {/* Sign up form */}
       {isLogin ? (
-        <div className="form-container sign-in">
+          <div className="form-container sign-in dark:bg-black">
           <form onSubmit={handleSubmit(onSubmit)}>
             <h1>Sign In</h1>
             <div className="grid grid-cols-4 items-center gap-4">

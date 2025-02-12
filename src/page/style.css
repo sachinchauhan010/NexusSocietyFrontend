@@ -18,9 +18,9 @@
 } */
 
 .container {
-  background-color: #fff;
+  /* background-color: #fff; */
   border-radius: 20px;
-  box-shadow: 0 0px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 0px rgba(0, 0, 0, 0.75);
   position: relative;
   overflow: hidden;
   width: 968px;
@@ -67,7 +67,7 @@
 }
 
 .container form {
-  background-color: #fff;
+  /* background-color: #fff; */
   display: flex;
   align-items: center;
   justify-content: center;
