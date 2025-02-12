@@ -2,11 +2,6 @@ import { Login } from "./Auth/Login";
 import { ThemeToggle } from "../ThemeToggle";
 
 function Header() {
-
-
-
-
-
   return (
     <div className="flex justify-between items-center px-10 py-2">
       <div className="font-semibold text-2xl">
