@@ -16,7 +16,7 @@ const socialLinks = [
 
 const Footer = () => {
   return (
-    <footer className="bg-[#0A0A5A] text-white py-8 px-6 md:px-16">
+    <footer className="bg-[#0A0A5A] text-white py-8 px-6 md:px-16"> 
       {/* Logo and Subscription */}
       <div className="flex flex-col items-center gap-4">
         <h1 className="text-3xl font-bold text-white">
