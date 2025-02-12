@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { ThemeToggle } from "../ThemeToggle";
+import User from "./Auth/User";
 
 function Header() {
   return (
@@ -10,6 +11,7 @@ function Header() {
       </div>
       <div className="flex justify-start items-center gap-x-10">
         <Link to="/login" className="text-lg">Login</Link>
+        <User />
         <ThemeToggle />
       </div>
     </div>
