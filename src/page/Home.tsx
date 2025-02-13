@@ -6,7 +6,7 @@ import Section4 from "@/components/app/Home/Section4"
 //TODO: Yaha Par Society Controller ke baare me ui Banana h Ki Hamara ye Software kya kya krta h... Figma se achha UI dekh lena
 function Home() {
   return (
-    <div>
+    <div className="font-roboto">
       <Section1/>
       <Section2/>
       <Section3/>
