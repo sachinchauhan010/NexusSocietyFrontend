@@ -115,7 +115,6 @@ export const ImagesSlider = ({
   };
 
   const areImagesLoaded = loadedImages.length > 0;
-  console.log(loading)
   return (
     <div
       className={cn(

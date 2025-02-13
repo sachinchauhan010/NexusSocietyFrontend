@@ -1,7 +1,12 @@
-import { ThemeToggle } from "../ThemeToggle";
 import UserLogin from "./Auth/UserLogin";
+import { ThemeToggle } from "../ThemeToggle";
+import { useAuth } from "@/context/AuthContext";
+import { UserProfile } from "./Auth/UserProfile";
 
 function Header() {
+
+  const { authState} = useAuth()
+
   return (
     <div className="flex justify-between items-center px-10 py-2">
       <div className="font-semibold text-2xl">
@@ -9,7 +14,7 @@ function Header() {
         <span className="text-blue-700">Society</span>
       </div>
       <div className="flex justify-start items-center gap-x-10">
-        <UserLogin />
+        {authState.isLoggedIn ? <UserProfile/> : <UserLogin /> }
         <ThemeToggle />
       </div>
     </div>
