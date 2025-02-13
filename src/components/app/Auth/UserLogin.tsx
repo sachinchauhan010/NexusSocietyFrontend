@@ -9,7 +9,7 @@ import signupImage from "/public/registerImage.png"
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-
+import { Link } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -74,16 +74,15 @@ function UserLogin() {
   return (
     <Dialog>
       <DialogTrigger>Login</DialogTrigger>
-      <DialogContent className="w-fit max-w-fit flex flex-col items-center">
+      <DialogContent className="w-fit max-w-fit flex flex-col items-center py-10">
 
         <DialogTitle></DialogTitle>
         <div className={`container mx-auto shadow-md ${isActive ? "active" : ""}`} id="container">
-
           {/* Sign up form */}
           {isLogin ? (
             <div className="form-container sign-in">
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <h1>Sign In</h1>
+              <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-start gap-2">
+                {/* <h1>Sign In</h1> */}
                 <div className="grid grid-cols-4 items-center gap-4">
                   <Label htmlFor="email" className="text-right">Email*</Label>
                   <div className="col-span-3">
@@ -98,14 +97,14 @@ function UserLogin() {
                     {errors.password && <p className="text-red-500 text-sm">{errors.password.message || "Password length is between 6 and 12"}</p>}
                   </div>
                 </div>
-                <a href="#">Forget Your Password?</a>
+                <Link to="#" className="text-dark dark:text-white">Forget Your Password?</Link>
                 <Button type="submit">Sign In</Button>
               </form>
             </div>
           ) : (
             <div className="form-container sign-up">
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="grid">
+              <form onSubmit={handleSubmit(onSubmit)} >
+                <div className="grid flex-col items-start gap-2">
                   <div className="grid grid-cols-4 items-center gap-4">
                     <Label htmlFor="name" className="text-right">Name*</Label>
                     <div className="col-span-3">
@@ -144,10 +143,10 @@ function UserLogin() {
                   <div className="grid grid-cols-4 items-center gap-4">
                     <Label htmlFor="role" className="text-right">Register As*</Label>
                     <Select value={role} onValueChange={(value) => setRole(value as Role)}>
-                      <SelectTrigger className="w-[240px] text-black">
+                      <SelectTrigger className="w-[240px]">
                         <SelectValue placeholder="Select Role" />
                       </SelectTrigger>
-                      <SelectContent className="text-black">
+                      <SelectContent className="">
                         <SelectItem value="societyAdmin">Admin (Society)</SelectItem>
                         <SelectItem value="student">Student</SelectItem>
                       </SelectContent>
