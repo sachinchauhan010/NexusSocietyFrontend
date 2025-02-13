@@ -4,7 +4,7 @@ import { LampContainer } from "@/components/ui/lamp";
 export function Section2() {
   return (
     <div className="relative w-full h-screen overflow-hidden mt-10">
-      <h1 className="text-4xl mx-auto font-semibold text-center py-4">Our Vision</h1>
+      <h1 className="text-4xl mx-auto font-semibold text-center py-4 font-roboto">Our Vision</h1>
       <LampContainer>
         <motion.h1
           initial={{ opacity: 0.5, y: 100 }}

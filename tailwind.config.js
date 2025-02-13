@@ -4,6 +4,10 @@ module.exports = {
     content: ["./index.html", "./src/**/*.{ts,tsx,js,jsx}"],
   theme: {
   	extend: {
+			fontFamily: {
+				karla: ["Karla", "sans-serif"], // Ensure the key is lowercase
+				roboto: ["Roboto", "sans-serif"],
+			},
 			animation: {
 				move: "move 5s linear infinite",
 				scroll:
