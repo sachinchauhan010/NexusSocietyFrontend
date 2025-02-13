@@ -10,6 +10,7 @@ import Header from "@/components/app/Header";
 import { Toaster } from "@/components/ui/sonner"
 import Society from "./page/headAdmin/Society";
 import RegisterSociety from "./page/headAdmin/RegisterSociety";
+import Footer from "./components/app/Footer";
 
 function App() {
   return (
@@ -28,7 +29,7 @@ function App() {
           </Routes>
         </div>
 
-        {/* <Footer /> */}
+        <Footer />
       </div>
     </ThemeProvider>
   );
