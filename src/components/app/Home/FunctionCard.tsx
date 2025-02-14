@@ -1,23 +1,30 @@
-import { cn } from "@/lib/utils";
+interface Feature {
+  image: string;
+  text: string;
+  subText: string;
+}
 
-export function FunctionCard() {
+export function FunctionCard({ feature }: { feature: Feature }) {
+  const { image, text, subText } = feature;
+
   return (
-    <div className="max-w-xs w-full group/card">
+    <div className="max-w-xs w-full group">
       <div
-        className={cn(
-          " cursor-pointer overflow-hidden relative card h-96 rounded-md shadow-xl  max-w-sm mx-auto backgroundImage flex flex-col items-start justify-end p-4",
-          "bg-[url(https://images.unsplash.com/photo-1544077960-604201fe74bc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1651&q=80)] bg-cover"
-        )}
+        className="cursor-pointer overflow-hidden relative card h-96 rounded-md shadow-xl max-w-sm mx-auto flex flex-col items-start justify-end p-4 bg-cover bg-center transition-all duration-300"
+        style={{ backgroundImage: `url(${image})` }}
       >
-        <div className="absolute w-full h-full top-0 left-0 transition duration-300 group-hover/card:bg-black opacity-60"></div>
+        {/* Dark overlay effect on hover */}
+        <div className="absolute w-full h-full top-0 left-0 transition duration-300 group-hover:bg-black group-hover:opacity-60"></div>
 
-        <div className="text content">
-          <h1 className="font-bold text-xl md:text-2xl text-gray-50 relative z-10">
-            Author Card
+        {/* Text container: Shifts to center on hover */}
+        <div className="absolute inset-0 flex flex-col items-start justify-end px-4 pb-4 group-hover:justify-center group-hover:items-center transition-all duration-300">
+          <h1 className="text-xl md:text-2xl text-white font-bold text-left group-hover:text-center transition-all duration-300">
+            {text}
           </h1>
-          <p className="font-normal text-sm text-gray-50 relative z-10 my-4">
-            Card with Author avatar, complete name and time to read - most
-            suitable for blogs.
+
+          {/* SubText (Visible only on Hover) */}
+          <p className="text-sm md:text-base text-gray-300 text-left opacity-0 group-hover:opacity-100 group-hover:text-center transition-opacity duration-300 mt-2 font-bold">
+            {subText}
           </p>
         </div>
       </div>
