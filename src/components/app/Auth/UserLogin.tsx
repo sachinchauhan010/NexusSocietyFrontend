@@ -4,8 +4,8 @@ import {
   DialogTrigger,
   DialogTitle
 } from "@/components/ui/dialog"
-import loginImage from "/public/loginImage.png"
-import signupImage from "/public/registerImage.png"
+import loginImage from "/loginImage.png"
+import signupImage from "/registerImage.png"
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
