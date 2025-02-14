@@ -11,6 +11,7 @@ type FormData = {
   email: string;
   password: string;
   description?: string;
+  logoimage?: string;
 };
 
 function RegisterSociety() {
@@ -19,7 +20,7 @@ function RegisterSociety() {
   //TODO: After successful Registration form should be clear  and close the dialog
   const onSubmit = async (data: FormData) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_PRODUCTION_API_URI}/api/society/register-society`, {
+      const response = await fetch(`${import.meta.env.VITE_PRODUCTION_API_URI}/api/society/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -31,7 +32,7 @@ function RegisterSociety() {
 
       // Login after registration
       const societyLoginData = { email: data.email, password: data.password }
-      const loginResponse = await fetch(`${import.meta.env.VITE_PRODUCTION_API_URI}/api/society/login-society`, {
+      const loginResponse = await fetch(`${import.meta.env.VITE_PRODUCTION_API_URI}/api/society/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -70,6 +71,10 @@ function RegisterSociety() {
         <div>
           <Label htmlFor="description">Description</Label>
           <Input id="description" {...register("description")} />
+        </div>
+        <div>
+          <Label htmlFor="description">Upload Logo</Label>
+          <Input type="file" id="description" {...register("logoimage")} />
         </div>
         <Button type="submit" className="w-full">Register</Button>
       </form>
