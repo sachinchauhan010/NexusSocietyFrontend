@@ -3,8 +3,10 @@ import { LampContainer } from "@/components/ui/lamp";
 
 export function Section2() {
   return (
-    <div className="relative w-full h-screen overflow-hidden mt-10">
-      <h1 className="text-4xl mx-auto font-semibold text-center py-4 font-roboto">Our Vision</h1>
+    <div className="relative w-full h-screen overflow-hidden mt-10 flex flex-col justify-between">
+      <h1 className="text-4xl mx-auto font-semibold text-center py-4 font-roboto">
+        Our Vision
+      </h1>
       <LampContainer>
         <motion.h1
           initial={{ opacity: 0.5, y: 100 }}
@@ -19,6 +21,14 @@ export function Section2() {
           Your Society <br /> Our Priority
         </motion.h1>
       </LampContainer>
+
+      {/* Static paragraph at the bottom */}
+      <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 w-full px-4">
+        <p className="text-white text-center text-base sm:text-base md:text-lg lg:text-xl xl:text-3xl 2xl:text-4xl">
+          Dedicated to shaping flourishing communities with excellence,
+          innovation, and unwavering commitment.
+        </p>
+      </div>
     </div>
   );
 }

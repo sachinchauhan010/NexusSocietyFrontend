@@ -4,8 +4,8 @@ import {
   DialogTrigger,
   DialogTitle
 } from "@/components/ui/dialog"
-import loginImage from "/public/loginImage.png"
-import signupImage from "/public/registerImage.png"
+import loginImage from "/loginImage.png"
+import signupImage from "/registerImage.png"
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import "./style.css"
+import { useAuth } from "../../../context/AuthContext";
 
 type Role = "societyAdmin" | "student" | "";
 
@@ -33,6 +34,7 @@ function UserLogin() {
   const [isActive, setIsActive] = useState(false);
   const [role, setRole] = useState<Role>("");
   const [isLogin, setIsLogin] = useState(true); // Toggle between Login and Signup
+  const { dispatch: dispatchAuthState } = useAuth()
 
   const {
     register,
@@ -52,6 +54,7 @@ function UserLogin() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
+        credentials:"include",
       });
 
       const apiData = await response.json();
@@ -59,6 +62,12 @@ function UserLogin() {
         toast.success(`Welcome, ${apiData.userdata.username}!`, {
           description: isLogin ? "Login successful" : "Signup successful",
         });
+        dispatchAuthState({
+          type: "LOGIN",
+          payload: {
+            name: apiData.userdata.username || ""
+          }
+        })
         reset(); // Clear form
       } else {
         throw new Error(apiData.message || "Something went wrong");
