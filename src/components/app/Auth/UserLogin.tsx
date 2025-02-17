@@ -50,14 +50,24 @@ function UserLogin() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
-        credentials:"include",
+        credentials: "include",
       });
 
       const apiData = await response.json();
       if (response.ok) {
-        toast.success(`Welcome, ${apiData.userdata.username}!`, {
-          description: isLogin ? "Login successful" : "Signup successful",
-        });
+        const loginData = { email: data.email, password: data.password }
+        const loginresponse = await fetch(`${import.meta.env.VITE_PRODUCTION_API_URI}/api/auth/user/login`, {
+          method: 'POST',
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(loginData),
+          credentials: 'include',
+        })
+        const loginApiData = await loginresponse.json();
+        if (loginresponse.ok) {
+          toast.success(`Welcome, ${loginApiData.userdata.username}!`, {
+            description: "Login successful",
+          });
+        }
         dispatchAuthState({
           type: "LOGIN",
           payload: {
@@ -149,7 +159,7 @@ function UserLogin() {
                 <div className="grid grid-cols-4 items-center gap-4">
                   <Label htmlFor="email" className="text-right">Email*</Label>
                   <div className="col-span-3">
-                    <Input id="email" {...register("email", { required: "Email is required" })} className="w-20"/>
+                    <Input id="email" {...register("email", { required: "Email is required" })} className="w-20" />
                     {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
                   </div>
                 </div>
