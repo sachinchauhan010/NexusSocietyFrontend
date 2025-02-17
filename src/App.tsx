@@ -4,11 +4,10 @@ import Event from "./page/Event";
 import CreateEvent from "./page/CreateEvent";
 
 import { ThemeProvider } from "@/components/ThemeProvider";
-// import Footer from "@/components/app/Footer";
 import Header from "@/components/app/Header";
-
+import Admin from "./page/admin/Admin";
 import { Toaster } from "@/components/ui/sonner"
-import Footer from "./components/app/Footer";
+// import Footer from "./components/app/Footer";
 
 function App() {
   return (
@@ -20,12 +19,14 @@ function App() {
           <Toaster />
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/admin" element={<Admin/>} />
             <Route path="/event" element={<Event />} />
             <Route path="/create-event" element={<CreateEvent />} />
+
           </Routes>
         </div>
 
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </ThemeProvider>
   );
