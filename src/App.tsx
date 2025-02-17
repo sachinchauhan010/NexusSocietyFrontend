@@ -19,10 +19,9 @@ function App() {
           <Toaster />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/admin" element={<Admin/>} />
             <Route path="/event" element={<Event />} />
+            <Route path="/admin" element={<Admin/>} />
             <Route path="/create-event" element={<CreateEvent />} />
-
           </Routes>
         </div>
 
