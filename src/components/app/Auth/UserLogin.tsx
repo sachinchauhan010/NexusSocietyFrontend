@@ -88,16 +88,17 @@ function UserLogin() {
 
   return (
     <Dialog>
-      <DialogTrigger>Login</DialogTrigger>
+      <DialogTrigger>Membership</DialogTrigger>
       <DialogContent className="w-fit max-w-fit flex flex-col items-center py-10">
 
         <DialogTitle></DialogTitle>
         <div className={`container mx-auto shadow-md ${isActive ? "active" : ""}`} id="container">
+
           {/* Sign up form */}
           {isLogin ? (
             <div className="form-container sign-in">
               <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-start gap-2">
-                {/* <h1>Sign In</h1> */}
+                <h1 className="text-center ml-6">Enjoy Your Membership After Login</h1>
                 <div className="grid grid-cols-4 items-center gap-4">
                   <Label htmlFor="email" className="text-right">Email*</Label>
                   <div className="col-span-3">
@@ -113,7 +114,7 @@ function UserLogin() {
                   </div>
                 </div>
                 <Link to="#" className="text-dark dark:text-white">Forget Your Password?</Link>
-                <Button type="submit">Sign In</Button>
+                <Button type="submit">Enjoy Membership</Button>
               </form>
             </div>
           ) : (
@@ -170,7 +171,7 @@ function UserLogin() {
                     {errors.password && <p className="text-red-500 text-sm">{errors.password.message || "Password length is between 6 and 12"}</p>}
                   </div>
                 </div>
-                <Button type="submit">Sign Up</Button>
+                <Button type="submit">Take Membership</Button>
               </form>
             </div>
           )}
@@ -188,7 +189,7 @@ function UserLogin() {
             >
               <div className="toggle-panel toggle-left">
                 <h1>Welcome Back!</h1>
-                <p>Enter your personal details to use all of site features</p>
+                <p>Enter your personal details to enjoy your membership</p>
                 <Button
                   type="button"
                   onClick={() => {
@@ -196,12 +197,12 @@ function UserLogin() {
                     setIsLogin(!isLogin)
                   }}
                 >
-                  Sign In
+                  Enjoy Membership
                 </Button>
               </div>
               <div className="toggle-panel toggle-right">
                 <h1>Hello, Friend!</h1>
-                <p>Register with your personal details to use all of site features</p>
+                <p>For Enjoy the Events You have to take Membership</p>
                 <Button
                   type="button"
                   onClick={() => {
@@ -209,7 +210,7 @@ function UserLogin() {
                     setIsLogin(!isLogin)
                   }}
                 >
-                  Sign Up
+                  Take Membership
                 </Button>
               </div>
             </div>
