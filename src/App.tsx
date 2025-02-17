@@ -8,8 +8,6 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import Header from "@/components/app/Header";
 
 import { Toaster } from "@/components/ui/sonner"
-import Society from "./page/headAdmin/Society";
-import RegisterSociety from "./page/headAdmin/RegisterSociety";
 import Footer from "./components/app/Footer";
 
 function App() {
@@ -22,8 +20,6 @@ function App() {
           <Toaster />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/society" element={<Society />} />
-            <Route path="/society/register-society" element={<RegisterSociety />} />
             <Route path="/event" element={<Event />} />
             <Route path="/create-event" element={<CreateEvent />} />
           </Routes>

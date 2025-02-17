@@ -13,11 +13,9 @@ import { Link } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import "./style.css"
 import { useAuth } from "../../../context/AuthContext";
 
-type Role = "societyAdmin" | "student" | "";
 
 type AuthInput = {
   email: string;
@@ -27,12 +25,10 @@ type AuthInput = {
   id?: string;
   department?: string;
   year?: string;
-  role?: Role;
 };
 
 function UserLogin() {
   const [isActive, setIsActive] = useState(false);
-  const [role, setRole] = useState<Role>("");
   const [isLogin, setIsLogin] = useState(true); // Toggle between Login and Signup
   const { dispatch: dispatchAuthState } = useAuth()
 
@@ -148,18 +144,6 @@ function UserLogin() {
                       <Input id="year" {...register("year")} />
                       {errors.year && <p className="text-red-500 text-sm">{errors.year.message}</p>}
                     </div>
-                  </div>
-                  <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="role" className="text-right">Register As*</Label>
-                    <Select value={role} onValueChange={(value) => setRole(value as Role)}>
-                      <SelectTrigger className="w-[240px]">
-                        <SelectValue placeholder="Select Role" />
-                      </SelectTrigger>
-                      <SelectContent className="">
-                        <SelectItem value="societyAdmin">Admin (Society)</SelectItem>
-                        <SelectItem value="student">Student</SelectItem>
-                      </SelectContent>
-                    </Select>
                   </div>
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
