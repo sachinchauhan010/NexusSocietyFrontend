@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { useAuth } from "@/context/AuthContext"
+import { CheckRole } from "@/utils/checkRole"
 import { Link } from "react-router-dom"
 import { toast } from "sonner"
 
@@ -22,6 +23,7 @@ export function UserProfile() {
     }
     dispatchAuthState({ type: "LOGOUT" });
   }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -30,7 +32,7 @@ export function UserProfile() {
       <DropdownMenuContent className="w-56">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuItem>
-          <Link to={"#"}>Profile</Link>
+          <Link to={"#"} onClick={CheckRole } >Profile</Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
           <Link to={"/"} onClick={handleLogout}>Logout</Link>
