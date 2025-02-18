@@ -20,6 +20,7 @@ import Merchandise from "./page/admin/Merchandise";
 import Dashboard from "./page/admin/Dashboard";
 import Footer from './components/app/Footer.tsx'
 import { AdminSidebar } from './components/app/Admin/Sidebar.tsx'
+import { Toaster } from "@/components/ui/sonner"
 
 const AppLayout = () => {
   return (
@@ -29,6 +30,7 @@ const AppLayout = () => {
           <Header />
           <main className='px-6 py-2'>
             <Outlet />
+            <Toaster />
           </main>
           <Footer />
         </div>

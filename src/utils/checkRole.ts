@@ -6,6 +6,7 @@ export const CheckRole = async () => {
 
   });
   const roleData = await roleResponse.json();
+  console.log(roleData.role, "Roles")
   if (roleData.role.includes('admin')) {
     console.log("Admin Role")
   } else {
