@@ -89,11 +89,10 @@ function UserLogin() {
   return (
     <Dialog>
       <DialogTrigger>Membership</DialogTrigger>
-      <DialogContent className="w-fit max-w-fit flex flex-col items-center py-10">
+      <DialogContent className="w-[95%] md:w-[90%] lg:w-[80%] max-w-6xl p-0 sm:p-2 md:p-6 flex flex-col items-center py-10">
 
         <DialogTitle></DialogTitle>
         <div className={`container mx-auto shadow-md ${isActive ? "active" : ""}`} id="container">
-
           {/* Sign up form */}
           {isLogin ? (
             <div className="form-container sign-in">
@@ -175,6 +174,7 @@ function UserLogin() {
               </form>
             </div>
           )}
+          
 
           {/* Toggle */}
           <div className="toggle-container">

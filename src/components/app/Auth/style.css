@@ -22,8 +22,7 @@
   box-shadow: 0 0px rgba(0, 0, 0, 0.75);
   position: relative;
   overflow: hidden;
-  width: 968px;
-  max-width: 100%;
+  /* max-width: 100%; */
   height: 480px;
   margin-top: 10px;
 }
