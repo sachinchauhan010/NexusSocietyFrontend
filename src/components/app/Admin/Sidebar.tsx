@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Outlet } from "react-router-dom"; // Import Outlet
 
-export function AdminSidebar() {
+export default function AdminSidebar() {
   const links = [
     {
       label: "Dashboard",
