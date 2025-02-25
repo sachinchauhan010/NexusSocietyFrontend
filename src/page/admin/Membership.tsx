@@ -15,12 +15,11 @@ function Membership() {
     })
     const apiData = await response.json();
     setMembershipStudents(apiData.users)
-    console.log(membershipStudents, "&&&&&")
   }
   
   useEffect(()=>{
     fetchMembership()
-  },[membershipStudents])
+  },[])
 
   return (
     <div className="max-w-5xl mx-auto px-8">

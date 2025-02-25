@@ -1,9 +1,9 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-  DialogTitle
-} from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "@/components/ui/dialog"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
+
+
+
 import loginImage from "/loginImage.png"
 import signupImage from "/registerImage.png"
 import { useState } from "react";
@@ -16,40 +16,64 @@ import { Button } from "@/components/ui/button";
 import "./style.css"
 import { useAuth } from "../../../context/AuthContext";
 
+const departments = ["Computer Science", "Mechanical", "Electrical", "Civil", "Electronics"];
+const years = ["I", "II", "III", "IV"];
+const courses = ["B.Tech", "M.Tech", "MCA", "MBA"];
 
 type AuthInput = {
   email: string;
   password: string;
   name: string;
-  phone?: string;
-  id?: string;
-  department?: string;
+  phone: string;
+  id: string;
+  course?: string;
+  department: string;
   year?: string;
 };
 
 function UserLogin() {
   const [isActive, setIsActive] = useState(false);
   const [isLogin, setIsLogin] = useState(true); // Toggle between Login and Signup
+  const [userprofile, setUserprofile] = useState<File | null>(null); // State to handle the image file
   const { dispatch: dispatchAuthState } = useAuth()
 
   const {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors },
   } = useForm<AuthInput>();
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setUserprofile(e.target.files[0]);
+    }
+  };
+
   const onSubmit = async (data: AuthInput) => {
+    console.log(data, "Data.....")
 
     const endpoint = isLogin
       ? `${import.meta.env.VITE_PRODUCTION_API_URI}/api/auth/user/login`
       : `${import.meta.env.VITE_PRODUCTION_API_URI}/api/auth/user/register`;
 
     try {
+      if (!userprofile) {
+        console.log("Please select a file!");
+        toast.error("Profile image is required");
+        return;
+      }
+
+      const formData = new FormData();
+      Object.keys(data).forEach(key => {
+        formData.append(key, data[key as keyof AuthInput] as string);
+      });
+      formData.append("userprofile", userprofile);
+
       const response = await fetch(endpoint, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: formData,
         credentials: "include",
       });
 
@@ -75,6 +99,7 @@ function UserLogin() {
           }
         })
         reset(); // Clear form
+        setUserprofile(null); // Clear image file
       } else {
         throw new Error(apiData.message || "Something went wrong");
       }
@@ -90,7 +115,6 @@ function UserLogin() {
     <Dialog>
       <DialogTrigger>Membership</DialogTrigger>
       <DialogContent className="w-[95%] md:w-[90%] lg:w-[80%] max-w-6xl p-0 sm:p-2 md:p-6 flex flex-col items-center py-10">
-
         <DialogTitle></DialogTitle>
         <div className={`container mx-auto shadow-md ${isActive ? "active" : ""}`} id="container">
           {/* Sign up form */}
@@ -142,17 +166,63 @@ function UserLogin() {
                     </div>
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="course" className="text-right">Course</Label>
+                    <div className="col-span-3">
+                        <Select onValueChange={(value) => setValue("course", value)}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select Course" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {courses.map((course) => (
+                            <SelectItem key={course} value={course}>{course}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      {errors.course && <p className="text-red-500 text-sm">{errors.course.message}</p>}
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-4 items-center gap-4">
                     <Label htmlFor="department" className="text-right">Department*</Label>
                     <div className="col-span-3">
-                      <Input id="department" {...register("department", { required: "Department is required" })} />
-                      {errors.department && <p className="text-red-500 text-sm">{errors.department.message}</p>}
+
+                        <Select
+                          onValueChange={(value) => setValue("department", value)} // Set the value manually
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select Department" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {departments.map((dept) => (
+                              <SelectItem key={dept} value={dept}>
+                                {dept}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        {errors.department && <p className="text-red-500 text-sm">{errors.department.message}</p>}
                     </div>
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
                     <Label htmlFor="year" className="text-right">Year</Label>
                     <div className="col-span-3">
-                      <Input id="year" {...register("year")} />
+                        <Select onValueChange={(value) => setValue("year", value)}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select Year" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {years.map((year) => (
+                            <SelectItem key={year} value={year}>{year}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                       {errors.year && <p className="text-red-500 text-sm">{errors.year.message}</p>}
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="userprofile" className="text-right">Profile URL*</Label>
+                    <div className="col-span-3">
+                      <Input id="userprofile" type="file" onChange={handleImageChange} />
+                      {/* {errors.userprofile && <p className="text-red-500 text-sm">{errors.userprofile.message}</p>} */}
                     </div>
                   </div>
                 </div>
@@ -174,7 +244,6 @@ function UserLogin() {
               </form>
             </div>
           )}
-          
 
           {/* Toggle */}
           <div className="toggle-container">
@@ -221,4 +290,4 @@ function UserLogin() {
   )
 }
 
-export default UserLogin
+export default UserLogin;
