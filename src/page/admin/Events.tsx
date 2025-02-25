@@ -1,8 +1,9 @@
+import { CreateEvent } from "@/components/app/Admin/Events/CreateEvent"
 
 function Events() {
   return (
     <div>
-      Events
+      <CreateEvent/>
     </div>
   )
 }

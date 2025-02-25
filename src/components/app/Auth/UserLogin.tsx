@@ -52,63 +52,79 @@ function UserLogin() {
   };
 
   const onSubmit = async (data: AuthInput) => {
-    console.log(data, "Data.....")
+    console.log(data, "Data.....");
 
-    const endpoint = isLogin
-      ? `${import.meta.env.VITE_PRODUCTION_API_URI}/api/auth/user/login`
-      : `${import.meta.env.VITE_PRODUCTION_API_URI}/api/auth/user/register`;
+    if (!isLogin && !userprofile) {
+      console.log("Please select a file!");
+      toast.error("Profile image is required");
+      return;
+    }
 
     try {
-      if (!userprofile) {
-        console.log("Please select a file!");
-        toast.error("Profile image is required");
-        return;
-      }
-
-      const formData = new FormData();
-      Object.keys(data).forEach(key => {
-        formData.append(key, data[key as keyof AuthInput] as string);
-      });
-      formData.append("userprofile", userprofile);
-
-      const response = await fetch(endpoint, {
-        method: "POST",
-        body: formData,
-        credentials: "include",
-      });
-
-      const apiData = await response.json();
-      if (response.ok) {
-        const loginData = { email: data.email, password: data.password }
-        const loginresponse = await fetch(`${import.meta.env.VITE_PRODUCTION_API_URI}/api/auth/user/login`, {
-          method: 'POST',
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(loginData),
-          credentials: 'include',
-        })
-        const loginApiData = await loginresponse.json();
-        if (loginresponse.ok) {
-          toast.success(`Welcome, ${loginApiData.userdata.username}!`, {
-            description: "Login successful",
-          });
-        }
-        dispatchAuthState({
-          type: "LOGIN",
-          payload: {
-            name: apiData.userdata.username || ""
-          }
-        })
-        reset(); // Clear form
-        setUserprofile(null); // Clear image file
+      if (isLogin) {
+        await handleLogin(data);
       } else {
-        throw new Error(apiData.message || "Something went wrong");
+        await handleSignup(data);
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
       toast.error(isLogin ? "Login failed" : "Signup failed", {
         description: "Please check your details",
       });
     }
+  };
+
+  // ✅ Function for handling Login
+  const handleLogin = async (data: AuthInput) => {
+    const endpoint = `${import.meta.env.VITE_PRODUCTION_API_URI}/api/auth/user/login`;
+
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+      credentials: "include",
+    });
+
+    const loginApiData = await response.json();
+
+    if (!response.ok) throw new Error(loginApiData.message || "Login failed");
+
+    toast.success(`Welcome, ${loginApiData.userdata.username}!`, {
+      description: "Login successful",
+    });
+
+    dispatchAuthState({
+      type: "LOGIN",
+      payload: { name: loginApiData.userdata.username || "" },
+    });
+
+    reset(); // Clear form
+    setUserprofile(null); // Clear image file
+  };
+
+  // ✅ Function for handling Signup (Auto-login after signup)
+  const handleSignup = async (data: AuthInput) => {
+    const endpoint = `${import.meta.env.VITE_PRODUCTION_API_URI}/api/auth/user/register`;
+
+    const formData = new FormData();
+    Object.keys(data).forEach((key) => {
+      formData.append(key, data[key as keyof AuthInput] as string);
+    });
+    if (userprofile) {
+      formData.append("userprofile", userprofile);
+    }
+
+    const response = await fetch(endpoint, {
+      method: "POST",
+      body: formData,
+      credentials: "include",
+    });
+
+    const apiData = await response.json();
+
+    if (!response.ok) throw new Error(apiData.message || "Signup failed");
+
+    await handleLogin(data);
   };
 
   return (
@@ -168,7 +184,7 @@ function UserLogin() {
                   <div className="grid grid-cols-4 items-center gap-4">
                     <Label htmlFor="course" className="text-right">Course</Label>
                     <div className="col-span-3">
-                        <Select onValueChange={(value) => setValue("course", value)}>
+                      <Select onValueChange={(value) => setValue("course", value)}>
                         <SelectTrigger>
                           <SelectValue placeholder="Select Course" />
                         </SelectTrigger>
@@ -185,27 +201,27 @@ function UserLogin() {
                     <Label htmlFor="department" className="text-right">Department*</Label>
                     <div className="col-span-3">
 
-                        <Select
-                          onValueChange={(value) => setValue("department", value)} // Set the value manually
-                        >
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select Department" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {departments.map((dept) => (
-                              <SelectItem key={dept} value={dept}>
-                                {dept}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                        {errors.department && <p className="text-red-500 text-sm">{errors.department.message}</p>}
+                      <Select
+                        onValueChange={(value) => setValue("department", value)} // Set the value manually
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select Department" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {departments.map((dept) => (
+                            <SelectItem key={dept} value={dept}>
+                              {dept}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      {errors.department && <p className="text-red-500 text-sm">{errors.department.message}</p>}
                     </div>
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
                     <Label htmlFor="year" className="text-right">Year</Label>
                     <div className="col-span-3">
-                        <Select onValueChange={(value) => setValue("year", value)}>
+                      <Select onValueChange={(value) => setValue("year", value)}>
                         <SelectTrigger>
                           <SelectValue placeholder="Select Year" />
                         </SelectTrigger>
