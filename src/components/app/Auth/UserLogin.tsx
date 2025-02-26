@@ -1,9 +1,6 @@
 import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "@/components/ui/dialog"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-
-
-
 import loginImage from "/loginImage.png"
 import signupImage from "/registerImage.png"
 import { useState } from "react";
@@ -16,9 +13,10 @@ import { Button } from "@/components/ui/button";
 import "./style.css"
 import { useAuth } from "../../../context/AuthContext";
 
-const departments = ["Computer Science", "Mechanical", "Electrical", "Civil", "Electronics"];
+const departments = ["Computer Science", "Mechanical", "Electrical", "Civil", "Electronics", "Chemical", "Biotechnology", "ITCA", "Business Management"];
 const years = ["I", "II", "III", "IV"];
-const courses = ["B.Tech", "M.Tech", "MCA", "MBA"];
+const courses = ["B.Tech", "M.Tech", "MCA", "MBA", "BBA", "BCA"];
+const branches = ["CSE", "IT", "ECE", "EE", "ME", "CE", "AE", "PE", "MME", "CHE", "BT", "AG", "MT", "ECM", "MBA", "MCA", "BBA", "BCA"];
 
 type AuthInput = {
   email: string;
@@ -27,6 +25,7 @@ type AuthInput = {
   phone: string;
   id: string;
   course?: string;
+  branch?: string;
   department: string;
   year?: string;
 };
@@ -195,6 +194,22 @@ function UserLogin() {
                         </SelectContent>
                       </Select>
                       {errors.course && <p className="text-red-500 text-sm">{errors.course.message}</p>}
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="branch" className="text-right">Branch</Label>
+                    <div className="col-span-3">
+                      <Select onValueChange={(value) => setValue("branch", value)}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select Branch" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {branches.map((branch) => (
+                            <SelectItem key={branch} value={branch}>{branch}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      {errors.branch && <p className="text-red-500 text-sm">{errors.branch.message}</p>}
                     </div>
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
