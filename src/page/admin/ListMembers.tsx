@@ -24,10 +24,15 @@ function ListMembers() {
 
   return (
     <div>
-      <AddMembers/>
-      <HoverEffect items={members}/>
+      <AddMembers />
+      <div>
+        <HoverEffect
+          items={members}
+          className="overflow-y-auto h-[calc(100vh-100px)]"
+        />
+      </div>
     </div>
-  )
+  );
 }
 
 export default ListMembers
