@@ -22,7 +22,7 @@ function Membership() {
   },[])
 
   return (
-    <div className="max-w-5xl mx-auto px-8">
+    <div className="">
       <HoverEffect items={membershipStudents} />
     </div>
   )
