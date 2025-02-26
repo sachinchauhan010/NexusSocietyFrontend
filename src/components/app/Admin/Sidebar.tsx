@@ -12,49 +12,49 @@ export default function AdminSidebar() {
       label: "Dashboard",
       href: "/admin/dashboard",
       icon: (
-        <LayoutDashboard className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+        <LayoutDashboard className="text-neutral-700 size-6 dark:text-neutral-200 flex-shrink-0" />
       ),
     },
     {
       label: "Events",
       href: "/admin/events",
       icon: (
-        <CalendarCheck className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+        <CalendarCheck className="text-neutral-700 dark:text-neutral-200 size-6 flex-shrink-0" />
       ),
     },
     {
       label: "List Members",
       href: "/admin/list-members",
       icon: (
-        <Users className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+        <Users className="text-neutral-700 dark:text-neutral-200 size-6 flex-shrink-0" />
       ),
     },
     {
       label: "Membership Students",
       href: "/admin/membership",
       icon: (
-        <IdCard className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+        <IdCard className="text-neutral-700 dark:text-neutral-200 size-6 flex-shrink-0" />
       ),
     },
     {
       label: "Results",
       href: "/admin/results",
       icon: (
-        <FileText className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+        <FileText className="text-neutral-700 dark:text-neutral-200 size-6 flex-shrink-0" />
       ),
     },
     {
       label: "Notice",
       href: "/admin/notice",
       icon: (
-        <Bell className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+        <Bell className="text-neutral-700 dark:text-neutral-200 size-6 flex-shrink-0" />
       ),
     },
     {
       label: "Merchandise",
       href: "/admin/merchandise",
       icon: (
-        <ShoppingBag className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+        <ShoppingBag className="text-neutral-700 dark:text-neutral-200 size-6 flex-shrink-0" />
       ),
     },
   ];
@@ -65,7 +65,7 @@ export default function AdminSidebar() {
     <div
       className={cn(
         "rounded-md flex flex-col md:flex-row bg-gray-100 dark:bg-neutral-800 w-full flex-1 mx-auto border border-neutral-200 dark:border-neutral-700 overflow-hidden",
-        "h-[90vh]" 
+        "h-[90vh]"
       )}
     >
       <Sidebar open={open} setOpen={setOpen}>
@@ -74,7 +74,11 @@ export default function AdminSidebar() {
             {open ? <Logo /> : <LogoIcon />}
             <div className="mt-8 flex flex-col gap-2">
               {links.map((link, idx) => (
-                <SidebarLink key={idx} link={link} />
+                <SidebarLink
+                  key={idx}
+                  link={link}
+                  className="text-lg font-semibold"
+                />
               ))}
             </div>
           </div>
