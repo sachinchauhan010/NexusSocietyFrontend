@@ -1,14 +1,14 @@
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import { useState } from "react";
-import { User } from "@/types/userType.ts"; // Ensure to import the User type
+import { User } from "@/types/userType";
 
-export const HoverEffect = ({
+export const ListedMembers = ({
   items,
   className,
 }: {
-  items: User[];  // The items prop is now an array of User objects
+  items: User[];
   className?: string;
 }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -16,22 +16,22 @@ export const HoverEffect = ({
   return (
     <div
       className={cn(
-        "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 py-10",
+        "grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3  py-10",
         className
       )}
     >
-      {items.map((user, idx) => (
+      {items.map((item, idx) => (
         <Link
-          to={`/user/${user._id}`} // Assuming you have a user details page
-          key={user._id}
-          className="relative group block p-2 h-full w-full"
+          to={"#"}
+          key={item?.id}
+          className="relative group  block p-2 h-full w-full"
           onMouseEnter={() => setHoveredIndex(idx)}
           onMouseLeave={() => setHoveredIndex(null)}
         >
           <AnimatePresence>
             {hoveredIndex === idx && (
               <motion.span
-                className="absolute inset-0 h-full w-full bg-neutral-200 dark:bg-slate-800/[0.8] block rounded-3xl"
+                className="absolute inset-0 h-full w-full bg-neutral-200 dark:bg-slate-800/[0.8] block  rounded-3xl"
                 layoutId="hoverBackground"
                 initial={{ opacity: 0 }}
                 animate={{
@@ -46,9 +46,8 @@ export const HoverEffect = ({
             )}
           </AnimatePresence>
           <Card>
-            <CardTitle>{user.name}</CardTitle>  {/* Render user name */}
-            <CardDescription>{user.email}</CardDescription>  
-            <CardDescription>{user.role.includes("member") ? "Member" : ""}</CardDescription> 
+            <CardTitle>{item.name}</CardTitle>
+            <CardDescription>{item.email}</CardDescription>
           </Card>
         </Link>
       ))}
@@ -76,7 +75,6 @@ export const Card = ({
     </div>
   );
 };
-
 export const CardTitle = ({
   className,
   children,
@@ -90,7 +88,6 @@ export const CardTitle = ({
     </h4>
   );
 };
-
 export const CardDescription = ({
   className,
   children,

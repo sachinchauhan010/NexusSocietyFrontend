@@ -1,7 +1,8 @@
 import { AddMembers } from "@/components/app/Admin/AddMembers";
-import { HoverEffect } from "@/components/ui/card-hover-effect";
 import { useEffect, useState } from "react"
 import { User } from "@/types/userType";
+import { ListedMembers } from "@/components/app/Admin/member/ListedMembers";
+
 function ListMembers() {
   const [members, setMembers] = useState<User[]>([]);
 
