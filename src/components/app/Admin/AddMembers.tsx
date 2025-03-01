@@ -57,35 +57,35 @@ export function AddMembers() {
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="name" className="text-right">
-                Name
+                Name*
               </Label>
               <Input id="name" {...register("name", { required: true })} className="col-span-3" />
               {errors.name && <span className="text-red-500">This field is required</span>}
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="rollno" className="text-right">
-                Roll no
+                Roll no*
               </Label>
               <Input id="rollno" {...register("rollno", { required: true })} className="col-span-3" />
               {errors.rollno && <span className="text-red-500">This field is required</span>}
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="course" className="text-right">
-                Course
+                Course*
               </Label>
               <Input id="course" {...register("course", { required: true })} className="col-span-3" />
               {errors.course && <span className="text-red-500">This field is required</span>}
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="email" className="text-right">
-                Email
+                Email*
               </Label>
               <Input id="email" {...register("email", { required: true })} className="col-span-3" />
               {errors.email && <span className="text-red-500">This field is required</span>}
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit">Save changes</Button>
+            <Button type="submit">Make Member</Button>
           </DialogFooter>
         </form>
       </DialogContent>
