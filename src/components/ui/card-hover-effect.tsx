@@ -2,16 +2,20 @@ import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { User } from "@/types/userType.ts"; // Ensure to import the User type
+import { User } from "@/types/userType.ts";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+
 
 export const HoverEffect = ({
   items,
   className,
 }: {
-  items: User[];  // The items prop is now an array of User objects
+  items: User[];
   className?: string;
 }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
+  console.log(items, "&&&&&")
 
   return (
     <div
@@ -20,6 +24,7 @@ export const HoverEffect = ({
         className
       )}
     >
+      
       {items.map((user, idx) => (
         <Link
           to={`/user/${user._id}`} // Assuming you have a user details page
@@ -45,67 +50,22 @@ export const HoverEffect = ({
               />
             )}
           </AnimatePresence>
-          <Card>
-            <CardTitle>{user.name}</CardTitle>  {/* Render user name */}
-            <CardDescription>{user.email}</CardDescription>  
-            <CardDescription>{user.role.includes("member") ? "Member" : ""}</CardDescription> 
+          <Card className={cn(
+            "rounded-2xl h-full w-full p-4 overflow-hidden border border-transparent dark:border-white/[0.2] group-hover:border-slate-700 relative z-20", className
+          )}>
+            <CardHeader>
+              <CardTitle>Card Title</CardTitle>
+              <CardDescription>Card Description</CardDescription>
+            </CardHeader>
+            <CardContent>
+              {user.role.includes("member") ? <p>Member</p> : ""}
+            </CardContent>
+            <CardFooter>
+              <p>Card Footer</p>
+            </CardFooter>
           </Card>
         </Link>
       ))}
     </div>
-  );
-};
-
-export const Card = ({
-  className,
-  children,
-}: {
-  className?: string;
-  children: React.ReactNode;
-}) => {
-  return (
-    <div
-      className={cn(
-        "rounded-2xl h-full w-full p-4 overflow-hidden bg-black border border-transparent dark:border-white/[0.2] group-hover:border-slate-700 relative z-20",
-        className
-      )}
-    >
-      <div className="relative z-50">
-        <div className="p-4">{children}</div>
-      </div>
-    </div>
-  );
-};
-
-export const CardTitle = ({
-  className,
-  children,
-}: {
-  className?: string;
-  children: React.ReactNode;
-}) => {
-  return (
-    <h4 className={cn("text-zinc-100 font-bold tracking-wide mt-4", className)}>
-      {children}
-    </h4>
-  );
-};
-
-export const CardDescription = ({
-  className,
-  children,
-}: {
-  className?: string;
-  children: React.ReactNode;
-}) => {
-  return (
-    <p
-      className={cn(
-        "mt-8 text-zinc-400 tracking-wide leading-relaxed text-sm",
-        className
-      )}
-    >
-      {children}
-    </p>
   );
 };
