@@ -28,7 +28,7 @@ function ListMembers() {
       <AddMembers/>
       <ListedMembers items={members}/>
     </div>
-  )
+  );
 }
 
 export default ListMembers

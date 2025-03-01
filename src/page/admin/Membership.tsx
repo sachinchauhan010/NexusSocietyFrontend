@@ -22,10 +22,10 @@ function Membership() {
   },[])
 
   return (
-    <div className="max-w-5xl mx-auto px-8">
+    <div className="overflow-y-auto h-[calc(100vh-100px)]">
       <HoverEffect items={membershipStudents} />
     </div>
-  )
+  );
 }
 
 export const projects = [
