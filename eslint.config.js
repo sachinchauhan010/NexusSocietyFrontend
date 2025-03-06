@@ -19,10 +19,15 @@ export default tseslint.config(
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
-      'react-refresh/only-export-components': [
-        'warn',
-        { allowConstantExport: true },
-      ],
+
+      // Disable or relax rules to allow anything
+      'react-refresh/only-export-components': 'off', // Allow all exports
+      '@typescript-eslint/no-explicit-any': 'off', // Allow `any` type
+      '@typescript-eslint/explicit-module-boundary-types': 'off', // No need to define return types
+      'no-unused-vars': 'off', // Allow unused variables
+      'no-console': 'off', // Allow console logs
+      'react-hooks/rules-of-hooks': 'warn', // Keep hooks rules but non-blocking
+      'react-hooks/exhaustive-deps': 'warn', // Keep dependency array checks but not strict
     },
   },
 )

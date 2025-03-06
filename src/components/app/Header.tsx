@@ -1,9 +1,10 @@
-import UserLogin from "./Auth/UserLogin";
+// import UserLogin from "./Auth/UserLogin";
 import { ThemeToggle } from "../ThemeToggle";
 import { useAuth } from "@/context/AuthContext";
 import { UserProfile } from "./Auth/UserProfile";
 import { useEffect } from "react";
 import { toast } from "sonner";
+import { Link } from "react-router-dom";
 
 function Header() {
   const { authState, dispatch: dispatchAuthState } = useAuth()
@@ -30,15 +31,15 @@ function Header() {
 
     } catch (error) {
       console.log(error)
-      toast.error("User not Logged in", { description: "Please login...." }) 
+      toast.error("User not Logged in", { description: "Please login...." })
     }
   }
 
   useEffect(() => {
     checkAuth()
-  },[]);
+  }, []);
 
-  
+
   return (
     <div className="flex justify-between items-center px-10 py-2">
       <div className="font-semibold text-2xl">
@@ -46,7 +47,7 @@ function Header() {
         <span className="text-blue-700">Society</span>
       </div>
       <div className="flex justify-start items-center gap-x-10">
-        {authState.isLoggedIn ? <UserProfile/> : <UserLogin /> }
+        {authState.isLoggedIn ? <UserProfile /> : <Link to="/get-membership" className="">Login</Link>}
         <ThemeToggle />
       </div>
     </div>

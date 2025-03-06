@@ -19,6 +19,7 @@ import Membership from "./page/admin/Membership";
 import Merchandise from "./page/admin/Merchandise";
 import Dashboard from "./page/admin/Dashboard";
 import Footer from './components/app/Footer.tsx'
+import UserMembership from './page/UserMembership.tsx'
 import AdminSidebar from './components/app/Admin/Sidebar.tsx'
 import { Toaster } from "@/components/ui/sonner"
 
@@ -48,6 +49,10 @@ const appRouter = createBrowserRouter([
       {
         path: "/",
         element: <App />
+      },
+      {
+        path: "/get-membership",
+        element: <UserMembership />
       },
       {
         path: "/event",
