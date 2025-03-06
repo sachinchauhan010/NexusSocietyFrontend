@@ -22,6 +22,7 @@ import Footer from './components/app/Footer.tsx'
 import UserMembership from './page/UserMembership.tsx'
 import AdminSidebar from './components/app/Admin/Sidebar.tsx'
 import { Toaster } from "@/components/ui/sonner"
+import AdminProtected from './components/AdminProtected.tsx'
 
 const AppLayout = () => {
   return (
@@ -65,7 +66,11 @@ const appRouter = createBrowserRouter([
       // Admin routes as nested routes
       {
         path: "admin",
-        element: <AdminSidebar />,
+        element: (
+          <AdminProtected>
+            <AdminSidebar />
+          </AdminProtected>
+        ),
         children: [
           {
             index: true,

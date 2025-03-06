@@ -22,7 +22,7 @@ export function AddMembers() {
   
   const onSubmit: SubmitHandler<Inputs> =async (data) => {
     try {
-      const response =await fetch(`${import.meta.env.VITE_PRODUCTION_API_URI}/api/auth/user/add-members`, {
+      const response =await fetch(`${import.meta.env.VITE_PRODUCTION_API_URI}/api/auth/admin/add-members`, {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
         credentials: 'include',

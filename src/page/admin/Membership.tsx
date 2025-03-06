@@ -8,7 +8,7 @@ function Membership() {
   const [membershipStudents, setMembershipStudents] = useState<User[]>([]);
 
   const fetchMembership = async () => {
-    const response = await fetch(`${import.meta.env.VITE_PRODUCTION_API_URI}/api/auth/user/membership`, {
+    const response = await fetch(`${import.meta.env.VITE_PRODUCTION_API_URI}/api/auth/admin/membership`, {
       method: 'GET',
       headers: { "Content-Type": "application/json" },
       credentials: 'include',
