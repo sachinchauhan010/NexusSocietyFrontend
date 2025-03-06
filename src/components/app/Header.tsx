@@ -4,7 +4,7 @@ import { useAuth } from "@/context/AuthContext";
 import { UserProfile } from "./Auth/UserProfile";
 import { useEffect } from "react";
 import { toast } from "sonner";
-import { Link } from "react-router-dom";
+import UserMembership from "@/page/UserMembership";
 
 function Header() {
   const { authState, dispatch: dispatchAuthState } = useAuth()
@@ -47,7 +47,7 @@ function Header() {
         <span className="text-blue-700">Society</span>
       </div>
       <div className="flex justify-start items-center gap-x-10">
-        {authState.isLoggedIn ? <UserProfile /> : <Link to="/get-membership" className="">Login</Link>}
+        {authState.isLoggedIn ? <UserProfile /> : <UserMembership/>}
         <ThemeToggle />
       </div>
     </div>

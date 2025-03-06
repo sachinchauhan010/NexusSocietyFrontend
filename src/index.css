@@ -126,3 +126,11 @@
     @apply bg-background text-foreground;
   }
 }
+
+.overflow-y-auto {
+  overflow-y: auto;
+}
+
+.max-h-screen {
+  max-height: 100vh;
+}
