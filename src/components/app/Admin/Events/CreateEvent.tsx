@@ -1,13 +1,5 @@
 import { Button } from "@/components/ui/button"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
+
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useForm } from "react-hook-form"
@@ -22,13 +14,14 @@ type EventInput = {
   dc_team: string[]
   participants: string
   registration_link?: string
-  date: string
+  start_date: string
+  end_date: string
   start_time: string
   end_time: string
   banner: File | null
 }
 
-export function CreateEvent() {
+export default function CreateEvent() {
   const [banner, setBanner] = useState<File | null>(null)
   const {
     register,
@@ -90,17 +83,7 @@ export function CreateEvent() {
   }
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="outline">Create Event</Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Create Event</DialogTitle>
-          <DialogDescription>
-            Fill in the details to create a new event. Click save when you're done.
-          </DialogDescription>
-        </DialogHeader>
+    
         <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="name" className="text-right">
@@ -152,10 +135,17 @@ export function CreateEvent() {
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="date" className="text-right">
-              Date
+              Start Date
             </Label>
-            <Input id="date" type="date" {...register("date", { required: "Date is required" })} className="col-span-3" />
-            {errors.date && <p className="text-red-500 text-sm col-span-4">{errors.date.message}</p>}
+            <Input id="date" type="Date" {...register("start_date", { required: "Date is required" })} className="col-span-3" />
+            {errors.start_date && <p className="text-red-500 text-sm col-span-4">{errors.start_date.message}</p>}
+          </div>
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="date" className="text-right">
+              End Date
+            </Label>
+            <Input id="date" type="Date" {...register("end_date", { required: "Date is required" })} className="col-span-3" />
+            {errors.end_date && <p className="text-red-500 text-sm col-span-4">{errors.end_date.message}</p>}
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="start_time" className="text-right">
@@ -178,11 +168,8 @@ export function CreateEvent() {
             <Input id="banner" type="file" onChange={handleBannerChange} className="col-span-3" />
             {errors.banner && <p className="text-red-500 text-sm col-span-4">{errors.banner.message}</p>}
           </div>
-          <DialogFooter>
-            <Button type="submit">Save changes</Button>
-          </DialogFooter>
+            <Button type="submit">Create Event</Button>
         </form>
-      </DialogContent>
-    </Dialog>
+     
   )
 }

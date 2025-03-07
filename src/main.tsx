@@ -6,7 +6,6 @@ import { AuthProvider } from './context/AuthContext.tsx'
 
 
 import Event from "./page/Event";
-import CreateEvent from "./page/CreateEvent";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -23,6 +22,7 @@ import AdminSidebar from './components/app/Admin/Sidebar.tsx'
 import { Toaster } from "@/components/ui/sonner"
 import AdminProtected from './components/AdminProtected.tsx'
 import Broadcast from './page/admin/Broadcast.tsx'
+import CreateEvent from './components/app/Admin/Events/CreateEvent.tsx'
 
 const AppLayout = () => {
   return (
@@ -79,6 +79,10 @@ const appRouter = createBrowserRouter([
           {
             path: "events",
             element: <Events />
+          },
+          {
+            path: "create/events",
+            element: <CreateEvent />
           },
           {
             path: "list-members",

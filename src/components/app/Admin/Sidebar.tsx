@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
-import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+// import { Link } from "react-router-dom";
+// import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Outlet } from "react-router-dom"; // Import Outlet
 import { Bell, CalendarCheck, FileText, IdCard, LayoutDashboard, ShoppingBag, Users, RadioTower } from "lucide-react";
@@ -72,23 +72,23 @@ export default function AdminSidebar() {
     <div
       className={cn(
         "rounded-md flex flex-col md:flex-row bg-gray-100 dark:bg-neutral-800 w-full flex-1 mx-auto border border-neutral-200 dark:border-neutral-700 overflow-hidden",
-        "h-[90vh]"
+
       )}
     >
       <Sidebar open={open} setOpen={setOpen}>
         <SidebarBody className="justify-between gap-10">
-          <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
-            {open ? <Logo /> : <LogoIcon />}
-            <div className="mt-8 flex flex-col gap-2">
-              {links.map((link, idx) => (
-                <SidebarLink
-                  key={idx}
-                  link={link}
-                  className="text-lg font-semibold"
-                />
-              ))}
-            </div>
+          {/* <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden"> */}
+          {/* {open ? <Logo /> : <LogoIcon />} */}
+          <div className="mt-8 flex flex-col gap-2">
+            {links.map((link, idx) => (
+              <SidebarLink
+                key={idx}
+                link={link}
+                className="text-lg font-semibold"
+              />
+            ))}
           </div>
+          {/* </div> */}
         </SidebarBody>
       </Sidebar>
 
@@ -102,31 +102,31 @@ export default function AdminSidebar() {
   );
 }
 
-const Logo = () => {
-  return (
-    <Link
-      to="#"
-      className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
-    >
-      <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
-      <motion.span
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="font-medium text-black dark:text-white whitespace-pre"
-      >
-        Acet Labs
-      </motion.span>
-    </Link>
-  );
-};
+// const Logo = () => {
+//   return (
+//     <Link
+//       to="#"
+//       className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
+//     >
+//       <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
+//       <motion.span
+//         initial={{ opacity: 0 }}
+//         animate={{ opacity: 1 }}
+//         className="font-medium text-black dark:text-white whitespace-pre"
+//       >
+//         Acet Labs
+//       </motion.span>
+//     </Link>
+//   );
+// };
 
-const LogoIcon = () => {
-  return (
-    <Link
-      to="#"
-      className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
-    >
-      <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
-    </Link>
-  );
-};
+// const LogoIcon = () => {
+//   return (
+//     <Link
+//       to="#"
+//       className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
+//     >
+//       <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
+//     </Link>
+//   );
+// };
