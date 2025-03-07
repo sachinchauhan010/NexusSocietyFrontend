@@ -5,7 +5,7 @@ function Broadcast() {
   const [membershipStudents, setMembershipStudents] = useState<User[]>([]);
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
-  const [preview, setPreview] = useState(false);
+  // const [preview, setPreview] = useState(true);
 
   useEffect(() => {
     const fetchMembership = async () => {
@@ -32,6 +32,7 @@ function Broadcast() {
 
     fetchMembership();
   }, []);
+  console.log(membershipStudents, "membershipStudents");
 
   const sendMailUser = async () => {
     if (!subject || !message) {
@@ -46,7 +47,6 @@ function Broadcast() {
         alert("No recipients found.");
         return;
       }
-      console.log(`${import.meta.env.VITE_PRODUCTION_API_URI}/api/auth/admin/broadcast-mail`)
 
       const response = await fetch(
         `${import.meta.env.VITE_PRODUCTION_API_URI}/api/auth/admin/broadcast-mail`,
@@ -78,52 +78,40 @@ function Broadcast() {
     <div className="p-6">
       <h2 className="text-2xl font-semibold mb-4">Broadcast Email</h2>
 
-      <div className="bg-gray-100 p-4 rounded-lg">
-        <input
-          type="text"
-          placeholder="Enter Subject"
-          value={subject}
-          onChange={(e) => setSubject(e.target.value)}
-          className="w-full p-2 mb-2 border border-gray-300 rounded"
-        />
-        <textarea
-          placeholder="Enter Message"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded h-32"
-        />
-        <div className="mt-4 flex gap-4">
-          <button
-            onClick={() => setPreview(true)}
-            className="bg-blue-500 text-white px-4 py-2 rounded"
-          >
-            Preview
-          </button>
-          <button
-            onClick={sendMailUser}
-            className="bg-green-500 text-white px-4 py-2 rounded"
-          >
-            Send Email
-          </button>
+      <div className="flex flex-col md:flex-row gap-4">
+        <div className="bg-gray-100 p-4 rounded-lg flex-1">
+          <input
+            type="text"
+            placeholder="Enter Subject"
+            value={subject}
+            onChange={(e) => setSubject(e.target.value)}
+            className="w-full p-2 mb-2 border border-gray-300 rounded"
+          />
+          <textarea
+            placeholder="Enter Message"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            className="w-full p-2 border border-gray-300 rounded h-32"
+          />
+          <div className="mt-4 flex gap-4">
+            <button
+              onClick={sendMailUser}
+              className="bg-green-500 text-white px-4 py-2 rounded"
+            >
+              Send Email
+            </button>
+          </div>
         </div>
-      </div>
 
-      {preview && (
-        <div className="mt-6 p-4 border rounded bg-white shadow-md">
+        <div className="bg-white p-4 rounded-lg flex-1 shadow-md">
           <h3 className="text-xl font-semibold">Email Preview</h3>
           <p><strong>Subject:</strong> {subject}</p>
           <p><strong>Message:</strong></p>
           <div className="border p-2 bg-gray-50">{message}</div>
-          <button
-            onClick={() => setPreview(false)}
-            className="mt-2 bg-red-500 text-white px-3 py-1 rounded"
-          >
-            Close Preview
-          </button>
         </div>
-      )}
+      </div>
 
-      <div className="mt-6">
+      {/* <div className="mt-6">
         <h3 className="text-xl font-semibold">Members</h3>
         <ul className="bg-white p-4 rounded shadow">
           {membershipStudents.length > 0 ? (
@@ -136,7 +124,7 @@ function Broadcast() {
             <p>No members found.</p>
           )}
         </ul>
-      </div>
+      </div> */}
     </div>
   );
 }
