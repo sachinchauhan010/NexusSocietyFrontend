@@ -12,56 +12,56 @@ export default function AdminSidebar() {
       label: "Dashboard",
       href: "/admin/dashboard",
       icon: (
-        <LayoutDashboard className="text-neutral-700 size-6 dark:text-neutral-200 flex-shrink-0" />
+        <LayoutDashboard className="text-neutral-700 size-5 dark:text-neutral-200 flex-shrink-0" />
       ),
     },
     {
       label: "Events",
       href: "/admin/events",
       icon: (
-        <CalendarCheck className="text-neutral-700 dark:text-neutral-200 size-6 flex-shrink-0" />
+        <CalendarCheck className="text-neutral-700 dark:text-neutral-200 size-5 flex-shrink-0" />
       ),
     },
     {
       label: "List Members",
       href: "/admin/list-members",
       icon: (
-        <Users className="text-neutral-700 dark:text-neutral-200 size-6 flex-shrink-0" />
+        <Users className="text-neutral-700 dark:text-neutral-200 size-5 flex-shrink-0" />
       ),
     },
     {
       label: "Membership Students",
       href: "/admin/membership",
       icon: (
-        <IdCard className="text-neutral-700 dark:text-neutral-200 size-6 flex-shrink-0" />
+        <IdCard className="text-neutral-700 dark:text-neutral-200 size-5 flex-shrink-0" />
       ),
     },
     {
       label: "Broadcast",
       href: "/admin/broadcast",
       icon: (
-        <RadioTower className="text-neutral-700 dark:text-neutral-200 size-6 flex-shrink-0" />
+        <RadioTower className="text-neutral-700 dark:text-neutral-200 size-5 flex-shrink-0" />
       ),
     },
     {
       label: "Results",
       href: "/admin/results",
       icon: (
-        <FileText className="text-neutral-700 dark:text-neutral-200 size-6 flex-shrink-0" />
+        <FileText className="text-neutral-700 dark:text-neutral-200 size-5 flex-shrink-0" />
       ),
     },
     {
       label: "Notice",
       href: "/admin/notice",
       icon: (
-        <Bell className="text-neutral-700 dark:text-neutral-200 size-6 flex-shrink-0" />
+        <Bell className="text-neutral-700 dark:text-neutral-200 size-5 flex-shrink-0" />
       ),
     },
     {
       label: "Merchandise",
       href: "/admin/merchandise",
       icon: (
-        <ShoppingBag className="text-neutral-700 dark:text-neutral-200 size-6 flex-shrink-0" />
+        <ShoppingBag className="text-neutral-700 dark:text-neutral-200 size-5 flex-shrink-0" />
       ),
     },
   ];
