@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { EventType } from "@/types/eventType";
+import { Link } from "react-router-dom";
 
 function AllEvents() {
   const [events, setEvents] = useState<EventType[]>([]);
@@ -33,7 +34,7 @@ function AllEvents() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {events.length > 0 ? (
           events.map((event) => (
-            <div key={event.id} className="bg-white p-4 rounded-lg shadow-md">
+            <Link to={`${event.id}`} key={event.id} className="bg-white p-4 rounded-lg shadow-md">
               <h3 className="text-xl font-semibold">{event.name}</h3>
               <p>{event.description}</p>
               <p><strong>Venue:</strong> {event.venue}</p>
@@ -49,7 +50,7 @@ function AllEvents() {
                   Register
                 </a>
               )}
-            </div>
+            </Link>
           ))
         ) : (
           <p>No events found.</p>

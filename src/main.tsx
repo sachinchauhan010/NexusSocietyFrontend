@@ -23,6 +23,7 @@ import { Toaster } from "@/components/ui/sonner"
 import AdminProtected from './components/AdminProtected.tsx'
 import Broadcast from './page/admin/Broadcast.tsx'
 import CreateEvent from './components/app/Admin/Events/CreateEvent.tsx'
+import EventDetail from './components/app/Admin/Events/EventDetail.tsx'
 
 const AppLayout = () => {
   return (
@@ -79,6 +80,10 @@ const appRouter = createBrowserRouter([
           {
             path: "events",
             element: <Events />
+          },
+          {
+            path: "events/:eventId",
+            element: <EventDetail />
           },
           {
             path: "create/events",
