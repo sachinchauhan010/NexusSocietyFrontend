@@ -22,6 +22,7 @@ import Footer from './components/app/Footer.tsx'
 import AdminSidebar from './components/app/Admin/Sidebar.tsx'
 import { Toaster } from "@/components/ui/sonner"
 import AdminProtected from './components/AdminProtected.tsx'
+import Broadcast from './page/admin/Broadcast.tsx'
 
 const AppLayout = () => {
   return (
@@ -86,6 +87,10 @@ const appRouter = createBrowserRouter([
           {
             path: "membership",
             element: <Membership />
+          },
+          {
+            path: "broadcast",
+            element: <Broadcast />
           },
           {
             path: "notice",

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Outlet } from "react-router-dom"; // Import Outlet
-import { Bell, CalendarCheck, FileText, IdCard, LayoutDashboard, ShoppingBag, Users } from "lucide-react";
+import { Bell, CalendarCheck, FileText, IdCard, LayoutDashboard, ShoppingBag, Users, RadioTower } from "lucide-react";
 
 export default function AdminSidebar() {
   const links = [
@@ -34,6 +34,13 @@ export default function AdminSidebar() {
       href: "/admin/membership",
       icon: (
         <IdCard className="text-neutral-700 dark:text-neutral-200 size-6 flex-shrink-0" />
+      ),
+    },
+    {
+      label: "Broadcast",
+      href: "/admin/broadcast",
+      icon: (
+        <RadioTower className="text-neutral-700 dark:text-neutral-200 size-6 flex-shrink-0" />
       ),
     },
     {
