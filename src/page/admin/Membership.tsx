@@ -22,7 +22,7 @@ function Membership() {
   },[])
 
   return (
-    <div className="overflow-y-auto h-[calc(100vh-100px)]">
+    <div className="overflow-y-auto scrollbar-hide h-[calc(100vh-100px)]">
       <HoverEffect items={membershipStudents} />
     </div>
   );
