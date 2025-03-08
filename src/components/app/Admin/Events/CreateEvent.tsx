@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { useState } from "react"
+import { CalendarPlus } from "lucide-react"
 
 type EventInput = {
   name: string
@@ -328,9 +329,9 @@ export default function CreateEvent() {
       <div className="flex justify-center mt-6">
         <Button
           type="submit"
-          className="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition"
+          className="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition flex items-center justify-center gap-2"
         >
-          Create Event
+          <CalendarPlus size={20} /> Create Event
         </Button>
       </div>
     </form>

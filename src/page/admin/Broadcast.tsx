@@ -1,17 +1,20 @@
 import { useState, useEffect } from "react";
 import { User } from "@/types/userType.ts";
+import { Button } from "@/components/ui/button";
+import { FileText, Mail, MessageCircle } from "lucide-react";
 
 function Broadcast() {
   const [membershipStudents, setMembershipStudents] = useState<User[]>([]);
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
-  // const [preview, setPreview] = useState(true);
 
   useEffect(() => {
     const fetchMembership = async () => {
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_PRODUCTION_API_URI}/api/auth/admin/membership`,
+          `${
+            import.meta.env.VITE_PRODUCTION_API_URI
+          }/api/auth/admin/membership`,
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
@@ -32,7 +35,6 @@ function Broadcast() {
 
     fetchMembership();
   }, []);
-  console.log(membershipStudents, "membershipStudents");
 
   const sendMailUser = async () => {
     if (!subject || !message) {
@@ -49,13 +51,15 @@ function Broadcast() {
       }
 
       const response = await fetch(
-        `${import.meta.env.VITE_PRODUCTION_API_URI}/api/auth/admin/broadcast-mail`,
+        `${
+          import.meta.env.VITE_PRODUCTION_API_URI
+        }/api/auth/admin/broadcast-mail`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           credentials: "include",
           body: JSON.stringify({
-            to: toEmails, // Now sending an array instead of a comma-separated string
+            to: toEmails,
             subject,
             text: message,
             html: `<p>${message}</p>`,
@@ -76,55 +80,60 @@ function Broadcast() {
 
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-semibold mb-4">Broadcast Email</h2>
+      <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+        Broadcast Email
+      </h2>
 
-      <div className="flex flex-col md:flex-row gap-4">
-        <div className="bg-gray-100 p-4 rounded-lg flex-1">
+      <div className="flex flex-col md:flex-row gap-6">
+        {/* Input Section */}
+        <div className="bg-gray-100 p-6 rounded-lg flex-1 shadow-md">
           <input
             type="text"
             placeholder="Enter Subject"
             value={subject}
             onChange={(e) => setSubject(e.target.value)}
-            className="w-full p-2 mb-2 border border-gray-300 rounded"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
           />
           <textarea
             placeholder="Enter Message"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded h-32"
+            className="w-full mt-3 p-3 border border-gray-300 rounded-lg h-32 focus:outline-none focus:ring-2 focus:ring-purple-500"
           />
-          <div className="mt-4 flex gap-4">
-            <button
+
+          {/* Send Email Button */}
+          <div className="mt-5 flex">
+            <Button
+              className="bg-purple-600 text-white px-4 py-3 rounded-lg hover:bg-purple-700 transition flex items-center gap-2"
               onClick={sendMailUser}
-              className="bg-green-500 text-white px-4 py-2 rounded"
             >
-              Send Email
-            </button>
+              <Mail size={20} /> Send Email
+            </Button>
           </div>
         </div>
 
-        <div className="bg-white p-4 rounded-lg flex-1 shadow-md">
-          <h3 className="text-xl font-semibold">Email Preview</h3>
-          <p><strong>Subject:</strong> {subject}</p>
-          <p><strong>Message:</strong></p>
-          <div className="border p-2 bg-gray-50">{message}</div>
+        {/* Email Preview */}
+        <div className="bg-white p-6 rounded-lg flex-1 shadow-lg border border-gray-200">
+          <h3 className="text-xl font-semibold text-gray-900 flex items-center gap-2">
+            <Mail size={20} className="text-purple-600" /> Email Preview
+          </h3>
+
+          <p className="mt-3 text-gray-700 flex items-center gap-2">
+            <FileText size={18} className="text-gray-600" />
+            <strong className="text-gray-900">Subject:</strong>{" "}
+            {subject || "No subject yet"}
+          </p>
+
+          <p className="mt-2 text-gray-700 flex items-center gap-2">
+            <MessageCircle size={18} className="text-gray-600" />
+            <strong className="text-gray-900">Message:</strong>
+          </p>
+
+          <div className="border border-gray-300 p-4 bg-gray-50 rounded-md text-gray-800 mt-3 min-h-[60px]">
+            {message || "No message yet"}
+          </div>
         </div>
       </div>
-
-      {/* <div className="mt-6">
-        <h3 className="text-xl font-semibold">Members</h3>
-        <ul className="bg-white p-4 rounded shadow">
-          {membershipStudents.length > 0 ? (
-            membershipStudents.map((user, index) => (
-              <li key={index} className="border-b py-2">
-                {user.name} - {user.email}
-              </li>
-            ))
-          ) : (
-            <p>No members found.</p>
-          )}
-        </ul>
-      </div> */}
     </div>
   );
 }
