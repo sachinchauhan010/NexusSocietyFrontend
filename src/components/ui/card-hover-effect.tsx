@@ -3,7 +3,13 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { User } from "@/types/userType.ts";
-import {Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { BadgeCheck, Building, GraduationCap, Phone } from "lucide-react";
 
 export const HoverEffect = ({
@@ -36,10 +42,7 @@ export const HoverEffect = ({
                 className="absolute inset-0 h-full w-full bg-neutral-200 dark:bg-slate-800/[0.8] block rounded-3xl"
                 layoutId="hoverBackground"
                 initial={{ opacity: 0 }}
-                animate={{
-                  opacity: 1,
-                  transition: { duration: 0.15 },
-                }}
+                animate={{ opacity: 1, transition: { duration: 0.15 } }}
                 exit={{
                   opacity: 0,
                   transition: { duration: 0.15, delay: 0.2 },
@@ -61,22 +64,26 @@ export const HoverEffect = ({
               </div>
             )}
 
-            {/* Profile Image */}
+            {/* Profile Image  */}
             <div className="flex justify-center">
               <img
                 src={user.profileimage ? user.profileimage : "/avatar.png"}
                 alt={user.name}
-                className="w-32 h-32 rounded-full border-4 border-gray-300 shadow-lg"
+                className={`w-32 h-32 rounded-full border-4 shadow-lg ${
+                  user.role.includes("member")
+                    ? "border-green-500"
+                    : "border-gray-300"
+                }`}
               />
             </div>
 
             {/* Header */}
-            <CardHeader className="text-center ">
-              <CardTitle className="text-2xl font-bold">{user.name}</CardTitle>
-              <CardDescription className="text-gray-600 text-xl font-semibold">
+            <CardHeader className="text-center">
+              <CardTitle className="text-xl font-bold">{user.name}</CardTitle>
+              <CardDescription className="text-gray-600 text-lg">
                 {user.course} {user.year} year
               </CardDescription>
-              <p className="text-gray-500 text-lg font-semibold">{user.email}</p>
+              <p className="text-gray-500 text-sm">{user.email}</p>
             </CardHeader>
 
             {/* Details */}
@@ -111,7 +118,6 @@ export const HoverEffect = ({
               </div>
             </CardContent>
           </Card>
-          ;
         </Link>
       ))}
     </div>
