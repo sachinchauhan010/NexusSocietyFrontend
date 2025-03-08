@@ -8,6 +8,6 @@ export type User = {
   department: string;
   year: string;
   profileimage: string;
-  course:string;
+  course: string;
   branch: string;
 };
