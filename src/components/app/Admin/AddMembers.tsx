@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { UserPlus } from "lucide-react"
 import { useForm, SubmitHandler } from "react-hook-form"
 import { toast } from "sonner"
 
@@ -44,14 +45,16 @@ export function AddMembers() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Add Member</Button>
+        <div className="flex justify-start">
+          <Button className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition flex items-center gap-2">
+            <UserPlus size={18} /> Add Member
+          </Button>
+        </div>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Add The new Society Member</DialogTitle>
-          <DialogDescription>
-            Now you are part of society
-          </DialogDescription>
+          <DialogDescription>Now you are part of society</DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid gap-4 py-4">
@@ -59,29 +62,53 @@ export function AddMembers() {
               <Label htmlFor="name" className="text-right">
                 Name*
               </Label>
-              <Input id="name" {...register("name", { required: true })} className="col-span-3" />
-              {errors.name && <span className="text-red-500">This field is required</span>}
+              <Input
+                id="name"
+                {...register("name", { required: true })}
+                className="col-span-3"
+              />
+              {errors.name && (
+                <span className="text-red-500">This field is required</span>
+              )}
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="rollno" className="text-right">
                 Roll no*
               </Label>
-              <Input id="rollno" {...register("rollno", { required: true })} className="col-span-3" />
-              {errors.rollno && <span className="text-red-500">This field is required</span>}
+              <Input
+                id="rollno"
+                {...register("rollno", { required: true })}
+                className="col-span-3"
+              />
+              {errors.rollno && (
+                <span className="text-red-500">This field is required</span>
+              )}
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="course" className="text-right">
                 Course*
               </Label>
-              <Input id="course" {...register("course", { required: true })} className="col-span-3" />
-              {errors.course && <span className="text-red-500">This field is required</span>}
+              <Input
+                id="course"
+                {...register("course", { required: true })}
+                className="col-span-3"
+              />
+              {errors.course && (
+                <span className="text-red-500">This field is required</span>
+              )}
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="email" className="text-right">
                 Email*
               </Label>
-              <Input id="email" {...register("email", { required: true })} className="col-span-3" />
-              {errors.email && <span className="text-red-500">This field is required</span>}
+              <Input
+                id="email"
+                {...register("email", { required: true })}
+                className="col-span-3"
+              />
+              {errors.email && (
+                <span className="text-red-500">This field is required</span>
+              )}
             </div>
           </div>
           <DialogFooter>
@@ -90,5 +117,5 @@ export function AddMembers() {
         </form>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

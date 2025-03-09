@@ -3,7 +3,14 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { User } from "@/types/userType.ts";
-import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { BadgeCheck, Building, GraduationCap, Phone } from "lucide-react";
 
 export const HoverEffect = ({
   items,
@@ -35,10 +42,7 @@ export const HoverEffect = ({
                 className="absolute inset-0 h-full w-full bg-neutral-200 dark:bg-slate-800/[0.8] block rounded-3xl"
                 layoutId="hoverBackground"
                 initial={{ opacity: 0 }}
-                animate={{
-                  opacity: 1,
-                  transition: { duration: 0.15 },
-                }}
+                animate={{ opacity: 1, transition: { duration: 0.15 } }}
                 exit={{
                   opacity: 0,
                   transition: { duration: 0.15, delay: 0.2 },
@@ -46,10 +50,9 @@ export const HoverEffect = ({
               />
             )}
           </AnimatePresence>
-
           <Card
             className={cn(
-              "rounded-2xl h-full w-full p-6 shadow-md border border-gray-200 dark:border-white/[0.2] transition-all group-hover:border-gray-500 group-hover:shadow-lg bg-white dark:bg-gray-900 relative z-20",
+              "rounded-2xl h-full w-full pt-8 shadow-md border border-gray-200 dark:border-white/[0.2] transition-all group-hover:border-gray-500 group-hover:shadow-lg bg-white dark:bg-gray-900 relative z-20",
               className
             )}
           >
@@ -61,47 +64,59 @@ export const HoverEffect = ({
               </div>
             )}
 
+            {/* Profile Image  */}
             <div className="flex justify-center">
               <img
                 src={user.profileimage ? user.profileimage : "/avatar.png"}
                 alt={user.name}
-                className="w-32 h-32 rounded-full border-4 border-gray-300 shadow-lg"
+                className={`w-32 h-32 rounded-full border-4 shadow-lg ${
+                  user.role.includes("member")
+                    ? "border-green-500"
+                    : "border-gray-300"
+                }`}
               />
             </div>
 
             {/* Header */}
             <CardHeader className="text-center">
-              <CardTitle className="text-xl font-semibold">
-                {user.name}
-              </CardTitle>
-              <CardDescription className="text-gray-500">
-                {user.email}
+              <CardTitle className="text-xl font-bold">{user.name}</CardTitle>
+              <CardDescription className="text-gray-600 text-lg">
+                {user.course} {user.year} year
               </CardDescription>
+              <p className="text-gray-500 text-sm">{user.email}</p>
             </CardHeader>
 
-            <CardContent className="mt-2 space-y-2">
-              <p>
-                <strong>📞 Phone:</strong> {user.phone}
-              </p>
-              <p>
-                <strong>🎓 Course:</strong> {user.course}
-              </p>
-              <p>
-                <strong>🏢 Department:</strong> {user.department}
-              </p>
-              <p>
-                <strong>📍 Branch:</strong> {user.branch}
-              </p>
-              <p>
-                <strong>📅 Year:</strong> {user.year}
-              </p>
-            </CardContent>
+            {/* Details */}
+            <CardContent className="mt-0 space-y-3">
+              <div className="flex items-center space-x-2">
+                <BadgeCheck className="text-blue-600" size={26} />
+                <p className="text-gray-700 font-semibold">
+                  <span className="font-bold">Roll No:</span> {user.id}
+                </p>
+              </div>
 
-            <CardFooter className="flex justify-center mt-4">
-              <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-                View Profile
-              </button>
-            </CardFooter>
+              <div className="flex items-center space-x-2">
+                <Phone className="text-green-600" size={26} />
+                <p className="text-gray-700 font-semibold">
+                  <span className="font-bold">Phone:</span> {user.phone}
+                </p>
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <Building className="text-purple-600" size={26} />
+                <p className="text-gray-700 font-semibold">
+                  <span className="font-bold">Department:</span>{" "}
+                  {user.department}
+                </p>
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <GraduationCap className="text-orange-600" size={26} />
+                <p className="text-gray-700 font-semibold">
+                  <span className="font-bold">Branch:</span> {user.branch}
+                </p>
+              </div>
+            </CardContent>
           </Card>
         </Link>
       ))}
