@@ -69,15 +69,15 @@ export const ListedMembers = ({
 
             {/* Header */}
             <CardHeader className="text-center">
-              <CardTitle className="text-xl font-bold">{item.name}</CardTitle>
-              <CardDescription className="text-gray-600 text-lg">
+              <CardTitle className="text-xl font-bold p-0">{item.name}</CardTitle>
+              <CardDescription className="text-gray-600 text-lg p-0">
                 {item.course} {item.year} year
               </CardDescription>
               <p className="text-gray-500 text-sm">{item.email}</p>
             </CardHeader>
 
             {/* Details */}
-            <CardContent className="mt-0 space-y-3">
+            <CardContent className="mt-0">
               <div className="flex items-center space-x-2">
                 <BadgeCheck className="text-blue-600" size={26} />
                 <p className="text-gray-700 font-semibold">
@@ -162,7 +162,7 @@ export const CardDescription = ({
   return (
     <p
       className={cn(
-        "mt-2 text-gray-600 dark:text-zinc-400 tracking-wide leading-relaxed text-sm",
+        "text-gray-600 dark:text-zinc-400 tracking-wide leading-relaxed text-sm",
         className
       )}
     >
