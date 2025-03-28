@@ -1,6 +1,7 @@
 import { Search } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import HomeImage from '/HomePage1.png'
 
 export default function HeroSection() {
   return (
@@ -9,7 +10,7 @@ export default function HeroSection() {
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-black/60 z-10"></div>
         <img
-          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-IEg1G1z0eSHzq809V1QfW3xaOoYh5D.png"
+          src={HomeImage}
           alt="Event crowd"
           className="w-full h-full object-cover"
         />

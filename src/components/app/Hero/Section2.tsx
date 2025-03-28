@@ -1,58 +1,37 @@
 import { Button } from "@/components/ui/button"
 import EventCard from "./event-card"
+import { useEffect, useState } from "react"
+import { EventType } from "@/types/eventType"
 
-const events = [
-  {
-    id: 1,
-    title: "Particular Rock Resonance: write, Market & Publish Your Book - London",
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-IRHWPdNyXJOy1G1YgLXX1IZL92Pody.png",
-    date: "Saturday, March 18, 4:30pm",
-    type: "ONLINE EVENT",
-    attendees: "About 6 attendees",
-  },
-  {
-    id: 2,
-    title: "Particular Rock Resonance: write, Market & Publish Your Book - London",
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-IRHWPdNyXJOy1G1YgLXX1IZL92Pody.png",
-    date: "Saturday, March 18, 4:30pm",
-    type: "ONLINE EVENT",
-    attendees: "About 6 attendees",
-  },
-  {
-    id: 3,
-    title: "Particular Rock Resonance: write, Market & Publish Your Book - London",
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-IRHWPdNyXJOy1G1YgLXX1IZL92Pody.png",
-    date: "Saturday, March 18, 4:30pm",
-    type: "ONLINE EVENT",
-    attendees: "About 6 attendees",
-  },
-  {
-    id: 4,
-    title: "Particular Rock Resonance: write, Market & Publish Your Book - London",
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-IRHWPdNyXJOy1G1YgLXX1IZL92Pody.png",
-    date: "Saturday, March 18, 4:30pm",
-    type: "ONLINE EVENT",
-    attendees: "About 6 attendees",
-  },
-  {
-    id: 5,
-    title: "Particular Rock Resonance: write, Market & Publish Your Book - London",
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-IRHWPdNyXJOy1G1YgLXX1IZL92Pody.png",
-    date: "Saturday, March 18, 4:30pm",
-    type: "ONLINE EVENT",
-    attendees: "About 6 attendees",
-  },
-  {
-    id: 6,
-    title: "Particular Rock Resonance: write, Market & Publish Your Book - London",
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-IRHWPdNyXJOy1G1YgLXX1IZL92Pody.png",
-    date: "Saturday, March 18, 4:30pm",
-    type: "ONLINE EVENT",
-    attendees: "About 6 attendees",
-  },
-]
 
 export default function EventsSection() {
+
+const [events, setEvents] = useState<EventType[]>([]);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_PRODUCTION_API_URI}/api/event/get-events`, {
+          method: "GET",
+          credentials: "include",
+        });
+
+        if (!response.ok) {
+          throw new Error(`Error: ${response.statusText}`);
+        }
+
+        const apiData = await response.json();
+        console.log(apiData, "&&&&&&&6")
+        setEvents(apiData.events || []);
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      }
+    };
+
+    fetchEvents();
+  }, []);
+  console.log(events, "&&&&&&&7")
+
   return (
     <section>
       <div className="flex items-center justify-between mb-6">
@@ -73,9 +52,13 @@ export default function EventsSection() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {events.map((event) => (
-          <EventCard key={event.id} event={event} />
-        ))}
+        {events?.length > 0 ? (
+          events.map((event) => (
+            <EventCard key={event.id} event={event} />
+          ))
+        ) : (
+          <p className="text-center col-span-full">No events available.</p>
+        )}
       </div>
 
       <div className="flex justify-center mt-8">
