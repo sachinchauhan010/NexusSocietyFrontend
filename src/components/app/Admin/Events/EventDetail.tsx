@@ -64,7 +64,7 @@ function EventDetail() {
       <h2 className="text-2xl font-semibold">{event.name}</h2>
       <p className="text-gray-600">{event.description}</p>
       <p className="mt-2"><strong>Venue:</strong> {event.venue}</p>
-      <p><strong>DC Team:</strong> {event.dc_team.join(", ")}</p>
+      {/* <p><strong>DC Team:</strong> {event.dc_team.join(", ")}</p> */}
       <p><strong>Participants:</strong> {event.participants}</p>
       <p><strong>Start Date:</strong> {event.start_date}</p>
       <p><strong>End Date:</strong> {event.end_date}</p>

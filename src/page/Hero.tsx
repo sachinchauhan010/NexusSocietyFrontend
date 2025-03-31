@@ -3,7 +3,6 @@ import EventsSection from "@/components/app/Hero/Section2"
 import CreateEventSection from "@/components/app/Hero/Section3"
 import BrandsSection from "@/components/app/Hero/Section4"
 import CollegesSection from "@/components/app/Hero/Section5"
-import BlogsSection from "@/components/app/Hero/Section6"
 
 function Hero() {
   return (
@@ -14,7 +13,6 @@ function Hero() {
         <CreateEventSection />
         <BrandsSection />
         <CollegesSection />
-        <BlogsSection />
       </div>
     </div>
   )

@@ -99,7 +99,7 @@ function AllEvents() {
                 </p>
                 <p className="flex items-center gap-2">
                   <Users size={22} className="text-blue-500" />
-                  <strong>DC Team:</strong> {event.dc_team.join(", ")}
+                  {/* <strong>DC Team:</strong> {event.dc_team.join(", ")} */}
                 </p>
                 <p className="flex items-center gap-2">
                   <Ticket size={22} className="text-green-500" />
