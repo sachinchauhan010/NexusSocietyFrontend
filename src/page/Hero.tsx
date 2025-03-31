@@ -9,7 +9,7 @@ function Hero() {
   return (
     <div>
       <HeroSection />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-20">
+      <div className="mx-auto px-4 py-12 space-y-20">
         <EventsSection />
         <CreateEventSection />
         <BrandsSection />

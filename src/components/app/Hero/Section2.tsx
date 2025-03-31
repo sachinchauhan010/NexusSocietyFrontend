@@ -21,7 +21,6 @@ const [events, setEvents] = useState<EventType[]>([]);
         }
 
         const apiData = await response.json();
-        console.log(apiData, "&&&&&&&6")
         setEvents(apiData.events || []);
       } catch (error) {
         console.error("Error fetching events:", error);
@@ -30,7 +29,6 @@ const [events, setEvents] = useState<EventType[]>([]);
 
     fetchEvents();
   }, []);
-  console.log(events, "&&&&&&&7")
 
   return (
     <section>
@@ -51,7 +49,7 @@ const [events, setEvents] = useState<EventType[]>([]);
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {events?.length > 0 ? (
           events.map((event) => (
             <EventCard key={event.id} event={event} />

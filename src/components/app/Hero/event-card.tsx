@@ -1,6 +1,5 @@
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge.tsx"
-import { MoreVertical } from "lucide-react"
 import { EventType } from "@/types/eventType"
 
 export default function EventCard({ event }: { event: EventType }) {
@@ -13,12 +12,14 @@ export default function EventCard({ event }: { event: EventType }) {
       <CardContent className="p-4">
         <div className="flex justify-between items-start">
           <h3 className="font-medium text-sm line-clamp-2">{event.name}</h3>
-          <button className="text-gray-500">
-            <MoreVertical className="h-5 w-5" />
-          </button>
+
         </div>
         <p className="text-purple-600 text-xs mt-2">{event.start_date}</p>
         <p className="text-purple-600 text-xs mt-2">{event.end_date}</p>
+        <p className="text-purple-600 text-xs mt-2">{event.description}</p>
+        <p className="text-purple-600 text-xs mt-2">{event.registration_link}</p>
+        <p className="text-purple-600 text-xs mt-2">{event.venue}</p>
+        <p className="text-purple-600 text-xs mt-2">{event.participants}</p>
       </CardContent>
       <CardFooter className="p-4 pt-0 flex flex-col items-start">
         <p className="text-xs text-gray-500 uppercase">
