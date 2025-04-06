@@ -68,7 +68,7 @@ export function FocusCards({ event }: { event: EventType[] }) {
   const [hovered, setHovered] = useState<number | null>(null);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto md:px-8 w-full">
+    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-10 mx-auto md:px-8 w-full">
       {event.map((event, index) => (
         <Card
           key={index}
