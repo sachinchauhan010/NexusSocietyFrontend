@@ -1,12 +1,13 @@
 import { Button } from "@/components/ui/button"
+import WebBanner from '/Webbanner.jpg'
 
 export default function CreateEventSection() {
   return (
     <section className="bg-indigo-900 rounded-lg overflow-hidden">
       <div className="flex flex-col md:flex-row">
-        <div className="md:w-1/2 p-8 flex items-center justify-center">
+        <div className="md:w-5/12 p-8 flex items-center justify-center">
           <img
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-6LpTp72HRLVP31hv2TRomT6woQ87BL.png"
+            src={WebBanner}
             alt="People creating an event"
             className="max-w-full h-auto"
           />
