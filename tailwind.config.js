@@ -4,26 +4,53 @@ module.exports = {
     content: ["./index.html", "./src/**/*.{ts,tsx,js,jsx}"],
   theme: {
   	extend: {
-			fontFamily: {
-				karla: ["Karla", "sans-serif"], // Ensure the key is lowercase
-				roboto: ["Roboto", "sans-serif"],
-			},
-			animation: {
-				move: "move 5s linear infinite",
-				scroll:
-					"scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
-			},
-			keyframes: {
-				scroll: {
-					to: {
-						transform: "translate(calc(-50% - 0.5rem))",
-					},
-				},
-				move: {
-					"0%": { transform: "translateX(-200px)" },
-					"100%": { transform: "translateX(200px)" },
-				},
-			},
+  		fontFamily: {
+  			karla: [
+  				'Karla',
+  				'sans-serif'
+  			],
+  			roboto: [
+  				'Roboto',
+  				'sans-serif'
+  			]
+  		},
+  		animation: {
+  			move: 'move 5s linear infinite',
+  			scroll: 'scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite',
+  			'accordion-down': 'accordion-down 0.2s ease-out',
+  			'accordion-up': 'accordion-up 0.2s ease-out'
+  		},
+  		keyframes: {
+  			scroll: {
+  				to: {
+  					transform: 'translate(calc(-50% - 0.5rem))'
+  				}
+  			},
+  			move: {
+  				'0%': {
+  					transform: 'translateX(-200px)'
+  				},
+  				'100%': {
+  					transform: 'translateX(200px)'
+  				}
+  			},
+  			'accordion-down': {
+  				from: {
+  					height: '0'
+  				},
+  				to: {
+  					height: 'var(--radix-accordion-content-height)'
+  				}
+  			},
+  			'accordion-up': {
+  				from: {
+  					height: 'var(--radix-accordion-content-height)'
+  				},
+  				to: {
+  					height: '0'
+  				}
+  			}
+  		},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
