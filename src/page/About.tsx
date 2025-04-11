@@ -10,7 +10,7 @@ const About = () => {
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
-        <h1 className="text-5xl gradient-title">About NexusSociety</h1>
+        <h1 className="text-5xl gradient-title">About Nexus Society</h1>
       </motion.section>
 
       {/* Our Mission Section */}
