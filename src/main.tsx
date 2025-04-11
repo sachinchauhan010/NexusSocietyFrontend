@@ -27,6 +27,7 @@ import About from "./page/About.tsx";
 import FAQs from "./page/FAQs.tsx";
 import GetInTouch from "./page/GetInTouch.tsx";
 import Services from "./page/Services.tsx";
+import ErrorPage from "./page/ErrorPage.tsx";
 
 const AppLayout = () => {
   return (
@@ -134,6 +135,11 @@ const appRouter = createBrowserRouter([
         ],
       },
     ],
+  },
+  // Catch-all route for 404 error, rendered outside of AppLayout
+  {
+    path: "*",
+    element: <ErrorPage />,
   },
 ]);
 
