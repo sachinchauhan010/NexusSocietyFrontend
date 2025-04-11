@@ -1,9 +1,8 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
-import { AuthProvider } from './context/AuthContext.tsx'
-
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.tsx";
+import { AuthProvider } from "./context/AuthContext.tsx";
 
 import Event from "./page/Event";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
@@ -17,21 +16,25 @@ import Result from "./page/admin/Result";
 import Membership from "./page/admin/Membership";
 import Merchandise from "./page/admin/Merchandise";
 import Dashboard from "./page/admin/Dashboard";
-import Footer from './components/app/Footer.tsx'
-import AdminSidebar from './components/app/Admin/Sidebar.tsx'
-import { Toaster } from "@/components/ui/sonner"
-import AdminProtected from './components/AdminProtected.tsx'
-import Broadcast from './page/admin/Broadcast.tsx'
-import CreateEvent from './components/app/Admin/Events/CreateEvent.tsx'
-import EventDetail from './components/app/Admin/Events/EventDetail.tsx'
+import Footer from "./components/app/Footer.tsx";
+import AdminSidebar from "./components/app/Admin/Sidebar.tsx";
+import { Toaster } from "@/components/ui/sonner";
+import AdminProtected from "./components/AdminProtected.tsx";
+import Broadcast from "./page/admin/Broadcast.tsx";
+import CreateEvent from "./components/app/Admin/Events/CreateEvent.tsx";
+import EventDetail from "./components/app/Admin/Events/EventDetail.tsx";
+import About from "./page/About.tsx";
+import FAQs from "./page/FAQs.tsx";
+import GetInTouch from "./page/GetInTouch.tsx";
+import Services from "./page/Services.tsx";
 
 const AppLayout = () => {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <AuthProvider>
-        <div className='min-h-screen'>
+        <div className="min-h-screen">
           <Header />
-          <main className='px-6 py-2'>
+          <main className="px-6 py-2">
             <Outlet />
             <Toaster />
           </main>
@@ -39,9 +42,8 @@ const AppLayout = () => {
         </div>
       </AuthProvider>
     </ThemeProvider>
-  )
-}
-
+  );
+};
 
 const appRouter = createBrowserRouter([
   {
@@ -50,15 +52,31 @@ const appRouter = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <App />
+        element: <App />,
       },
       {
         path: "/event",
-        element: <Event />
+        element: <Event />,
       },
       {
         path: "/create-event",
-        element: <CreateEvent />
+        element: <CreateEvent />,
+      },
+      {
+        path: "/about",
+        element: <About />,
+      },
+      {
+        path: "/faq",
+        element: <FAQs />,
+      },
+      {
+        path: "/get-in-touch",
+        element: <GetInTouch />,
+      },
+      {
+        path: "/services",
+        element: <Services />,
       },
       // Admin routes as nested routes
       {
@@ -71,56 +89,56 @@ const appRouter = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <Dashboard />
+            element: <Dashboard />,
           },
           {
             path: "dashboard",
-            element: <Dashboard />
+            element: <Dashboard />,
           },
           {
             path: "events",
-            element: <Events />
+            element: <Events />,
           },
           {
             path: "events/:eventId",
-            element: <EventDetail />
+            element: <EventDetail />,
           },
           {
             path: "create/events",
-            element: <CreateEvent />
+            element: <CreateEvent />,
           },
           {
             path: "list-members",
-            element: <ListMembers />
+            element: <ListMembers />,
           },
           {
             path: "membership",
-            element: <Membership />
+            element: <Membership />,
           },
           {
             path: "broadcast",
-            element: <Broadcast />
+            element: <Broadcast />,
           },
           {
             path: "notice",
-            element: <Notice />
+            element: <Notice />,
           },
           {
             path: "results",
-            element: <Result />
+            element: <Result />,
           },
           {
             path: "merchandise",
-            element: <Merchandise />
-          }
-        ]
-      }
-    ]
-  }
-])
+            element: <Merchandise />,
+          },
+        ],
+      },
+    ],
+  },
+]);
 
-createRoot(document.getElementById('root')!).render(
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <RouterProvider router={appRouter} />
   </StrictMode>
-)
+);
