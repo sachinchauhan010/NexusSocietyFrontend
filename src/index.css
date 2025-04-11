@@ -144,3 +144,8 @@
 }
 
   
+@layer utilities {
+  .gradient-title {
+    @apply bg-gradient-to-br from-emerald-100 via-cyan-500 to-violet-800 font-extrabold pr-2 pb-2 text-transparent bg-clip-text;
+  }
+}
