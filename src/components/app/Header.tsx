@@ -1,4 +1,4 @@
-import { ThemeToggle } from "../ThemeToggle";
+// import { ThemeToggle } from "../ThemeToggle";
 import { useAuth } from "@/context/AuthContext";
 import { UserProfile } from "./Auth/UserProfile";
 import { useEffect } from "react";
@@ -50,6 +50,13 @@ function Header() {
         <span className="dark:text-white mr-2 text-black">Nexus</span>
         <span className="text-blue-700">Society</span>
       </div>
+      <div className="flex gap-x-10 ">
+          <Link to="/event">Event</Link>
+          <Link to="/services">Services</Link>
+          <Link to="/about">About us</Link>
+          <Link to="/faq">FAQs</Link>
+          <Link to="/get-in-touch">Contact</Link>
+        </div>
       <div className="flex justify-start items-center gap-x-10">
         {authState.isLoggedIn && <AdminProtected>
           <Link
@@ -59,7 +66,7 @@ function Header() {
           </Link>
         </AdminProtected>}
         {authState.isLoggedIn ? <UserProfile /> : <UserMembership />}
-        <ThemeToggle />
+        {/* <ThemeToggle /> */}
       </div>
     </div>
   );
