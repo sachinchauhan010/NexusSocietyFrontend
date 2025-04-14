@@ -1,68 +1,91 @@
-import { Link } from "react-router-dom"
-import { ArrowLeft, MapPin} from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Link } from "react-router-dom";
+import { ArrowLeft, MapPin } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 function Section1() {
+  // Get current date & time in readable format
+  const currentDateTime = new Date().toLocaleString("en-IN", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  });
+
   return (
-    <div className="relative w-full">
-    <div className="absolute inset-0">
-      <img
-        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-flAgyYjcsuTxiV5k6FR4QJlHJIFjEu.png"
-        alt="Event crowd with pink flags"
-        className="object-cover brightness-75"
-      />
-    </div>
+    <div className="relative w-full min-h-screen">
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <img
+          src="./event.jpg"
+          alt="CSSE event banner"
+          className="w-full h-full object-cover brightness-75"
+        />
+      </div>
 
-    <div className="relative z-10 px-4 py-6 md:px-6 lg:px-8 max-w-7xl mx-auto">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2">
-          <Link
-            to="#"
-            className="inline-flex items-center justify-center rounded-md bg-purple-600 px-4 py-2 text-sm font-medium text-white mb-8"
-          >
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back
-          </Link>
+      {/* Content */}
+      <div className="relative z-10 px-4 py-10 md:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+          {/* Left Column */}
+          <div className="lg:col-span-2">
+            <Link
+              to="#"
+              className="inline-flex items-center rounded-md bg-purple-600 px-4 py-2 text-sm font-medium text-white mb-6"
+            >
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Back
+            </Link>
 
-          <div className="mt-8 md:mt-16">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
-              Dream world wide in jakarta
-            </h1>
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-6">IIIT Sonepat</h2>
-            <p className="text-white text-sm md:text-base max-w-2xl mb-8">
-              DesignHub organized a 3D Modeling Workshop using Blender on 16th February at 5 PM. The workshop taught
-              participants the magic of creating stunning 3D models and animations using Blender. It was suitable
-              for both beginners and experienced users. The event was followed by a blender-render competition,
-              which added to the excitement.
-            </p>
+            <div className="mt-6 md:mt-12">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
+                CSSE: College Society of Software Engineering
+              </h1>
+              <h2 className="text-2xl md:text-3xl font-semibold text-white mb-6">
+                Organized by NexusSociety @ MPH Hall
+              </h2>
+              <p className="text-white text-sm md:text-base max-w-2xl mb-8">
+                CSSE is a dynamic society that blends both formal and informal
+                experiences for students. From coding contests to cultural gems
+                like dance, singing, musical chairs, tambola, craft, mehndi and
+                more — it’s a complete package of tech + fun!
+              </p>
 
-            <button className="inline-flex items-center text-white border border-white rounded-md px-4 py-2 text-sm">
-              <MapPin className="mr-2 h-4 w-4" />
-              View map
-            </button>
+              <button className="inline-flex items-center text-white border border-white rounded-md px-4 py-2 text-sm">
+                <MapPin className="mr-2 h-4 w-4" />
+                View Location
+              </button>
+            </div>
           </div>
-        </div>
 
-        <div className="lg:col-span-1">
-          <div className="bg-white rounded-lg p-6 mt-8 md:mt-16">
-            <h3 className="text-lg font-semibold mb-4">Date & time</h3>
-            <p className="text-gray-700 mb-4">Saturday, March 18 2023, 9:30PM</p>
+          {/* Right Column */}
+          <div className="lg:col-span-1">
+            <div className="bg-white rounded-lg p-6 mt-10 shadow-lg">
+              <h3 className="text-lg font-semibold mb-4">Event Date & Time</h3>
+              <p className="text-gray-700 mb-4">{currentDateTime}</p>
 
-            <button className="text-purple-600 hover:underline mb-6">Add to calendar</button>
+              <button className="text-purple-600 hover:underline mb-6">
+                Add to calendar
+              </button>
 
-            <div className="space-y-3">
-              <Button className="w-full bg-purple-600 hover:bg-purple-700">Book now</Button>
-              <Button variant="outline" className="w-full">
-                Program promoter
-              </Button>
-              <p className="text-center text-gray-500 text-sm mt-4">No Refunds</p>
+              <div className="space-y-3">
+                <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white">
+                  Join Event
+                </Button>
+                <Button variant="outline" className="w-full">
+                  Contact Society
+                </Button>
+                <p className="text-center text-gray-500 text-sm mt-4">
+                  *No entry without registration
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  )
+  );
 }
 
-export default Section1
+export default Section1;
