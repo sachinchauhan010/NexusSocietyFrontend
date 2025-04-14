@@ -46,10 +46,10 @@ function Header() {
 
   return (
     <div className="flex justify-between items-center px-10 py-2 bg-purple-100">
-      <div className="font-semibold text-2xl">
+      <Link to={"/"} className="font-semibold text-2xl">
         <span className="dark:text-white mr-2 text-black">Nexus</span>
         <span className="text-blue-700">Society</span>
-      </div>
+      </Link>
       <div className="flex gap-x-10 font-semibold ">
         <Link className="hover:text-purple-500" to="/event">
           Event
