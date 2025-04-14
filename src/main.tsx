@@ -33,7 +33,7 @@ const AppLayout = () => {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <AuthProvider>
-        <div className="min-h-screen">
+        <div className="min-h-screen bg-purple-100">
           <Header />
           <main className="px-6 py-2">
             <Outlet />
