@@ -50,21 +50,29 @@ function Header() {
         <span className="dark:text-white mr-2 text-black">Nexus</span>
         <span className="text-blue-700">Society</span>
       </div>
-      <div className="flex gap-x-10 ">
-          <Link to="/event">Event</Link>
-          <Link to="/services">Services</Link>
-          <Link to="/about">About us</Link>
-          <Link to="/faq">FAQs</Link>
-          <Link to="/get-in-touch">Contact</Link>
-        </div>
+      <div className="flex gap-x-10 font-semibold ">
+        <Link className="hover:text-purple-500" to="/event">
+          Event
+        </Link>
+        <Link className="hover:text-purple-500" to="/services">
+          Services
+        </Link>
+        <Link className="hover:text-purple-500" to="/about">
+          About us
+        </Link>
+        <Link className="hover:text-purple-500" to="/faq">
+          FAQs
+        </Link>
+        <Link className="hover:text-purple-500" to="/get-in-touch">
+          Contact
+        </Link>
+      </div>
       <div className="flex justify-start items-center gap-x-10">
-        {authState.isLoggedIn && <AdminProtected>
-          <Link
-            to="/admin"
-          >
-            Admin Panel
-          </Link>
-        </AdminProtected>}
+        {authState.isLoggedIn && (
+          <AdminProtected>
+            <Link to="/admin">Admin Panel</Link>
+          </AdminProtected>
+        )}
         {authState.isLoggedIn ? <UserProfile /> : <UserMembership />}
         {/* <ThemeToggle /> */}
       </div>

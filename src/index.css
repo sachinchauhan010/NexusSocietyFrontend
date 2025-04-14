@@ -117,7 +117,7 @@
   }
 }
 
-@layer base {
+/* @layer base {
   * {
     @apply border-border;
   }
@@ -125,7 +125,7 @@
   body {
     @apply bg-background text-foreground;
   }
-}
+} */
 
 .overflow-y-auto {
   overflow-y: auto;
@@ -144,3 +144,15 @@
 }
 
   
+@layer utilities {
+  .gradient-title {
+    @apply bg-gradient-to-br from-emerald-100 via-cyan-500 to-violet-800 font-extrabold pr-2 pb-2 text-transparent bg-clip-text;
+  }
+}
+
+/* styles/globals.css ya kisi bhi global CSS mein */
+.gradient-faq {
+  background: linear-gradient(to right, #4f46e5, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

@@ -1,7 +1,9 @@
+import FAQ from "@/components/Faq"
+
 const FAQs = () => {
   return (
     <div>
-     faqs 
+     <FAQ />
     </div>
   )
 }
