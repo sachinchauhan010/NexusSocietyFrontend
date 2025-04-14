@@ -3,7 +3,6 @@ export interface EventType {
   id?: string;
   description?: string;
   venue?: string;
-  dc_team?: string[];
   participants?: string;
   registration_link?: string;
   start_date?: string;

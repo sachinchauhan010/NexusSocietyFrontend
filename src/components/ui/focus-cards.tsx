@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 import { EventType } from "@/types/eventType";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Card = React.memo(
   ({
@@ -18,10 +18,11 @@ export const Card = React.memo(
     const navigate = useNavigate();
 
     const handleCardClick = () => {
-      navigate(`/events/${card.id}`); // Navigate to the dynamic route with the event ID
+      navigate(`/event/${card.id}`); // Navigate to the dynamic route with the event ID
     };
 
     return (
+      <Link to={`/event/${card.id}`} className="w-full">
       <div
         onMouseEnter={() => setHovered(index)}
         onMouseLeave={() => setHovered(null)}
@@ -68,6 +69,7 @@ export const Card = React.memo(
           </div>
         </div>
       </div>
+      </Link>
     );
   }
 );

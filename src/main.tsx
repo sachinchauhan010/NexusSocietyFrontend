@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App.tsx";
 import { AuthProvider } from "./context/AuthContext.tsx";
 
-import Event from "./page/Event";
+import Event from "./page/UserEvent.tsx";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -28,6 +28,7 @@ import FAQs from "./page/FAQs.tsx";
 import GetInTouch from "./page/GetInTouch.tsx";
 import Services from "./page/Services.tsx";
 import ErrorPage from "./page/ErrorPage.tsx";
+import UserEvent from "./page/UserEvent.tsx";
 
 const AppLayout = () => {
   return (
@@ -58,6 +59,10 @@ const appRouter = createBrowserRouter([
       {
         path: "/event",
         element: <Event />,
+      },
+      {
+        path: "/event/:id",
+        element:<UserEvent/>
       },
       {
         path: "/create-event",

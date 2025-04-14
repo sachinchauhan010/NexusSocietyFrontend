@@ -1,25 +1,17 @@
 import { Link } from "react-router-dom";
 import { ArrowLeft, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { EventType } from "@/types/eventType";
+import { formatDate } from "../../../utils/dateFormate.ts";
 
-function Section1() {
-  // Get current date & time in readable format
-  const currentDateTime = new Date().toLocaleString("en-IN", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-    hour12: true,
-  });
+function Section1({event}: { event: EventType }) {
 
   return (
     <div className="relative w-full min-h-screen">
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
-          src="./event.jpg"
+          src={event.banner ?? "/default-banner.jpg"}
           alt="CSSE event banner"
           className="w-full h-full object-cover brightness-75"
         />
@@ -40,17 +32,15 @@ function Section1() {
 
             <div className="mt-6 md:mt-12">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
-                CSSE: College Society of Software Engineering
+                {event.name ?? "No Name of Event"}
               </h1>
               <h2 className="text-2xl md:text-3xl font-semibold text-white mb-6">
-                Organized by NexusSociety @ MPH Hall
+                Organized by NexusSociety @ {event.venue}
               </h2>
-              <p className="text-white text-sm md:text-base max-w-2xl mb-8">
-                CSSE is a dynamic society that blends both formal and informal
-                experiences for students. From coding contests to cultural gems
-                like dance, singing, musical chairs, tambola, craft, mehndi and
-                more — it’s a complete package of tech + fun!
-              </p>
+              {/* <p className="text-white text-sm md:text-base max-w-2xl mb-8">
+                {event.description ??
+                  "No description available for this event."}
+              </p> */}
 
               <button className="inline-flex items-center text-white border border-white rounded-md px-4 py-2 text-sm">
                 <MapPin className="mr-2 h-4 w-4" />
@@ -63,11 +53,8 @@ function Section1() {
           <div className="lg:col-span-1">
             <div className="bg-white rounded-lg p-6 mt-10 shadow-lg">
               <h3 className="text-lg font-semibold mb-4">Event Date & Time</h3>
-              <p className="text-gray-700 mb-4">{currentDateTime}</p>
-
-              <button className="text-purple-600 hover:underline mb-6">
-                Add to calendar
-              </button>
+              <p className="text-gray-700 mb-4">{formatDate(event.start_date ?? "")} - {formatDate(event.end_date ?? "")} </p>
+              <p className="text-gray-700 mb-4">{event.start_time} - {event.end_time} </p>
 
               <div className="space-y-3">
                 <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white">
