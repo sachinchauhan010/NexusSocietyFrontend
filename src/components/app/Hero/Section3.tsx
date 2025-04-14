@@ -5,7 +5,7 @@ export default function CreateEventSection() {
   return (
     <div>
       <div>
-        <h2 className="text-3xl font-bold mb-6">
+        <h2 className="text-3xl font-bold mb-6 justify-center">
           Be The <span className="text-purple-600">Organizer</span>
         </h2>
       </div>
