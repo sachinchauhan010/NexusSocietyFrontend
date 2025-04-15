@@ -2,8 +2,7 @@ import HeroSection from "@/components/app/Hero/Section1"
 import EventsSection from "@/components/app/Hero/Section2"
 import CreateEventSection from "@/components/app/Hero/Section3"
 import BrandsSection from "@/components/app/Hero/Section4"
-import CollegesSection from "@/components/app/Hero/Section5"
-import FAQ from "@/components/Faq"
+import TrendingEventsSection from "@/components/app/Hero/Section5"
 
 function Hero() {
   return (
@@ -13,9 +12,7 @@ function Hero() {
         <EventsSection />
         <CreateEventSection />
         <BrandsSection />
-        <CollegesSection />
-
-        <FAQ />
+        <TrendingEventsSection />
       </div>
     </div>
   )

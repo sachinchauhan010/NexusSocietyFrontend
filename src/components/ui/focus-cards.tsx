@@ -51,7 +51,6 @@ export const Card = React.memo(
           onClick={handleCardClick}
           className={cn(
             "relative rounded-2xl overflow-hidden h-64 md:h-80 w-full cursor-pointer group shadow-xl shadow-black/10 transition-all",
-            hovered !== null && hovered !== index && "blur-sm scale-[0.96]"
           )}
         >
           {/* Banner Image */}
@@ -115,7 +114,7 @@ export function FocusCards({ event }: { event: EventType[] }) {
   const [hovered, setHovered] = useState<number | null>(null);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mx-auto md:px-8 w-full">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mx-auto w-full">
       {event.map((event, index) => (
         <Card
           key={event.id || index}

@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
 @tailwind base;
@@ -59,9 +60,10 @@
 
     --radius: 0.5rem;
     
-    --primary: #7848f4;
+    --primary: #73939C;
     --white: #ffffff;
     --black: #000000;
+    --bg-color: #73939C
 
   }
 
@@ -116,8 +118,8 @@
     --chart-5: 340 75% 55%
   }
 }
-
-/* @layer base {
+/* 
+@layer base {
   * {
     @apply border-border;
   }
@@ -143,16 +145,3 @@
   scrollbar-width: none;
 }
 
-  
-@layer utilities {
-  .gradient-title {
-    @apply bg-gradient-to-br from-emerald-100 via-cyan-500 to-violet-800 font-extrabold pr-2 pb-2 text-transparent bg-clip-text;
-  }
-}
-
-/* styles/globals.css ya kisi bhi global CSS mein */
-.gradient-faq {
-  background: linear-gradient(to right, #4f46e5, #ec4899);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
