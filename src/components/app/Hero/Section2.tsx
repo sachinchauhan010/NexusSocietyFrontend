@@ -98,7 +98,7 @@ export default function EventsSection() {
           Upcoming <span className="text-purple-600">Events</span>
         </h2>
         <div className="flex space-x-2">
-          <Button variant="outline" size="sm" onClick={handleSort}>
+          <Button variant="outline" size="sm" onClick={handleSort} className="text-md">
             Sort {sortOrder === "asc" ? <ArrowDownAZ /> : <ArrowUpZA />}
           </Button>
 

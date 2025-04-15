@@ -51,9 +51,6 @@ function Header() {
         <span className="text-blue-700">Society</span>
       </Link>
       <div className="flex gap-x-10 font-semibold ">
-        <Link className="hover:text-purple-500" to="/event">
-          Event
-        </Link>
         <Link className="hover:text-purple-500" to="/services">
           Services
         </Link>

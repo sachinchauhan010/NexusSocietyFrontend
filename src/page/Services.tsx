@@ -46,24 +46,12 @@ const services: Service[] = [
     description: "Students can register for upcoming events directly.",
   },
   {
-    title: "Attendance Tracking",
-    description: "Track attendance of volunteers and members in events.",
-  },
-  {
-    title: "Budget Management",
-    description: "Plan and record society expenses and budget allocations.",
-  },
-  {
     title: "Photo Gallery",
     description: "Upload and showcase photos from past events.",
   },
   {
     title: "Sponsorship Handling",
     description: "Manage sponsors, their benefits, and event association.",
-  },
-  {
-    title: "Document Repository",
-    description: "Upload and access important society documents securely.",
   },
   {
     title: "Role Management",
@@ -119,9 +107,10 @@ const TimelineCard: React.FC<TimelineCardProps> = ({
 const ServicesTimeline: React.FC = () => {
   return (
     <div className="relative px-4 md:px-20 py-20 bg-gradient-to-br from-purple-100 to-purple-50 min-h-screen">
-      <h2 className="text-4xl font-bold text-center text-purple-800 mb-16">
+      {/* <h2 className="text-4xl font-bold text-center text-purple-800 mb-16">
         Our Services
-      </h2>
+      </h2> */}
+      <p className="text-lg my-10">We offer a comprehensive set of features designed to streamline every aspect of college society operations</p>
 
       <div className="relative flex flex-col items-center">
         {/* Center vertical line */}

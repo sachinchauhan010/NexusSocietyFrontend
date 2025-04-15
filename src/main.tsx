@@ -4,7 +4,6 @@ import "./index.css";
 import App from "./App.tsx";
 import { AuthProvider } from "./context/AuthContext.tsx";
 
-import Event from "./page/UserEvent.tsx";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -55,10 +54,6 @@ const appRouter = createBrowserRouter([
       {
         path: "/",
         element: <App />,
-      },
-      {
-        path: "/event",
-        element: <Event />,
       },
       {
         path: "/event/:id",
