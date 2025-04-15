@@ -42,6 +42,7 @@ export function NoticeLists() {
       )
       if (!response.ok) throw new Error(`Error: ${response.statusText}`)
       const apiData = await response.json()
+    console.log(apiData, "apiData")
       setNotices(apiData.noticesData || [])
     } catch (error) {
       console.error("Error fetching notices:", error)

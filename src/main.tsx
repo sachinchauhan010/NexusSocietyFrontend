@@ -28,14 +28,15 @@ import GetInTouch from "./page/GetInTouch.tsx";
 import Services from "./page/Services.tsx";
 import ErrorPage from "./page/ErrorPage.tsx";
 import UserEvent from "./page/UserEvent.tsx";
+import ParticularNotice from "./components/app/Notice/ParticularNotice.tsx";
 
 const AppLayout = () => {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <AuthProvider>
-        <div className="min-h-screen bg-purple-100">
+        <div className="min-h-screen flex flex-col bg-purple-100">
           <Header />
-          <main className="px-6 py-2">
+          <main className="flex-grow px-6 py-2 min-h-screen">
             <Outlet />
             <Toaster />
           </main>
@@ -58,6 +59,10 @@ const appRouter = createBrowserRouter([
       {
         path: "/event/:id",
         element:<UserEvent/>
+      },
+      {
+        path: "/notice/:id",
+        element:<ParticularNotice/>
       },
       {
         path: "/create-event",

@@ -48,7 +48,7 @@ const CreateNotice = () => {
   const watchFields = watch();
 
   return (
-    <div className="flex flex-col md:flex-row gap-8 p-6 md:p-12">
+    <div className="flex flex-col md:flex-row gap-8 mb-10">
       {/* Form */}
       <form
         onSubmit={handleSubmit(onSubmit)}
