@@ -1,8 +1,9 @@
+import CreateNotice from "@/components/app/Admin/Notice/CreateNotice"
 
 function Notice() {
   return (
     <div>
-      Notice
+      <CreateNotice/>
     </div>
   )
 }
