@@ -47,7 +47,7 @@ function Header() {
   }, [dispatchAuthState]);
 
   return (
-    <div className="px-4 py-2 bg-purple-100">
+    <div className="px-4 py-2 bg-purple-100 sticky top-0 z-50">
       <div className="flex justify-between items-center">
         {/* Logo */}
         <Link to={"/"} className="font-semibold text-2xl">
@@ -63,7 +63,7 @@ function Header() {
         </div>
 
         {/* Nav Links (shown from md and above) */}
-        <div className="hidden md:flex gap-x-10 font-semibold ml-auto">
+        <div className="hidden md:flex gap-x-10 items-center font-semibold ml-auto">
           <Link className="hover:text-purple-500" to="/services">
             Services
           </Link>
