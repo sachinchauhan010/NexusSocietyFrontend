@@ -29,7 +29,10 @@ export default function BrandsSection() {
 
   return (
     <section>
-      <h1 className="text-2xl my-10">Notice</h1>
+      <h1 className="text-4xl my-10 font-bold ">
+        Notices And
+        <span className="text-purple-600 text-4xl my-10 font-bold">   Alerts</span>
+      </h1>
 
       <Marquee speed={100}>
         {notices.map((notice) => (
