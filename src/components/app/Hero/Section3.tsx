@@ -1,7 +1,14 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import { CalendarPlus } from "lucide-react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate hook
 
 export default function CreateEventSection() {
+  const navigate = useNavigate(); // Initialize useNavigate hook
+
+  const handleCreateEventClick = () => {
+    navigate("/admin/create/events"); // Redirect to the "create events" page
+  };
+
   return (
     <div>
       <div>
@@ -27,11 +34,14 @@ export default function CreateEventSection() {
               build unity. From festive functions to meaningful meetups, make it
               all happen in just a few clicks. Let your ideas shine and let the
               society celebrate with you. Because great communities are built
-              through shared moments
+              through shared moments.
             </p>
             <div>
-              <Button className="bg-purple-600 hover:bg-purple-700 flex items-center gap-2">
-                <CalendarPlus className="w-5 h-5 font-semibold " />
+              <Button
+                onClick={handleCreateEventClick} // Trigger redirect on button click
+                className="bg-purple-600 hover:bg-purple-700 flex items-center gap-2"
+              >
+                <CalendarPlus className="w-5 h-5 font-semibold" />
                 Create Event
               </Button>
             </div>
@@ -41,4 +51,3 @@ export default function CreateEventSection() {
     </div>
   );
 }
-
