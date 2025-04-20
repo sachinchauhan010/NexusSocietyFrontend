@@ -7,8 +7,13 @@ import { useAuth } from "@/context/AuthContext.tsx";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
 
+type ApplyEventType = {
+  eventId: string;
+  email: string;
+};
+
 function Section1({ event }: { event: EventType }) {
-  const [appliedEvents, setAppliedEvents] = useState<EventType[]>([]);
+  const [appliedEvents, setAppliedEvents] = useState<ApplyEventType[]>([]);
   const { authState } = useAuth();
 
   useEffect(() => {
@@ -26,20 +31,17 @@ function Section1({ event }: { event: EventType }) {
       );
 
       const apiData = await response.json();
-      setAppliedEvents(apiData.appliedEvents || []);
 
-      if (response.ok) {
-        console.log("Applied events fetched successfully", apiData);
-      } else {
+      if (!response.ok) {
         console.error("Error fetching applied events", apiData);
       }
+      setAppliedEvents(apiData.appliedEvents || []);
     } catch (error) {
       console.log("Error while fetching applied events", error);
     }
   };
 
   const handleApply = async () => {
-    console.log(authState, "authState");
     try {
       if (!authState || !authState.email) {
         toast.error("Please log in first");
@@ -82,7 +84,7 @@ function Section1({ event }: { event: EventType }) {
 
   // Check if the current event is already applied
   const isEventApplied = appliedEvents.some(
-    (appliedEvent) => appliedEvent.id === event.id
+    (appliedEvent) => appliedEvent.eventId === event.id
   );
 
   return (
