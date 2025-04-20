@@ -152,7 +152,7 @@ function Section1({ event }: { event: EventType }) {
                   </Button>
                 )}
                 <Button variant="outline" className="w-full">
-                  Contact Society
+                  <Link to={"/get-in-touch"}>Contact Organizer</Link>
                 </Button>
                 <p className="text-center text-gray-500 text-sm mt-4">
                   *No entry without registration
