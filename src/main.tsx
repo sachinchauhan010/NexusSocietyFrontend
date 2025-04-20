@@ -31,6 +31,7 @@ import UserEvent from "./page/EventDetails.tsx";
 import ParticularNotice from "./components/app/Notice/ParticularNotice.tsx";
 import AllUserEvents from "./page/AllUserEvents.tsx";
 import ProductDetail from "./components/app/Product/ProductDetail.tsx";
+import AllUserMerchandise from "./page/AllUserMerchandize.tsx";
 
 const AppLayout = () => {
   return (
@@ -65,6 +66,10 @@ const appRouter = createBrowserRouter([
       {
         path: "/merchandise/:id",
         element: <ProductDetail />,
+      },
+      {
+        path: "/get-merchandise",
+        element: <AllUserMerchandise />,
       },
       {
         path: "/event/:id",
