@@ -6,6 +6,7 @@ import { formatDate } from "../../../utils/dateFormate.ts";
 import { useAuth } from "@/context/AuthContext.tsx";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
+import ParticipantsDetail from "./ParticipantsDetail.tsx";
 
 type ApplyEventType = {
   eventId: string;
@@ -146,7 +147,17 @@ function Section1({ event }: { event: EventType }) {
                 ) : (
                   <Button
                     className="w-full bg-purple-600 hover:bg-purple-700 text-white"
-                    onClick={authState.isLoggedIn ? handleApply : undefined}
+                    onClick={
+                      authState.isLoggedIn
+                        ? () => {
+                            if (event.participants && event.participants < 1) {
+                              return <ParticipantsDetail />;
+                            } else {
+                              handleApply();
+                            }
+                          }
+                        : undefined
+                    }
                   >
                     Join Event
                   </Button>
