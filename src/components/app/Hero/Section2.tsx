@@ -94,7 +94,7 @@ export default function EventsSection() {
   return (
     <section>
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold">
+        <h2 className="text-4xl font-bold mb-5">
           Upcoming <span className="text-purple-600">Events</span>
         </h2>
         <div className="flex space-x-2">

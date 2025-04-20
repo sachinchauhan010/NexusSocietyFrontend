@@ -1,14 +1,16 @@
 // import { ThemeToggle } from "../ThemeToggle";
 import { useAuth } from "@/context/AuthContext";
 import { UserProfile } from "./Auth/UserProfile";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import UserMembership from "@/page/UserMembership";
 import AdminProtected from "../AdminProtected";
 import { Link } from "react-router-dom";
+import { Menu, X } from "lucide-react";
 
 function Header() {
   const { authState, dispatch: dispatchAuthState } = useAuth();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   async function checkAuth() {
     try {
@@ -22,7 +24,7 @@ function Header() {
 
       const apiData = await response.json();
       if (!apiData.isLogin) {
-        dispatchAuthState({ type: "LOGOUT" }); // Update authState on logout
+        dispatchAuthState({ type: "LOGOUT" });
         toast.error("User not Logged in", { description: "Please login...." });
         return;
       }
@@ -35,44 +37,95 @@ function Header() {
       });
     } catch (error) {
       console.log(error);
-      dispatchAuthState({ type: "LOGOUT" }); // Ensure authState is updated on error
+      dispatchAuthState({ type: "LOGOUT" });
       toast.error("User not Logged in", { description: "Please login...." });
     }
   }
 
   useEffect(() => {
     checkAuth();
-  }, [dispatchAuthState]); // Ensure the effect runs when authState changes
+  }, [dispatchAuthState]);
 
   return (
-    <div className="flex justify-between items-center px-10 py-2 bg-purple-100">
-      <Link to={"/"} className="font-semibold text-2xl">
-        <span className="dark:text-white mr-2 text-black">Nexus</span>
-        <span className="text-blue-700">Society</span>
-      </Link>
-      <div className="flex gap-x-10 font-semibold ">
-        <Link className="hover:text-purple-500" to="/services">
-          Services
+    <div className="px-4 py-2 bg-purple-100 sticky top-0 z-50">
+      <div className="flex justify-between items-center">
+        {/* Logo */}
+        <Link to={"/"} className="font-semibold text-2xl">
+          <span className="dark:text-white mr-2 text-black">Nexus</span>
+          <span className="text-purple-800">Society</span>
         </Link>
-        <Link className="hover:text-purple-500" to="/about">
-          About us
-        </Link>
-        <Link className="hover:text-purple-500" to="/faq">
-          FAQs
-        </Link>
-        <Link className="hover:text-purple-500" to="/get-in-touch">
-          Contact
-        </Link>
+
+        {/* Toggler Button (shown below md) */}
+        <div className="md:hidden">
+          <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+
+        {/* Nav Links (shown from md and above) */}
+        <div className="hidden md:flex gap-x-10 items-center font-semibold ml-auto">
+          <Link className="hover:text-purple-500" to="/services">
+            Services
+          </Link>
+          <Link className="hover:text-purple-500" to="/about">
+            About us
+          </Link>
+          <Link className="hover:text-purple-500" to="/faq">
+            FAQs
+          </Link>
+          <Link className="hover:text-purple-500" to="/get-in-touch">
+            Contact
+          </Link>
+          {authState.isLoggedIn && (
+            <AdminProtected>
+              <Link to="/admin">Admin Panel</Link>
+            </AdminProtected>
+          )}
+          {authState.isLoggedIn ? <UserProfile /> : <UserMembership />}
+        </div>
       </div>
-      <div className="flex justify-start items-center gap-x-10">
-        {authState.isLoggedIn && (
-          <AdminProtected>
-            <Link to="/admin">Admin Panel</Link>
-          </AdminProtected>
-        )}
-        {authState.isLoggedIn ? <UserProfile /> : <UserMembership />}
-        {/* <ThemeToggle /> */}
-      </div>
+
+      {/* Mobile Menu Dropdown */}
+      {isMenuOpen && (
+        <div className="md:hidden mt-4 flex flex-col gap-4 font-semibold start">
+          <Link
+            onClick={() => setIsMenuOpen(false)}
+            className="hover:text-purple-500"
+            to="/services"
+          >
+            Services
+          </Link>
+          <Link
+            onClick={() => setIsMenuOpen(false)}
+            className="hover:text-purple-500"
+            to="/about"
+          >
+            About us
+          </Link>
+          <Link
+            onClick={() => setIsMenuOpen(false)}
+            className="hover:text-purple-500"
+            to="/faq"
+          >
+            FAQs
+          </Link>
+          <Link
+            onClick={() => setIsMenuOpen(false)}
+            className="hover:text-purple-500"
+            to="/get-in-touch"
+          >
+            Contact
+          </Link>
+          {authState.isLoggedIn && (
+            <AdminProtected>
+              <Link onClick={() => setIsMenuOpen(false)} to="/admin">
+                Admin Panel
+              </Link>
+            </AdminProtected>
+          )}
+          {authState.isLoggedIn ? <UserProfile /> : <UserMembership />}
+        </div>
+      )}
     </div>
   );
 }
