@@ -44,9 +44,10 @@ export default function UserMembership() {
       description: "Login successful",
     })
 
+    
     dispatchAuthState({
       type: "LOGIN",
-      payload: { name: loginApiData.userdata.username || "" },
+      payload: { name: loginApiData.userdata.username || "", email: loginApiData.userdata.useremail || "" },
     })
   }
 

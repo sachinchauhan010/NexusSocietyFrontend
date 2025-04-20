@@ -41,14 +41,12 @@ function UserEvent() {
     return <p className="text-center text-gray-500">Loading event details...</p>;
   }
 
-  console.log(event, "Event data fetched successfully");
-
   return (
     <div className="min-h-screen">
       {/* Pass the event data to each section */}
       <Section1 event={event} />
       <Section2 event={event} />
-      <Section3 event={event} />
+      <Section3 />
     </div>
   );
 }

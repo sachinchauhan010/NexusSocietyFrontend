@@ -7,16 +7,18 @@ interface AuthContextType {
 
 interface AuthState {
   name: string;
+  email: string
   isLoggedIn: boolean;
 }
 
 type AuthAction =
-  | { type: "LOGIN"; payload: { name: string } }
+  | { type: "LOGIN"; payload: { name: string, email:string } }
   | { type: "LOGOUT" };
 
 const initialState: AuthState = {
   isLoggedIn: false,
-  name: ""
+  name: "",
+  email:""
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -24,9 +26,9 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 const authReducer = (state: AuthState, action: AuthAction): AuthState => {
   switch (action.type) {
     case "LOGIN":
-      return { ...state, isLoggedIn: true, name: action.payload.name };
+      return { ...state, isLoggedIn: true, name: action.payload.name, email:action.payload.email };
     case "LOGOUT":
-      return { ...state, isLoggedIn: false, name: "" };
+      return { ...state, isLoggedIn: false, name: "", email:"" };
     default:
       return state;
   }
