@@ -16,9 +16,44 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs"
 
-export function TabsDemo() {
+import { EventType } from "@/types/eventType"
+import { useEffect, useState } from "react"
+
+
+export default function AllUserEvents() {
+
+  const [events, setEvents] = useState<EventType[]>([])
+
+  const fetchAllEvents = async () => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_PRODUCTION_API_URI}/api/event/get-events`,
+        {
+          method: "GET",
+          credentials: "include",
+        }
+      )
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`)
+      }
+
+      const apiData = await response.json()
+      setEvents(apiData.events || [])
+
+      console.log(apiData, "apiData")
+    } catch (error) {
+      console.error("Error fetching events:", error)
+    }
+  }
+  useEffect(() => {
+    fetchAllEvents()
+  }, [])
+
+  console.log(events, "events")
+
   return (
-    <Tabs defaultValue="account" className="w-[400px]">
+    <Tabs defaultValue="account" className="w-full h-full">
       <TabsList className="grid w-full grid-cols-2">
         <TabsTrigger value="account">Account</TabsTrigger>
         <TabsTrigger value="password">Password</TabsTrigger>

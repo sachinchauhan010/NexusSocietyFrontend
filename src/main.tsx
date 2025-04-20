@@ -29,6 +29,7 @@ import Services from "./page/Services.tsx";
 import ErrorPage from "./page/ErrorPage.tsx";
 import UserEvent from "./page/EventDetails.tsx";
 import ParticularNotice from "./components/app/Notice/ParticularNotice.tsx";
+import AllUserEvents from "./page/AllUserEvents.tsx";
 
 const AppLayout = () => {
   return (
@@ -55,6 +56,10 @@ const appRouter = createBrowserRouter([
       {
         path: "/",
         element: <App />,
+      },
+      {
+        path: "/event",
+        element: <AllUserEvents/>
       },
       {
         path: "/event/:id",
