@@ -145,3 +145,27 @@
   scrollbar-width: none;
 }
 
+/* Add this to your global styles or in the relevant component CSS file */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade {
+  animation: fadeIn 1s ease-out;
+}
+
+/* For the increased text size */
+.text-lg {
+  font-size: 1.25rem; /* Increase text size for better visibility */
+}
+
+.text-xl {
+  font-size: 1.5rem; /* Increase text size for better visibility */
+}

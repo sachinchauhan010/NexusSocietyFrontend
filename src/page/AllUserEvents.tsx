@@ -1,28 +1,12 @@
-import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs"
-
-import { EventType } from "@/types/eventType"
-import { useEffect, useState } from "react"
-
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useEffect, useState } from "react";
+import { EventType } from "@/types/eventType";
+import { ExternalLink } from "lucide-react"; // 👈 Lucide icon import
+import Tilt from "react-parallax-tilt"; // 👈 Added for tilt effect
+import HowWeHelp from "./HowWeHelp";
 
 export default function AllUserEvents() {
-
-  const [events, setEvents] = useState<EventType[]>([])
+  const [events, setEvents] = useState<EventType[]>([]);
 
   const fetchAllEvents = async () => {
     try {
@@ -32,78 +16,105 @@ export default function AllUserEvents() {
           method: "GET",
           credentials: "include",
         }
-      )
+      );
 
       if (!response.ok) {
-        throw new Error(`Error: ${response.statusText}`)
+        throw new Error(`Error: ${response.statusText}`);
       }
 
-      const apiData = await response.json()
-      setEvents(apiData.events || [])
-
-      console.log(apiData, "apiData")
+      const apiData = await response.json();
+      setEvents(apiData.events || []);
     } catch (error) {
-      console.error("Error fetching events:", error)
+      console.error("Error fetching events:", error);
     }
-  }
-  useEffect(() => {
-    fetchAllEvents()
-  }, [])
+  };
 
-  console.log(events, "events")
+  useEffect(() => {
+    fetchAllEvents();
+  }, []);
+
+  const now = new Date();
+
+  const pastEvents = events.filter(
+    (event) => event.end_date && new Date(event.end_date) < now
+  );
+
+  const upcomingEvents = events.filter(
+    (event) => event.start_date && new Date(event.start_date) >= now
+  );
+
+  const renderCard = (event: EventType, showButton = true) => (
+    <Tilt
+      tiltMaxAngleX={20}
+      tiltMaxAngleY={20}
+      glareEnable={false}
+      key={event.id}
+    >
+      <div className="flex flex-col justify-between h-full rounded-lg overflow-hidden shadow-md bg-white dark:bg-neutral-900 transition-all hover:scale-[1.02] hover:shadow-lg">
+        <div className="w-full h-44 relative overflow-hidden bg-neutral-200 dark:bg-neutral-800">
+          <img
+            src={event.banner || "/default-banner.jpg"}
+            alt={event.name}
+            className="w-full h-full object-cover object-center"
+          />
+        </div>
+
+        <div className="p-3 flex flex-col justify-between flex-grow">
+          <div>
+            <h2 className="text-base font-semibold mb-1">{event.name}</h2>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">
+              {event.description?.slice(0, 70)}...
+            </p>
+            <p className="text-sm">
+              <strong>Date:</strong> {event.start_date} to {event.end_date}
+            </p>
+            <p className="text-sm">
+              <strong>Time:</strong> {event.start_time} - {event.end_time}
+            </p>
+            <p className="text-sm">
+              <strong>Venue:</strong> {event.venue}
+            </p>
+          </div>
+
+          {showButton && (
+            <a
+              href={event.registration_link ?? "#"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 inline-flex items-center justify-center gap-2 px-3 py-1.5 text-sm font-medium bg-purple-600 text-white rounded hover:bg-purple-700 transition w-fit"
+            >
+              <ExternalLink size={16} />
+              Register Now
+            </a>
+          )}
+        </div>
+      </div>
+    </Tilt>
+  );
 
   return (
-    <Tabs defaultValue="account" className="w-full h-full">
-      <TabsList className="grid w-full grid-cols-2">
-        <TabsTrigger value="account">Account</TabsTrigger>
-        <TabsTrigger value="password">Password</TabsTrigger>
-      </TabsList>
-      <TabsContent value="account">
-        <Card>
-          <CardHeader>
-            <CardTitle>Account</CardTitle>
-            <CardDescription>
-              Make changes to your account here. Click save when you're done.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-2">
-            <div className="space-y-1">
-              <Label htmlFor="name">Name</Label>
-              <Input id="name" defaultValue="Pedro Duarte" />
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="username">Username</Label>
-              <Input id="username" defaultValue="@peduarte" />
-            </div>
-          </CardContent>
-          <CardFooter>
-            <Button>Save changes</Button>
-          </CardFooter>
-        </Card>
-      </TabsContent>
-      <TabsContent value="password">
-        <Card>
-          <CardHeader>
-            <CardTitle>Password</CardTitle>
-            <CardDescription>
-              Change your password here. After saving, you'll be logged out.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-2">
-            <div className="space-y-1">
-              <Label htmlFor="current">Current password</Label>
-              <Input id="current" type="password" />
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="new">New password</Label>
-              <Input id="new" type="password" />
-            </div>
-          </CardContent>
-          <CardFooter>
-            <Button>Save password</Button>
-          </CardFooter>
-        </Card>
-      </TabsContent>
-    </Tabs>
-  )
+    <div>
+      <HowWeHelp />
+      <Tabs defaultValue="past" className="w-full h-full">
+        <TabsList className="grid w-full grid-cols-2 mb-4">
+          <TabsTrigger value="past">Past Events</TabsTrigger>
+          <TabsTrigger value="upcoming">Upcoming Events</TabsTrigger>
+        </TabsList>
+
+        {/* Past Events First */}
+        <TabsContent value="past">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {pastEvents.map((event) => renderCard(event, false))}
+          </div>
+        </TabsContent>
+
+        {/* Upcoming Events Second */}
+        <TabsContent value="upcoming">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {upcomingEvents.map((event) => renderCard(event, true))}
+          </div>
+        </TabsContent>
+      </Tabs>
+    </div>
+  );
 }
