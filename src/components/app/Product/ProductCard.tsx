@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function ProductCard({ product }: { product: ProductType }) {
   return (
-    <Link to={`/merchandise/:${product.id}`}>
+    <Link to={`/merchandise/${product.id}`}>
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
