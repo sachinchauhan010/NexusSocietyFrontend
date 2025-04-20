@@ -4,7 +4,13 @@ import { Link } from "react-router-dom";
 import { Linkedin, Instagram, Facebook } from "lucide-react";
 
 // Navigation links
-const navLinks = ["Home", "About", "Services", "Get in touch", "FAQs"];
+const navLinks = [
+  { name: "Home", url: "/" },
+  { name: "About", url: "/about" },
+  { name: "Services", url: "/services" },
+  { name: "Get in touch", url: "/get-in-touch" },
+  { name: "FAQs", url: "/faq" },
+];
 
 // Social Media Links
 const socialLinks = [
@@ -36,8 +42,8 @@ const Footer = () => {
 
       <nav className="flex justify-center mt-6 gap-6 text-sm">
         {navLinks.map((link, index) => (
-          <Link key={index} to={`/${link.toLowerCase().replace(" ", "-")}`} className="hover:underline">
-            {link}
+          <Link key={index} to={link.url} className="hover:underline">
+            {link.name}
           </Link>
         ))}
       </nav>
