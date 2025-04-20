@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { EventType } from "@/types/eventType";
 import { ExternalLink } from "lucide-react"; // 👈 Lucide icon import
 import Tilt from "react-parallax-tilt"; // 👈 Added for tilt effect
+import HowWeHelp from "./HowWeHelp";
 
 export default function AllUserEvents() {
   const [events, setEvents] = useState<EventType[]>([]);
@@ -92,25 +93,28 @@ export default function AllUserEvents() {
   );
 
   return (
-    <Tabs defaultValue="past" className="w-full h-full">
-      <TabsList className="grid w-full grid-cols-2 mb-4">
-        <TabsTrigger value="past">Past Events</TabsTrigger>
-        <TabsTrigger value="upcoming">Upcoming Events</TabsTrigger>
-      </TabsList>
+    <div>
+      <HowWeHelp />
+      <Tabs defaultValue="past" className="w-full h-full">
+        <TabsList className="grid w-full grid-cols-2 mb-4">
+          <TabsTrigger value="past">Past Events</TabsTrigger>
+          <TabsTrigger value="upcoming">Upcoming Events</TabsTrigger>
+        </TabsList>
 
-      {/* Past Events First */}
-      <TabsContent value="past">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {pastEvents.map((event) => renderCard(event, false))}
-        </div>
-      </TabsContent>
+        {/* Past Events First */}
+        <TabsContent value="past">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {pastEvents.map((event) => renderCard(event, false))}
+          </div>
+        </TabsContent>
 
-      {/* Upcoming Events Second */}
-      <TabsContent value="upcoming">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {upcomingEvents.map((event) => renderCard(event, true))}
-        </div>
-      </TabsContent>
-    </Tabs>
+        {/* Upcoming Events Second */}
+        <TabsContent value="upcoming">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {upcomingEvents.map((event) => renderCard(event, true))}
+          </div>
+        </TabsContent>
+      </Tabs>
+    </div>
   );
 }
