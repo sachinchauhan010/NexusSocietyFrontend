@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import { EventType } from "@/types/eventType";
 
 function Section2({ event }: { event: EventType }) {
-  console.log(event, "Event data in Section2")
+  
   return (
     <div className="px-4 py-12 md:px-6 lg:px-8 max-w-7xl mx-auto">
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">

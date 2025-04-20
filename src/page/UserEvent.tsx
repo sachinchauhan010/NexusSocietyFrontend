@@ -46,7 +46,7 @@ function UserEvent() {
       {/* Pass the event data to each section */}
       <Section1 event={event} />
       <Section2 event={event} />
-      <Section3 event={event} />
+      <Section3 />
     </div>
   );
 }

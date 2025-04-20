@@ -5,20 +5,47 @@ import { EventType } from "@/types/eventType";
 import { formatDate } from "../../../utils/dateFormate.ts";
 import { useAuth } from "@/context/AuthContext.tsx";
 import { toast } from "sonner";
+import { useEffect, useState } from "react";
 
+function Section1({ event }: { event: EventType }) {
+  const [appliedEvents, setAppliedEvents] = useState<EventType[]>([]);
+  const { authState } = useAuth();
 
-function Section1({event}: { event: EventType }) {
+  useEffect(() => {
+    fetchAppliedEvents();
+  }, []);
 
-  const {authState} = useAuth()
-  
+  const fetchAppliedEvents = async () => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_PRODUCTION_API_URI}/api/event/get-applied-events`,
+        {
+          method: "GET",
+          credentials: "include",
+        }
+      );
+
+      const apiData = await response.json();
+      setAppliedEvents(apiData.appliedEvents || []);
+
+      if (response.ok) {
+        console.log("Applied events fetched successfully", apiData);
+      } else {
+        console.error("Error fetching applied events", apiData);
+      }
+    } catch (error) {
+      console.log("Error while fetching applied events", error);
+    }
+  };
+
   const handleApply = async () => {
-    console.log(authState, "authState")
+    console.log(authState, "authState");
     try {
       if (!authState || !authState.email) {
         toast.error("Please log in first");
         return;
       }
-      
+
       const response = await fetch(
         `${import.meta.env.VITE_PRODUCTION_API_URI}/api/event/apply-event/${event.id}`,
         {
@@ -36,7 +63,9 @@ function Section1({event}: { event: EventType }) {
       const apiData = await response.json();
       if (response.ok) {
         toast.success("Applied for event successfully", {
-          description: "You will receive a confirmation email shortly."});
+          description: "You will receive a confirmation email shortly.",
+        });
+        fetchAppliedEvents(); // Refresh the applied events list
       } else {
         console.error("Error applying for event", apiData);
         toast.error("Error applying for event", {
@@ -44,11 +73,17 @@ function Section1({event}: { event: EventType }) {
         });
       }
     } catch (error) {
-      console.log("Error while applying for event", error)
+      console.log("Error while applying for event", error);
       toast.error("Error applying for event", {
-        description: "Something went wrong",});
+        description: "Something went wrong",
+      });
     }
-  }
+  };
+
+  // Check if the current event is already applied
+  const isEventApplied = appliedEvents.some(
+    (appliedEvent) => appliedEvent.id === event.id
+  );
 
   return (
     <div className="relative w-full min-h-screen">
@@ -81,10 +116,6 @@ function Section1({event}: { event: EventType }) {
               <h2 className="text-2xl md:text-3xl font-semibold text-white mb-6">
                 Organized by NexusSociety @ {event.venue}
               </h2>
-              {/* <p className="text-white text-sm md:text-base max-w-2xl mb-8">
-                {event.description ??
-                  "No description available for this event."}
-              </p> */}
 
               <button className="inline-flex items-center text-white border border-white rounded-md px-4 py-2 text-sm">
                 <MapPin className="mr-2 h-4 w-4" />
@@ -97,13 +128,27 @@ function Section1({event}: { event: EventType }) {
           <div className="lg:col-span-1">
             <div className="bg-white rounded-lg p-6 mt-10 shadow-lg">
               <h3 className="text-lg font-semibold mb-4">Event Date & Time</h3>
-              <p className="text-gray-700 mb-4">{formatDate(event.start_date ?? "")} - {formatDate(event.end_date ?? "")} </p>
-              <p className="text-gray-700 mb-4">{event.start_time} - {event.end_time} </p>
+              <p className="text-gray-700 mb-4">
+                {formatDate(event.start_date ?? "")} -{" "}
+                {formatDate(event.end_date ?? "")}
+              </p>
+              <p className="text-gray-700 mb-4">
+                {event.start_time} - {event.end_time}
+              </p>
 
               <div className="space-y-3">
-                <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white" onClick={authState.isLoggedIn ? handleApply : undefined}>
-                  Join Event
-                </Button>
+                {isEventApplied ? (
+                  <Button className="w-full bg-green-600 text-white" disabled>
+                    Applied
+                  </Button>
+                ) : (
+                  <Button
+                    className="w-full bg-purple-600 hover:bg-purple-700 text-white"
+                    onClick={authState.isLoggedIn ? handleApply : undefined}
+                  >
+                    Join Event
+                  </Button>
+                )}
                 <Button variant="outline" className="w-full">
                   Contact Society
                 </Button>
