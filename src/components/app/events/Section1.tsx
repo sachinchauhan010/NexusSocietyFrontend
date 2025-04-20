@@ -10,8 +10,9 @@ import { toast } from "sonner";
 function Section1({event}: { event: EventType }) {
 
   const {authState} = useAuth()
-
+  
   const handleApply = async () => {
+    console.log(authState, "authState")
     try {
       if (!authState || !authState.email) {
         toast.error("Please log in first");
