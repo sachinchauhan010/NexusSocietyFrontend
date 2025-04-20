@@ -3,8 +3,20 @@ import { ArrowLeft, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EventType } from "@/types/eventType";
 import { formatDate } from "../../../utils/dateFormate.ts";
+import { useAuth } from "@/context/AuthContext.tsx";
+
 
 function Section1({event}: { event: EventType }) {
+
+  const {authState} = useAuth()
+
+  const handleApply = async () => {
+    try {
+      console.log("Applying for event...")
+    } catch (error) {
+      console.log("Error while applying for event", error)
+    }
+  }
 
   return (
     <div className="relative w-full min-h-screen">
@@ -57,7 +69,7 @@ function Section1({event}: { event: EventType }) {
               <p className="text-gray-700 mb-4">{event.start_time} - {event.end_time} </p>
 
               <div className="space-y-3">
-                <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white">
+                <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white" onClick={authState.isLoggedIn ? handleApply : undefined}>
                   Join Event
                 </Button>
                 <Button variant="outline" className="w-full">
