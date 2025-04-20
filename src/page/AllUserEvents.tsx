@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { EventType } from "@/types/eventType";
 import { ExternalLink } from "lucide-react"; // 👈 Lucide icon import
 import Tilt from "react-parallax-tilt"; // 👈 Added for tilt effect
-import HowWeHelp from "./HowWeHelp";
+import HowWeHelp from "../components/app/events/HowWeHelp";
 
 export default function AllUserEvents() {
   const [events, setEvents] = useState<EventType[]>([]);
@@ -95,9 +95,9 @@ export default function AllUserEvents() {
   return (
     <div>
       <HowWeHelp />
-      <Tabs defaultValue="past" className="w-full h-full">
+      <Tabs defaultValue="upcoming" className="w-full h-full">
         <TabsList className="grid w-full grid-cols-2 mb-4">
-          <TabsTrigger value="past">Past Events</TabsTrigger>
+          <TabsTrigger value="past" className="">Past Events</TabsTrigger>
           <TabsTrigger value="upcoming">Upcoming Events</TabsTrigger>
         </TabsList>
 
