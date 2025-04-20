@@ -65,6 +65,9 @@ function Header() {
 
         {/* Nav Links (shown from md and above) */}
         <div className="hidden md:flex gap-x-10 items-center font-semibold ml-auto">
+          <Link className="hover:text-purple-500" to="/event">
+            Events
+          </Link>
           <Link className="hover:text-purple-500" to="/services">
             Services
           </Link>
