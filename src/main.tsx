@@ -30,6 +30,7 @@ import ErrorPage from "./page/ErrorPage.tsx";
 import UserEvent from "./page/EventDetails.tsx";
 import ParticularNotice from "./components/app/Notice/ParticularNotice.tsx";
 import AllUserEvents from "./page/AllUserEvents.tsx";
+import ProductDetail from "./components/app/Product/ProductDetail.tsx";
 
 const AppLayout = () => {
   return (
@@ -59,15 +60,19 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/event",
-        element: <AllUserEvents/>
+        element: <AllUserEvents />,
+      },
+      {
+        path: "/merchandise/:id",
+        element: <ProductDetail />,
       },
       {
         path: "/event/:id",
-        element:<UserEvent/>
+        element: <UserEvent />,
       },
       {
         path: "/notice/:id",
-        element:<ParticularNotice/>
+        element: <ParticularNotice />,
       },
       {
         path: "/create-event",

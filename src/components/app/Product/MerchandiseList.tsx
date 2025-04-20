@@ -28,8 +28,7 @@ function MerchandiseList() {
 
   return (
     <div className="w-full overflow-hidden">
-      {" "}
-      {/* 👈 yaha overflow-hidden likhna zaroori tha */}
+      
       <Marquee
         speed={100}
         className="w-full"
