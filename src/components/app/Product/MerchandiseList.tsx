@@ -28,14 +28,9 @@ function MerchandiseList() {
 
   return (
     <div className="w-full overflow-hidden">
-      
-      <Marquee
-        speed={100}
-        className="w-full"
-        style={{ overflow: "hidden" }} // 👈 extra safety
-      >
+      <Marquee speed={100} className="w-full" style={{ overflow: "hidden" }}>
         {products.map((product) => (
-          <div key={product.id} className="mx-4">
+          <div key={product.id} className="mx-4 w-[250px] h-[400px]">
             <ProductCard product={product} />
           </div>
         ))}
