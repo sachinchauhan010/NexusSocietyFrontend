@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { EventType } from "@/types/eventType";
 import { formatDate } from "../../../utils/dateFormate.ts";
 import { useAuth } from "@/context/AuthContext.tsx";
+import { toast } from "sonner";
 
 
 function Section1({event}: { event: EventType }) {
@@ -12,9 +13,39 @@ function Section1({event}: { event: EventType }) {
 
   const handleApply = async () => {
     try {
-      console.log("Applying for event...")
+      if (!authState || !authState.email) {
+        toast.error("Please log in first");
+        return;
+      }
+      
+      const response = await fetch(
+        `${import.meta.env.VITE_PRODUCTION_API_URI}/api/event/apply-event/${event.id}`,
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: authState.email,
+          }),
+        }
+      );
+
+      const apiData = await response.json();
+      if (response.ok) {
+        toast.success("Applied for event successfully", {
+          description: "You will receive a confirmation email shortly."});
+      } else {
+        console.error("Error applying for event", apiData);
+        toast.error("Error applying for event", {
+          description: apiData.message || "Something went wrong",
+        });
+      }
     } catch (error) {
       console.log("Error while applying for event", error)
+      toast.error("Error applying for event", {
+        description: "Something went wrong",});
     }
   }
 
