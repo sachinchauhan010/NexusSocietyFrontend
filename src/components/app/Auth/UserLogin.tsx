@@ -94,7 +94,8 @@ function UserLogin() {
 
     dispatchAuthState({
       type: "LOGIN",
-      payload: { name: loginApiData.userdata.username || "" },
+      payload: { name: loginApiData.userdata.username || "", email: loginApiData.userdata.email || "" },
+
     });
 
     reset(); // Clear form

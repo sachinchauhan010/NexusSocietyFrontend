@@ -3,8 +3,51 @@ import { ArrowLeft, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EventType } from "@/types/eventType";
 import { formatDate } from "../../../utils/dateFormate.ts";
+import { useAuth } from "@/context/AuthContext.tsx";
+import { toast } from "sonner";
+
 
 function Section1({event}: { event: EventType }) {
+
+  const {authState} = useAuth()
+
+  const handleApply = async () => {
+    try {
+      if (!authState || !authState.email) {
+        toast.error("Please log in first");
+        return;
+      }
+      
+      const response = await fetch(
+        `${import.meta.env.VITE_PRODUCTION_API_URI}/api/event/apply-event/${event.id}`,
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: authState.email,
+          }),
+        }
+      );
+
+      const apiData = await response.json();
+      if (response.ok) {
+        toast.success("Applied for event successfully", {
+          description: "You will receive a confirmation email shortly."});
+      } else {
+        console.error("Error applying for event", apiData);
+        toast.error("Error applying for event", {
+          description: apiData.message || "Something went wrong",
+        });
+      }
+    } catch (error) {
+      console.log("Error while applying for event", error)
+      toast.error("Error applying for event", {
+        description: "Something went wrong",});
+    }
+  }
 
   return (
     <div className="relative w-full min-h-screen">
@@ -57,7 +100,7 @@ function Section1({event}: { event: EventType }) {
               <p className="text-gray-700 mb-4">{event.start_time} - {event.end_time} </p>
 
               <div className="space-y-3">
-                <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white">
+                <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white" onClick={authState.isLoggedIn ? handleApply : undefined}>
                   Join Event
                 </Button>
                 <Button variant="outline" className="w-full">

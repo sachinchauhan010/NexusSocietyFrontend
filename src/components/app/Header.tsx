@@ -33,6 +33,7 @@ function Header() {
         type: "LOGIN",
         payload: {
           name: apiData.userdata.username || "",
+          email: apiData.userdata.useremail || "",
         },
       });
     } catch (error) {
