@@ -1,35 +1,50 @@
 import { useEffect, useState } from "react";
+import {
+  CalendarPlus,
+  Users,
+  MousePointerClick,
+  RefreshCcw,
+  Smartphone,
+  Image as ImageIcon,
+} from "lucide-react";
 
+// Feature data with icons
 const features = [
   {
     title: "Create & Publish Events Easily",
     description:
-      "Quickly set up your event with name, banner, timing, venue, and registration link — all in one place.",
+      "Set up your event with name, banner, timing, venue, and registration link — all in one place.",
+    icon: CalendarPlus,
   },
   {
     title: "Reach the Right Audience",
     description:
-      "Your events appear beautifully on our platform, making them easy to discover by the right users.",
+      "Your events appear beautifully on our platform, easily discoverable by the right users.",
+    icon: Users,
   },
   {
     title: "Smooth Registration Flow",
     description:
-      "Users can register with one click through your link, ensuring a hassle-free signup experience.",
+      "Users can register with one click, ensuring a smooth and hassle-free signup experience.",
+    icon: MousePointerClick,
   },
   {
     title: "Real-Time Updates",
     description:
-      "Make changes to your event anytime — updated details reflect instantly for all users.",
+      "Make changes to your event anytime — details reflect instantly for all users.",
+    icon: RefreshCcw,
   },
   {
-    title: "Modern, Mobile-Friendly Interface",
+    title: "Mobile-Friendly Interface",
     description:
-      "Our clean design works flawlessly on mobile, tablet, and desktop devices without any lag.",
+      "Our clean design works flawlessly on mobile, tablet, and desktop devices.",
+    icon: Smartphone,
   },
   {
     title: "Boost Engagement with Visuals",
     description:
-      "Upload catchy event banners to make your event stand out and leave a lasting impression.",
+      "Upload catchy event banners to make your event stand out visually.",
+    icon: ImageIcon,
   },
 ];
 
@@ -43,25 +58,30 @@ export default function FeatureRotator() {
       setTimeout(() => {
         setIndex((prev) => (prev + 1) % features.length);
         setFade(true);
-      }, 300); // transition time
-    }, 2000); // change every 2 sec
+      }, 300);
+    }, 2500);
 
     return () => clearInterval(interval);
   }, []);
 
+  const CurrentIcon = features[index].icon;
+
   return (
-    <div className="bg-purple-100 w-full py-10 px-4 flex items-center justify-center">
+    <div className="bg-purple-100 w-full py-12 px-4 flex items-center justify-center">
       <div
-        className={`max-w-3xl w-full text-center p-6 rounded-lg transition-opacity duration-500 ease-in-out ${
+        className={`max-w-3xl w-full text-center p-6 transition-opacity duration-500 ease-in-out ${
           fade ? "opacity-100" : "opacity-0"
         }`}
       >
-        <h2 className="text-2xl md:text-3xl font-bold text-purple-600 mb-3">
-          {features[index].title}
-        </h2>
-        <p className="text-lg md:text-xl text-gray-800 leading-relaxed">
-          {features[index].description}
-        </p>
+        <div className="flex flex-col items-center gap-4">
+          <CurrentIcon className="w-12 h-12 text-purple-700" />
+          <h2 className="text-3xl md:text-4xl font-bold text-purple-800">
+            {features[index].title}
+          </h2>
+          <p className="text-lg md:text-xl text-gray-800 leading-relaxed max-w-xl">
+            {features[index].description}
+          </p>
+        </div>
       </div>
     </div>
   );
