@@ -1,9 +1,10 @@
+// ProductShowcase.tsx
 import { useEffect, useState } from "react";
 import { ProductType } from "@/types/productType";
 import { motion } from "framer-motion";
 import { ShoppingCart } from "lucide-react";
 
-function AllUserMerchandise() {
+function ProductShowcase() {
   const [products, setProducts] = useState<ProductType[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -20,7 +21,7 @@ function AllUserMerchandise() {
         const data = await res.json();
         setProducts(data.productsData || []);
       } catch (error) {
-        console.error("Failed to fetch products:", error);
+        console.error("Fetch error:", error);
       } finally {
         setLoading(false);
       }
@@ -29,85 +30,71 @@ function AllUserMerchandise() {
     fetchProducts();
   }, []);
 
+  if (loading) {
+    return (
+      <div className="min-h-screen flex justify-center items-center text-xl text-gray-500">
+        Loading products...
+      </div>
+    );
+  }
+
+  if (products.length === 0) {
+    return (
+      <div className="min-h-screen flex justify-center items-center text-lg text-gray-400">
+        No products available.
+      </div>
+    );
+  }
+
   return (
-    <section className="min-h-screen px-4 sm:px-10 py-12 bg-gradient-to-br from-white via-gray-50 to-gray-100">
-      <motion.h1
-        initial={{ opacity: 0, y: -30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: "easeOut" }}
-        className="text-4xl font-bold text-center text-gray-800 mb-12"
-      >
-        Shop The Latest <span className="text-purple-600">Merchandise</span>
-      </motion.h1>
-
-      {loading ? (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="text-center text-gray-500 text-lg"
+    <div className="w-full">
+      {products.map((product, index) => (
+        <section
+          key={product.id}
+          className={`min-h-[60vh] flex ${
+            index % 2 === 0 ? "flex-row-reverse" : "flex-row"
+          } items-center justify-center gap-10 px-6 md:px-20 py-10 bg-gradient-to-b from-white via-gray-50 to-gray-100`}
         >
-          Loading your merch...
-        </motion.div>
-      ) : products.length === 0 ? (
-        <p className="text-center text-gray-500 text-lg">No products found.</p>
-      ) : (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          className="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
-        >
-          {products.map((product, i) => (
-            <motion.div
-              key={product.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.05, duration: 0.4 }}
-              viewport={{ once: true }}
-              className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col"
-            >
-              {/* Image */}
-              <div className="h-48 w-full overflow-hidden">
-                <img
-                  src={product.image || "/product-placeholder.jpg"}
-                  alt={product.name}
-                  className="w-full h-full object-cover"
-                />
-              </div>
+          <motion.img
+            src={product.image || "/product-placeholder.jpg"}
+            alt={product.name}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="w-full max-w-sm rounded-2xl shadow-xl object-cover"
+          />
 
-              {/* Info */}
-              <div className="p-4 flex flex-col justify-between flex-grow">
-                <h3 className="text-lg font-semibold text-gray-800 mb-1 line-clamp-1">
-                  {product.name}
-                </h3>
-                <p className="text-sm text-gray-500 mb-2 line-clamp-2">
-                  {product.description}
-                </p>
+          <motion.div
+            className="max-w-xl flex flex-col justify-center"
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-3">
+              {product.name}
+            </h2>
+            <p className="text-gray-600 mb-4 text-sm md:text-base">
+              {product.description}
+            </p>
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-purple-600 font-semibold text-xl">
+                ₹{product.price}
+              </span>
+              <span className="text-xs text-gray-400">{product.category}</span>
+            </div>
+            <div className="text-sm text-gray-500 mb-6">
+              Stock: <span className="font-medium">{product.stock}</span>
+            </div>
 
-                <div className="flex justify-between items-center mt-auto">
-                  <span className="text-purple-600 font-bold text-lg">
-                    ₹{product.price}
-                  </span>
-                  <span className="text-xs text-gray-400">
-                    {product.category}
-                  </span>
-                </div>
-
-                <div className="text-xs text-gray-500 mt-2">
-                  Stock: <span className="font-medium">{product.stock}</span>
-                </div>
-
-                <button className="w-full mt-4 bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-lg text-sm flex items-center justify-center gap-2 transition-all">
-                  <ShoppingCart size={16} />
-                  Buy Now
-                </button>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-      )}
-    </section>
+            <button className="bg-purple-600 hover:bg-purple-700 text-white py-2 px-5 rounded-lg flex items-center gap-2 transition-all w-fit">
+              <ShoppingCart size={16} />
+              Buy Now
+            </button>
+          </motion.div>
+        </section>
+      ))}
+    </div>
   );
 }
 
-export default AllUserMerchandise;
+export default ProductShowcase;
