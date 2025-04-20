@@ -27,7 +27,7 @@ import FAQs from "./page/FAQs.tsx";
 import GetInTouch from "./page/GetInTouch.tsx";
 import Services from "./page/Services.tsx";
 import ErrorPage from "./page/ErrorPage.tsx";
-import UserEvent from "./page/UserEvent.tsx";
+import UserEvent from "./page/EventDetails.tsx";
 import ParticularNotice from "./components/app/Notice/ParticularNotice.tsx";
 
 const AppLayout = () => {
