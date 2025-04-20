@@ -19,7 +19,6 @@ const AdminProtected = ({ children }:any) => {
   if (loading) {
     return <div>Loading...</div>;
   }
-  console.log(userRole, "userRole");
 
   if (!userRole || !userRole.includes("admin")) {
     return <Navigate to="/" replace />;
