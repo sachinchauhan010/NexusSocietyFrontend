@@ -10,4 +10,8 @@ export interface EventType {
   start_time?: string;
   end_time?: string;
   banner?: string;
+  applied?: {
+    userEmail: string;
+    userName: string;
+  }[];
 }
