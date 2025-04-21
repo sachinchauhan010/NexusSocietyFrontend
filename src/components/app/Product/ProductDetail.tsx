@@ -74,35 +74,16 @@ function ProductDetail() {
           transition={{ duration: 0.5 }}
           className="space-y-6"
         >
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-bold text-purple-800">
+          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">
             {product?.name}
           </h1>
 
           <p className="text-lg text-gray-700">{product?.description}</p>
 
-          <div className="flex items-center gap-4 mt-6 relative">
-            <p className="text-2xl text-gray-700 line-through">
-              ₹{Number(product?.price || 0)}
+          <div className="flex items-center relative">
+            <p className="text-lg sm:text-xl md:text-2xl font-semibold text-purple-600">
+              ₹{Number(product?.price || 0).toFixed(0)}
             </p>
-
-            <p className="text-4xl sm:text-5xl font-semibold text-purple-600">
-              ₹{(Number(product?.price || 0) * 0.7).toFixed(0)}
-            </p>
-
-            <div className="relative">
-              <motion.div
-                initial={{ scale: 1 }}
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{
-                  repeat: Infinity,
-                  duration: 1.5,
-                  ease: "easeInOut",
-                }}
-                className="ml-2 px-4 py-1 rounded-full bg-green-200 text-green-800 text-2xl font-bold shadow-md"
-              >
-                ₹{(Number(product?.price || 0) * 0.3).toFixed(0)} OFF
-              </motion.div>
-            </div>
           </div>
 
           <div className="text-lg text-gray-700 space-y-1">
