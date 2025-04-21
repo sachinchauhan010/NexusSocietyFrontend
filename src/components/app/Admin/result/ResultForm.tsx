@@ -35,46 +35,6 @@ export function ResultForm({ event }: Props) {
     formState: { errors },
   } = useForm<FormData>();
 
-  // const onSubmit = async (data: any) => {
-  //   const winners: Winner[] = [];
-
-  //   for (let i = 0; i < (event.participants || 0); i++) {
-  //     const name = data[`winnerName${i}`];
-  //     const email = data[`winnerEmail${i}`];
-  //     winners.push({ winnerName: name, winnerEmail: email });
-  //   }
-
-  //   const finalPayload: FormData = {
-  //     ...(event.participants && event.participants > 1 && { groupName: data.groupName }),
-  //     winners,
-  //   };
-
-  //   try {
-  //     const response= await fetch(`${import.meta.env.VITE_PRODUCTION_API_URI}/api/event/declare-result/${event.id}`, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(finalPayload),
-  //       credentials: "include",
-  //     });
-  //     if (!response.ok) {
-  //       const errorData = await response.json();
-  //       console.error("Error declaring result:", errorData);
-  //       return;
-  //     }
-  //     const resultData = await response.json();
-  //     console.log(resultData)
-  //     toast.success("Result declared successfully:");
-  //   } catch (error) {
-  //     console.error("Error declaring result:", error);
-  //     toast.error("Failed to declare result");
-      
-  //   }
-
-  //   console.log("Final Submitted Result:", finalPayload);
-  //   // Send `finalPayload` to your API
-  // };
   const onSubmit = async (data: FormData) => {
     const finalPayload: FormData = {
       ...(event.participants && event.participants > 1 && { groupName: data.groupName }),
