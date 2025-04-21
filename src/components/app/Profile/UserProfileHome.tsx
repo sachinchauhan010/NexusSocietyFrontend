@@ -1,51 +1,49 @@
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Bell, Mail, Search } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-
-// Using the User type from the prompt
-type User = {
-  _id: string
-  name: string
-  email: string
-  phone: string
-  role: string[]
-  id: string
-  department: string
-  year: string
-  profileimage: string
-  course: string
-  branch: string
-  eventApply?: {
-    eventId: string
-    eventName: string
-  }[]
-}
+import { User } from "@/types/userType"
+import { useAuth } from "@/context/AuthContext"
 
 export default function UserProfileHome() {
-  // Sample user data
-  const [user] = useState<User>({
-    _id: "123456789",
-    name: "Alexa Rawles",
-    email: "alexarawles@gmail.com",
-    phone: "+1234567890",
-    role: ["Student"],
-    id: "ST12345",
-    department: "Computer Science",
-    year: "3rd",
-    profileimage: "/placeholder-user.jpg",
-    course: "B.Tech",
-    branch: "Information Technology",
-    eventApply: [
-      {
-        eventId: "evt123",
-        eventName: "Tech Symposium",
-      },
-    ],
-  })
+  const [user, setUser] = useState<User | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  const {authState} = useAuth()
+
+  useEffect(() => {
+    fetchUserData()
+  }, [])
+
+
+  const fetchUserData = async () => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_PRODUCTION_API_URI}/api/auth/${authState.email}`, {
+        method: "GET",
+        // headers: { "Content-Type": "application/json" },
+        credentials: "include",
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok")
+      }
+
+      const data = await response.json()
+      setUser(data.userData)
+    } catch (error) {
+      console.error("Error fetching user data:", error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  if (loading) {
+    return <div className="flex items-center justify-center h-screen">Loading...</div>
+  }
+
 
   const currentDate = new Date()
   const formattedDate = currentDate.toLocaleDateString("en-US", {
@@ -61,7 +59,9 @@ export default function UserProfileHome() {
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-2xl font-medium text-gray-800">Welcome, {user.name.split(" ")[0]}</h1>
+            <h1 className="text-2xl font-medium text-gray-800">
+              Welcome, {user ? user.name.split(" ")[0] : "Guest"}
+            </h1>
             <p className="text-sm text-gray-500">{formattedDate}</p>
           </div>
           <div className="flex items-center gap-4">
@@ -73,8 +73,8 @@ export default function UserProfileHome() {
               <Bell className="h-5 w-5 text-gray-500" />
             </Button>
             <Avatar className="h-10 w-10 border-2 border-white shadow-sm">
-              <AvatarImage src={user.profileimage || "/placeholder.svg"} alt={user.name} />
-              <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+              <AvatarImage src={user?.profileimage || "/placeholder.svg"} alt={user?.name} />
+              <AvatarFallback>{user?.name.charAt(0)}</AvatarFallback>
             </Avatar>
           </div>
         </div>
@@ -86,12 +86,12 @@ export default function UserProfileHome() {
         <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6 mb-6">
           <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
             <Avatar className="h-24 w-24 border-4 border-white shadow-md">
-              <AvatarImage src={user.profileimage || "/placeholder.svg"} alt={user.name} />
-              <AvatarFallback className="text-2xl">{user.name.charAt(0)}</AvatarFallback>
+              <AvatarImage src={user?.profileimage || "/placeholder.svg"} alt={user?.name} />
+              <AvatarFallback className="text-2xl">{user?.name.charAt(0)}</AvatarFallback>
             </Avatar>
             <div className="flex-1">
-              <h2 className="text-xl font-semibold">{user.name}</h2>
-              <p className="text-gray-500">{user.email}</p>
+              <h2 className="text-xl font-semibold">{user?.name}</h2>
+              <p className="text-gray-500">{user?.email}</p>
             </div>
             <Button className="bg-blue-500 hover:bg-blue-600">Edit</Button>
           </div>
@@ -103,19 +103,19 @@ export default function UserProfileHome() {
             {/* Full Name */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
-              <Input value={user.name} className="bg-gray-50 border-gray-200" placeholder="Your Full Name" readOnly />
+              <Input value={user?.name} className="bg-gray-50 border-gray-200" placeholder="Your Full Name" readOnly />
             </div>
 
             {/* Student ID */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Student ID</label>
-              <Input value={user.id} className="bg-gray-50 border-gray-200" placeholder="Your Student ID" readOnly />
+              <Input value={user?.id} className="bg-gray-50 border-gray-200" placeholder="Your Student ID" readOnly />
             </div>
 
             {/* Department */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Department</label>
-              <Select defaultValue={user.department}>
+              <Select defaultValue={user?.department}>
                 <SelectTrigger className="bg-gray-50 border-gray-200">
                   <SelectValue placeholder="Select Department" />
                 </SelectTrigger>
@@ -130,7 +130,7 @@ export default function UserProfileHome() {
             {/* Year */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Year</label>
-              <Select defaultValue={user.year}>
+              <Select defaultValue={user?.year}>
                 <SelectTrigger className="bg-gray-50 border-gray-200">
                   <SelectValue placeholder="Select Year" />
                 </SelectTrigger>
@@ -146,7 +146,7 @@ export default function UserProfileHome() {
             {/* Course */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Course</label>
-              <Select defaultValue={user.course}>
+              <Select defaultValue={user?.course}>
                 <SelectTrigger className="bg-gray-50 border-gray-200">
                   <SelectValue placeholder="Select Course" />
                 </SelectTrigger>
@@ -162,7 +162,7 @@ export default function UserProfileHome() {
             {/* Branch */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Branch</label>
-              <Select defaultValue={user.branch}>
+              <Select defaultValue={user?.branch}>
                 <SelectTrigger className="bg-gray-50 border-gray-200">
                   <SelectValue placeholder="Select Branch" />
                 </SelectTrigger>
@@ -184,7 +184,7 @@ export default function UserProfileHome() {
                 <Mail className="h-5 w-5 text-blue-500" />
               </div>
               <div>
-                <p className="font-medium">{user.email}</p>
+                <p className="font-medium">{user?.email}</p>
                 <p className="text-sm text-gray-500">1 month ago</p>
               </div>
             </div>
@@ -196,14 +196,14 @@ export default function UserProfileHome() {
           {/* Phone Section */}
           <div className="mt-8">
             <h3 className="text-lg font-medium mb-4">Phone Number</h3>
-            <Input value={user.phone} className="bg-gray-50 border-gray-200 max-w-md" placeholder="Your Phone Number" />
+            <Input value={user?.phone} className="bg-gray-50 border-gray-200 max-w-md" placeholder="Your Phone Number" />
           </div>
 
           {/* Roles Section */}
           <div className="mt-8">
             <h3 className="text-lg font-medium mb-4">Roles</h3>
             <div className="flex flex-wrap gap-2">
-              {user.role.map((role, index) => (
+              {user?.role.map((role, index) => (
                 <span key={index} className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">
                   {role}
                 </span>
@@ -212,11 +212,11 @@ export default function UserProfileHome() {
           </div>
 
           {/* Events Section (if any) */}
-          {user.eventApply && user.eventApply.length > 0 && (
+          {user?.eventApply && user?.eventApply.length > 0 && (
             <div className="mt-8">
               <h3 className="text-lg font-medium mb-4">Registered Events</h3>
               <div className="space-y-2">
-                {user.eventApply.map((event) => (
+                {user?.eventApply.map((event) => (
                   <div key={event.eventId} className="p-3 bg-gray-50 rounded-md">
                     <p className="font-medium">{event.eventName}</p>
                     <p className="text-sm text-gray-500">Event ID: {event.eventId}</p>
