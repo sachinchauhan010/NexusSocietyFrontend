@@ -16,6 +16,7 @@ type ApplyEventType = {
 function Section1({ event }: { event: EventType }) {
   const [appliedEvents, setAppliedEvents] = useState<ApplyEventType[]>([]);
   const { authState } = useAuth();
+  const [showParticipantDialog, setShowParticipantDialog] = useState(false);
 
   useEffect(() => {
     fetchAppliedEvents();
@@ -68,7 +69,7 @@ function Section1({ event }: { event: EventType }) {
         toast.success("Applied for event successfully", {
           description: "You will receive a confirmation email shortly.",
         });
-        fetchAppliedEvents(); // Refresh the applied events list
+        fetchAppliedEvents();
       } else {
         console.error("Error applying for event", apiData);
         toast.error("Error applying for event", {
@@ -83,14 +84,12 @@ function Section1({ event }: { event: EventType }) {
     }
   };
 
-  // Check if the current event is already applied
   const isEventApplied = appliedEvents.some(
     (appliedEvent) => appliedEvent.eventId === event.id
   );
 
   return (
     <div className="relative w-full min-h-screen">
-      {/* Background Image */}
       <div className="absolute inset-0">
         <img
           src={event.banner ?? "/default-banner.jpg"}
@@ -99,10 +98,8 @@ function Section1({ event }: { event: EventType }) {
         />
       </div>
 
-      {/* Content */}
       <div className="relative z-10 px-4 py-10 md:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
-          {/* Left Column */}
           <div className="lg:col-span-2">
             <Link
               to="#"
@@ -127,7 +124,6 @@ function Section1({ event }: { event: EventType }) {
             </div>
           </div>
 
-          {/* Right Column */}
           <div className="lg:col-span-1">
             <div className="bg-white rounded-lg p-6 mt-10 shadow-lg">
               <h3 className="text-lg font-semibold mb-4">Event Date & Time</h3>
@@ -147,17 +143,13 @@ function Section1({ event }: { event: EventType }) {
                 ) : (
                   <Button
                     className="w-full bg-purple-600 hover:bg-purple-700 text-white"
-                    onClick={
-                      authState.isLoggedIn
-                        ? () => {
-                            if (event.participants && event.participants < 1) {
-                              return <ParticipantsDetail />;
-                            } else {
-                              handleApply();
-                            }
-                          }
-                        : undefined
-                    }
+                    onClick={() => {
+                      if (event.participants && event.participants > 1) {
+                        setShowParticipantDialog(true);
+                      } else {
+                        handleApply();
+                      }
+                    }}
                   >
                     Join Event
                   </Button>
@@ -173,6 +165,14 @@ function Section1({ event }: { event: EventType }) {
           </div>
         </div>
       </div>
+
+      {/* ✅ Fixed: Passing required props to ParticipantsDetail */}
+      <ParticipantsDetail
+        open={showParticipantDialog}
+        setOpen={setShowParticipantDialog}
+        numberOfParticipants={event.participants ?? 1}
+        onSubmitSuccess={fetchAppliedEvents}
+      />
     </div>
   );
 }
