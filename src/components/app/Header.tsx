@@ -51,11 +51,14 @@ function Header() {
     <div className="px-4 py-2 bg-purple-100 sticky top-0 z-50">
       <div className="flex justify-between items-center">
         {/* Logo */}
-        <Link to={"/"} className="font-semibold text-2xl">
-          <span className="dark:text-white mr-2 text-black">Nexus</span>
-          <span className="text-purple-800">Society</span>
+        <Link to={"/"} className="font-semibold text-2xl flex items-center">
+          <span className="text-black dark:text-white hover:bg-purple-500 transition-colors duration-300 px-0 rounded">
+            Nexus
+          </span>
+          <span className="text-purple-600 hover:bg-gray-500 hover:text-white transition-colors duration-300 px-0 rounded">
+            Society
+          </span>
         </Link>
-
         {/* Toggler Button (shown below md) */}
         <div className="md:hidden">
           <button onClick={() => setIsMenuOpen(!isMenuOpen)}>

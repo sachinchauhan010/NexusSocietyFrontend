@@ -51,7 +51,7 @@ export default function TrendingEventsSection() {
 
   return (
     <section>
-      <h2 className="text-2xl font-bold mb-6">
+      <h2 className="text-3xl font-bold mb-6">
         Trending <span className="text-purple-600">Events</span>
       </h2>
 
