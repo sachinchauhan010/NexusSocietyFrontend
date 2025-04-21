@@ -77,6 +77,9 @@ function Header() {
           <Link className="hover:text-purple-500" to="/about">
             About us
           </Link>
+          <Link className="hover:text-purple-500" to="/get-merchandise">
+            Merchandise
+          </Link>
           <Link className="hover:text-purple-500" to="/faq">
             FAQs
           </Link>
