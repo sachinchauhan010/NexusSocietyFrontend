@@ -1,29 +1,57 @@
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useForm } from "react-hook-form";
 import { motion } from "framer-motion";
+import { toast } from "sonner";
+import { useAuth } from "@/context/AuthContext";
 
 interface FormData {
   name: string;
   email: string;
+  subject: string;
   message: string;
 }
 
 const ContactUs = () => {
-  const [form, setForm] = useState<FormData>({
-    name: "",
-    email: "",
-    message: "",
+  const { authState } = useAuth();
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    setValue,
+    formState: { errors, isSubmitting },
+  } = useForm<FormData>({
+    defaultValues: {
+      email: authState?.email || "", // Automatically populate email if logged in
+    },
   });
 
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  const onSubmit = async (data: FormData) => {
+    if (!authState?.email) {
+      toast.error("Please log in to send a message.");
+      return;
+    }
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("Form submitted:", form);
-    // Integrate EmailJS, backend API call, or toast here
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_PRODUCTION_API_URI}/api/auth/contact-us`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+
+      if (!response.ok) throw new Error("Failed to send message");
+
+      toast.success("Message sent successfully!");
+      reset(); // Clear the form
+      setValue("email", authState.email); // Reset with user's email again
+    } catch (error) {
+      toast.error("Failed to send message. Please try again.");
+      console.error("Error sending message:", error);
+    }
   };
 
   return (
@@ -38,63 +66,79 @@ const ContactUs = () => {
           Contact Us
         </h2>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Name Input */}
-          <motion.div whileFocus={{ scale: 1.02 }} className="flex flex-col">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          {/* Name Field */}
+          <div className="flex flex-col">
             <label className="text-sm font-semibold text-gray-700 mb-1">
               Name
             </label>
             <input
-              type="text"
-              name="name"
-              value={form.name}
-              onChange={handleChange}
+              {...register("name", { required: "Name is required" })}
               placeholder="Your Name"
-              required
-              className="px-4 py-3 rounded-xl border border-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-300"
+              className="px-4 py-3 rounded-xl border border-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
             />
-          </motion.div>
+            {errors.name && (
+              <span className="text-sm text-red-600 mt-1">{errors.name.message}</span>
+            )}
+          </div>
 
-          {/* Email Input */}
-          <motion.div whileFocus={{ scale: 1.02 }} className="flex flex-col">
+          {/* Email Field */}
+          <div className="flex flex-col">
             <label className="text-sm font-semibold text-gray-700 mb-1">
               Email
             </label>
             <input
               type="email"
-              name="email"
-              value={form.email}
-              onChange={handleChange}
-              placeholder="you@example.com"
-              required
-              className="px-4 py-3 rounded-xl border border-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-300"
+              {...register("email")}
+              value={authState?.email} // Automatically populate email if logged in
+              disabled // Always disabled
+              className="px-4 py-3 rounded-xl border border-purple-300 bg-gray-100 text-gray-500 cursor-not-allowed focus:outline-none"
             />
-          </motion.div>
+            {errors.email && (
+              <span className="text-sm text-red-600 mt-1">{errors.email.message}</span>
+            )}
+          </div>
 
-          {/* Message Input */}
-          <motion.div whileFocus={{ scale: 1.02 }} className="flex flex-col">
+          {/* Subject Field */}
+          <div className="flex flex-col">
+            <label className="text-sm font-semibold text-gray-700 mb-1">
+              Subject
+            </label>
+            <input
+              {...register("subject", { required: "Subject is required" })}
+              placeholder="Subject"
+              className="px-4 py-3 rounded-xl border border-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
+            />
+            {errors.subject && (
+              <span className="text-sm text-red-600 mt-1">{errors.subject.message}</span>
+            )}
+          </div>
+
+          {/* Message Field */}
+          <div className="flex flex-col">
             <label className="text-sm font-semibold text-gray-700 mb-1">
               Message
             </label>
             <textarea
-              name="message"
               rows={5}
-              value={form.message}
-              onChange={handleChange}
+              {...register("message", { required: "Message is required" })}
               placeholder="Write your message here..."
-              required
-              className="px-4 py-3 rounded-xl border border-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-300 resize-none"
+              className="px-4 py-3 rounded-xl border border-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none"
             ></textarea>
-          </motion.div>
+            {errors.message && (
+              <span className="text-sm text-red-600 mt-1">{errors.message.message}</span>
+            )}
+          </div>
 
           {/* Submit Button */}
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.97 }}
             type="submit"
-            className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 rounded-xl shadow-lg transition duration-300"
+            disabled={isSubmitting}
+            className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 rounded-xl shadow-lg transition duration-300 disabled:opacity-50"
           >
-            Send Message
+            {isSubmitting ? "Sending..." : "Send Message"}
           </motion.button>
         </form>
       </motion.div>
