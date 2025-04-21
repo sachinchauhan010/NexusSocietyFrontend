@@ -32,6 +32,7 @@ import ParticularNotice from "./components/app/Notice/ParticularNotice.tsx";
 import AllUserEvents from "./page/AllUserEvents.tsx";
 import ProductDetail from "./components/app/Product/ProductDetail.tsx";
 import AllUserMerchandise from "./page/AllUserMerchandize.tsx";
+import Profile from "./page/Profile.tsx";
 
 const AppLayout = () => {
   return (
@@ -86,6 +87,10 @@ const appRouter = createBrowserRouter([
       {
         path: "/about",
         element: <About />,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
       },
       {
         path: "/faq",

@@ -10,4 +10,8 @@ export type User = {
   profileimage: string;
   course: string;
   branch: string;
+  eventApply?: {
+    eventId: string;
+    eventName: string;
+  }[];
 };

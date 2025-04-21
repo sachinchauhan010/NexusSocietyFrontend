@@ -32,7 +32,7 @@ export function UserProfile() {
       <DropdownMenuContent className="w-56">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuItem>
-          <Link to={"#"} onClick={CheckRole} className="cursor-pointer">Profile</Link>
+          <Link to={"/profile"} onClick={CheckRole} className="cursor-pointer">Profile</Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
           <Link to={"/"} onClick={handleLogout} className="cursor-pointer">Logout</Link>
