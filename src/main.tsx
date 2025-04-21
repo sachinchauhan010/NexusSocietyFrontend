@@ -32,7 +32,12 @@ import ParticularNotice from "./components/app/Notice/ParticularNotice.tsx";
 import AllUserEvents from "./page/AllUserEvents.tsx";
 import ProductDetail from "./components/app/Product/ProductDetail.tsx";
 import AllUserMerchandise from "./page/AllUserMerchandize.tsx";
-import Profile from "./page/Profile.tsx";
+
+import UserApplyEvents from "./components/app/Profile/UserApplyEvents.tsx";
+import UserProfileHome from "./components/app/Profile/UserProfileHome.tsx";
+import UserOrderProducts from "./components/app/Profile/UserOrderProducts.tsx";
+import UserSidebar from "./components/app/Profile/UserSidebar.tsx";
+
 
 const AppLayout = () => {
   return (
@@ -89,8 +94,8 @@ const appRouter = createBrowserRouter([
         element: <About />,
       },
       {
-        path: "/profile",
-        element: <Profile />,
+        path: "/profile/home",
+        element: <UserProfileHome/>,
       },
       {
         path: "/faq",
@@ -159,6 +164,22 @@ const appRouter = createBrowserRouter([
           },
         ],
       },
+
+      {
+        path: "/profile",
+        element: <UserSidebar />,
+        children: [
+          { index: true, element: <UserProfileHome /> },
+          { path: "home", element: <UserProfileHome /> },
+          { path: "apply-events", element: <UserApplyEvents /> },
+          { path: "orders", element: <UserOrderProducts /> },
+          {
+            path: "notifications",
+            element: <div>Notifications Page Coming Soon</div>,
+          },
+        ],
+      },
+      
     ],
   },
   // Catch-all route for 404 error, rendered outside of AppLayout
