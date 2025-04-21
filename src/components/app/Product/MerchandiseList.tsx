@@ -28,16 +28,9 @@ function MerchandiseList() {
 
   return (
     <div className="w-full overflow-hidden">
-      <h1 className="mb-5 text-3xl font-bold">
-        Exclusive Nexus <span className="text-purple-600 font-bold text-3xl">Wear & Gear</span>
-      </h1>
-      <Marquee
-        speed={100}
-        className="w-full"
-        style={{ overflow: "hidden" }}
-      >
+      <Marquee speed={100} className="w-full" style={{ overflow: "hidden" }}>
         {products.map((product) => (
-          <div key={product.id} className="mx-4">
+          <div key={product.id} className="mx-4 w-[250px] h-[400px]">
             <ProductCard product={product} />
           </div>
         ))}
