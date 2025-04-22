@@ -98,7 +98,7 @@ export function SignupForm({ onSignup, onToggleView }: SignupFormProps) {
               id="id"
               placeholder="Enter your ID"
               className="w-full p-2 border rounded-md"
-              {...register("id", { required: "ID is required" , pattern: { value: /^[0-9]{6}$/, message: "ID must be 6 digits" } })}
+              {...register("id", { required: "ID is required" , pattern: { value: /^[0-9]{4,}$/, message: "ID must be at least 4 digit" } })}
             />
             {errors.id && <p className="text-red-500 text-xs">{errors.id?.message?.toString()}</p>}
           </div>
@@ -208,7 +208,7 @@ export function SignupForm({ onSignup, onToggleView }: SignupFormProps) {
               type="password"
               placeholder="Enter your password"
               className="w-full p-2 border rounded-md"
-              {...register("password", { required: "Password is required", minLength: { value: 6, message: "Password must be at least 6 characters long" }, pattern: { value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/, message: "Password must contain at least one letter and one number" }, maxLength: { value: 15, message: "Password must be at most 15 characters long" } })}
+              {...register("password", { required: "Password is required", minLength: { value: 6, message: "Password must be at least 6 characters long" }, pattern: { value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/, message: "Password must contain at least one letter, one number, and one special character" }, maxLength: { value: 15, message: "Password must be at most 15 characters long" } })}
             />
             {errors.password && <p className="text-red-500 text-xs">{errors.password?.message?.toString()}</p>}
           </div>
@@ -218,7 +218,6 @@ export function SignupForm({ onSignup, onToggleView }: SignupFormProps) {
         <AnimatedButton type="submit" className="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-md">
           Sign Up
         </AnimatedButton>
-
 
       </form>
 
