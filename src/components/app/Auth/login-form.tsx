@@ -1,4 +1,3 @@
-"use client";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -81,7 +80,7 @@ export function LoginForm({ onLogin, onToggleView }: LoginFormProps) {
             type="password"
             placeholder="Enter your password"
             className="w-full p-2 border rounded-md"
-            {...register("password", { required: "Password is required", minLength: { value: 6, message: "Password must be at least 6 characters long" }, maxLength: { value: 15, message: "Password must be at most 15 characters long" }, pattern: { value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,15}$/, message: "Password must contain at least one uppercase letter, one lowercase letter, and one number" } })}
+            {...register("password", { required: "Password is required" })}
           />
           {errors.password && (
             <p className="text-red-500 text-xs">{errors.password.message}</p>
