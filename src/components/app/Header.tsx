@@ -67,7 +67,7 @@ function Header() {
         </div>
 
         {/* Nav Links (shown from md and above) */}
-        <div className="hidden md:flex gap-x-10 items-center font-semibold ml-auto">
+        <div className="hidden gap-x-10 items-center font-semibold ml-auto">
           <Link className="hover:text-purple-500" to="/event">
             Events
           </Link>
@@ -86,13 +86,15 @@ function Header() {
           <Link className="hover:text-purple-500" to="/get-in-touch">
             Contact
           </Link>
+        </div>
+        <div className="hidden md:flex justify-end items-center gap-x-10 ">
           {authState.isLoggedIn && (
             <AdminProtected>
               <Link to="/admin">Admin Panel</Link>
             </AdminProtected>
           )}
           {authState.isLoggedIn ? <UserProfile /> : <UserMembership />}
-        </div>
+          </div>
       </div>
 
       {/* Mobile Menu Dropdown */}
