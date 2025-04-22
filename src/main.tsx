@@ -32,19 +32,25 @@ import ParticularNotice from "./components/app/Notice/ParticularNotice.tsx";
 import AllUserEvents from "./page/AllUserEvents.tsx";
 import ProductDetail from "./components/app/Product/ProductDetail.tsx";
 import AllUserMerchandise from "./page/AllUserMerchandize.tsx";
+import SecondaryHeader from "./components/app/SecondaryHeader.tsx";
 
 import UserApplyEvents from "./components/app/Profile/UserApplyEvents.tsx";
 import UserProfileHome from "./components/app/Profile/UserProfileHome.tsx";
 import UserOrderProducts from "./components/app/Profile/UserOrderProducts.tsx";
 import UserSidebar from "./components/app/Profile/UserSidebar.tsx";
+import { Separator } from "./components/ui/separator.tsx";
 
 
 const AppLayout = () => {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <AuthProvider>
-        <div className="min-h-screen flex flex-col bg-purple-100">
+        <div className="min-h-screen flex flex-col bg-purple-100 ">
           <Header />
+          <div className="mx-auto">
+          <SecondaryHeader />
+          </div>
+          <Separator/>
           <main className="flex-grow px-6 py-2 min-h-screen">
             <Outlet />
             <Toaster />
