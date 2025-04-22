@@ -1,4 +1,3 @@
-"use client"
 
 import type React from "react"
 
@@ -13,39 +12,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { AnimatedButton } from "@/components/AnimateButton"
 
 // These arrays would typically come from your data source
-const departments = [
-  "Computer Science",
-  "Mechanical",
-  "Electrical",
-  "Civil",
-  "Electronics",
-  "Chemical",
-  "Biotechnology",
-  "ITCA",
-  "Business Management",
-]
+const departments = ["Computer Science", "Mechanical", "Electrical", "Civil", "Electronics", "Chemical", "Biotechnology", "ITCA", "Business Management"];
 const years = ["I", "II", "III", "IV"]
 const courses = ["B.Tech", "M.Tech", "MCA", "MBA", "BBA", "BCA"]
-const branches = [
-  "CSE",
-  "IT",
-  "ECE",
-  "EE",
-  "ME",
-  "CE",
-  "AE",
-  "PE",
-  "MME",
-  "CHE",
-  "BT",
-  "AG",
-  "MT",
-  "ECM",
-  "MBA",
-  "MCA",
-  "BBA",
-  "BCA",
-]
+const branches = ["CSE", "IT", "ECE", "EE", "ME", "CE", "AE", "PE", "MME", "CHE", "BT", "AG", "MT", "ECM", "MBA", "MCA", "BBA", "BCA"];
 
 type SignupFormProps = {
   onSignup: (data: any, userprofile: File | null) => Promise<void>
@@ -102,7 +72,7 @@ export function SignupForm({ onSignup, onToggleView }: SignupFormProps) {
               id="name"
               placeholder="Enter your name"
               className="w-full p-2 border rounded-md"
-              {...register("name", { required: "Name is required" })}
+              {...register("name", { required: "Name is required", minLength: { value: 3, message: "Name must be at least 3 characters long" }, pattern: { value: /^[A-Za-z\s]+$/, message: "Name must contain only letters" }, maxLength: { value: 30, message: "Name must be at most 30 characters long" } })}
             />
             {errors.name && <p className="text-red-500 text-xs">{errors.name?.message?.toString()}</p>}
           </div>
@@ -115,7 +85,7 @@ export function SignupForm({ onSignup, onToggleView }: SignupFormProps) {
               id="phone"
               placeholder="Enter your phone"
               className="w-full p-2 border rounded-md"
-              {...register("phone", { required: "Phone is required" })}
+              {...register("phone", { required: "Phone is required" , pattern: { value: /^[0-9]{10}$/, message: "Phone number must be 10 digits" } })}
             />
             {errors.phone && <p className="text-red-500 text-xs">{errors.phone?.message?.toString()}</p>}
           </div>
@@ -128,7 +98,7 @@ export function SignupForm({ onSignup, onToggleView }: SignupFormProps) {
               id="id"
               placeholder="Enter your ID"
               className="w-full p-2 border rounded-md"
-              {...register("id", { required: "ID is required" })}
+              {...register("id", { required: "ID is required" , pattern: { value: /^[0-9]{4,}$/, message: "ID must be at least 4 digit" } })}
             />
             {errors.id && <p className="text-red-500 text-xs">{errors.id?.message?.toString()}</p>}
           </div>
@@ -224,7 +194,7 @@ export function SignupForm({ onSignup, onToggleView }: SignupFormProps) {
               id="email"
               placeholder="Enter your email"
               className="w-full p-2 border rounded-md"
-              {...register("email", { required: "Email is required" })}
+              {...register("email", { required: "Email is required", pattern: { value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, message: "Invalid email address" } })}
             />
             {errors.email && <p className="text-red-500 text-xs">{errors.email?.message?.toString()}</p>}
           </div>
@@ -238,7 +208,7 @@ export function SignupForm({ onSignup, onToggleView }: SignupFormProps) {
               type="password"
               placeholder="Enter your password"
               className="w-full p-2 border rounded-md"
-              {...register("password", { required: "Password is required" })}
+              {...register("password", { required: "Password is required", minLength: { value: 6, message: "Password must be at least 6 characters long" }, pattern: { value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/, message: "Password must contain at least one letter, one number, and one special character" }, maxLength: { value: 15, message: "Password must be at most 15 characters long" } })}
             />
             {errors.password && <p className="text-red-500 text-xs">{errors.password?.message?.toString()}</p>}
           </div>
@@ -248,7 +218,6 @@ export function SignupForm({ onSignup, onToggleView }: SignupFormProps) {
         <AnimatedButton type="submit" className="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-md">
           Sign Up
         </AnimatedButton>
-
 
       </form>
 
