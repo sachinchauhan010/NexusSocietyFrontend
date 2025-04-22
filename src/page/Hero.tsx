@@ -13,11 +13,11 @@ function Hero() {
         <BrandsSection />
         <EventsSection />
         <CreateEventSection />
-        <MerchandiseList/>
+        <MerchandiseList />
         <TrendingEventsSection />
       </div>
     </div>
-  )
+  );
 }
 
 export default Hero
