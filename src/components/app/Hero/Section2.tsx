@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { EventType } from "@/types/eventType";
 import { FocusCards } from "@/components/ui/focus-cards";
 import { ArrowDownAZ, ArrowUpZA, Search } from "lucide-react";
+import Loader from "../Loader";
+
 
 export default function EventsSection() {
   const [events, setEvents] = useState<EventType[]>([]);
@@ -13,10 +15,12 @@ export default function EventsSection() {
   const [searchTerm, setSearchTerm] = useState("");
   const [itemsPerPage] = useState(8); // Number of events to show per page
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
+        setLoading(true);
         const response = await fetch(
           `${import.meta.env.VITE_PRODUCTION_API_URI}/api/event/get-events`,
           {
@@ -35,6 +39,8 @@ export default function EventsSection() {
         setVisibleEvents((apiData.events || []).slice(0, itemsPerPage)); // Initialize visible events
       } catch (error) {
         console.error("Error fetching events:", error);
+      } finally {
+        setLoading(false)
       }
     };
 
@@ -93,60 +99,67 @@ export default function EventsSection() {
 
   return (
     <section>
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-4xl font-bold mb-5">
-          Upcoming <span className="text-purple-600">Events</span>
-        </h2>
-        <div className="flex space-x-2">
-          <Button variant="outline" size="sm" onClick={handleSort} className="text-md">
-            Sort {sortOrder === "asc" ? <ArrowDownAZ /> : <ArrowUpZA />}
-          </Button>
+      {loading ? (
+        <div className="flex justify-center items-center min-h-[50vh]">
+          <Loader /> 
+        </div>
+      ) : (
+        <>
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-4xl font-bold mb-5">
+              Upcoming <span className="text-purple-600">Events</span>
+            </h2>
+            <div className="flex space-x-2">
+              <Button variant="outline" size="sm" onClick={handleSort} className="text-md">
+                Sort {sortOrder === "asc" ? <ArrowDownAZ /> : <ArrowUpZA />}
+              </Button>
 
-          <form
-            className={`relative h-[40px] transition-all duration-500 border-4 border-white rounded-full p-1 bg-white flex items-center ${
-              hovered ? "w-[300px]" : "w-[50px]"
-            }`}
-            onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
-          >
-            <input
-              type="search"
-              placeholder="Search here ..."
-              value={searchTerm}
-              onChange={handleSearchChange}
-              className={`absolute top-0 left-0 h-[30px] w-full px-5 text-sm rounded-full outline-none border-none transition-opacity duration-500 ${
-                hovered ? "opacity-100" : "opacity-0 pointer-events-none"
-              }`}
-            />
-            <div
-              className={`flex items-center justify-center rounded-full transition-colors duration-500 ${
-                hovered ? "bg-[#07051a] text-white" : "text-[#07051a]"
-              }`}
-            >
-              <Search size={18} />
+              <form
+                className={`relative h-[40px] transition-all duration-500 border-4 border-white rounded-full p-1 bg-white flex items-center ${hovered ? "w-[300px]" : "w-[50px]"
+                  }`}
+                onMouseEnter={() => setHovered(true)}
+                onMouseLeave={() => setHovered(false)}
+              >
+                <input
+                  type="search"
+                  placeholder="Search here ..."
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                  className={`absolute top-0 left-0 h-[30px] w-full px-5 text-sm rounded-full outline-none border-none transition-opacity duration-500 ${hovered ? "opacity-100" : "opacity-0 pointer-events-none"
+                    }`}
+                />
+                <div
+                  className={`flex items-center justify-center rounded-full transition-colors duration-500 ${hovered ? "bg-[#07051a] text-white" : "text-[#07051a]"
+                    }`}
+                >
+                  <Search size={18} />
+                </div>
+              </form>
             </div>
-          </form>
-        </div>
-      </div>
+          </div>
 
-      <div>
-        {visibleEvents?.length > 0 ? (
-          <FocusCards event={visibleEvents} />
-        ) : (
-          <p className="text-center col-span-full">No matching events found.</p>
-        )}
-      </div>
+          <div>
+            {visibleEvents?.length > 0 ? (
+              <FocusCards event={visibleEvents} />
+            ) : (
+              <p className="text-center col-span-full">No matching events found.</p>
+            )}
+          </div>
 
-      {visibleEvents.length < filteredEvents.length && (
-        <div className="flex justify-center mt-8">
-          <Button
-            className="bg-purple-600 hover:bg-purple-700"
-            onClick={handleLoadMore}
-          >
-            Load more...
-          </Button>
-        </div>
-      )}
+          {visibleEvents.length < filteredEvents.length && (
+            <div className="flex justify-center mt-8">
+              <Button
+                className="bg-purple-600 hover:bg-purple-700"
+                onClick={handleLoadMore}
+              >
+                Load more...
+              </Button>
+            </div>
+          )}
+
+        </>
+      )
+      }
     </section>
   );
 }
