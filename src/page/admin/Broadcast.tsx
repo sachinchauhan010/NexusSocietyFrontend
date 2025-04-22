@@ -2,15 +2,19 @@ import { useState, useEffect } from "react";
 import { User } from "@/types/userType.ts";
 import { Button } from "@/components/ui/button";
 import { FileText, Mail, MessageCircle } from "lucide-react";
+import Loader from "@/components/app/Loader";
+import { toast } from "sonner";
 
 function Broadcast() {
   const [membershipStudents, setMembershipStudents] = useState<User[]>([]);
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchMembership = async () => {
       try {
+        setLoading(true);
         const response = await fetch(
           `${
             import.meta.env.VITE_PRODUCTION_API_URI
@@ -30,6 +34,8 @@ function Broadcast() {
         setMembershipStudents(apiData.users || []);
       } catch (error) {
         console.error("Error fetching membership data:", error);
+      }finally{
+        setLoading(false);
       }
     };
 
@@ -71,12 +77,21 @@ function Broadcast() {
         throw new Error(`Error: ${response.statusText}`);
       }
 
-      alert("Emails sent successfully!");
+      toast.success("Emails sent successfully!");
     } catch (error) {
       console.error("Error sending emails:", error);
-      alert("Failed to send emails.");
+      toast.error("Failed to send emails.");
     }
   };
+
+
+  if (loading && membershipStudents.length === 0) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Loader />
+      </div>
+    );
+  }
 
   return (
     <div className="p-6">

@@ -1,38 +1,31 @@
 import { useEffect, useState } from "react"
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion"
-import { Button } from "@/components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
+
 import { MoreVertical } from "lucide-react"
-import { NoticeType } from "@/types/noticeType"
-import { formatDate } from "@/utils/dateFormate"
 import { toast } from "sonner"
 
+import { NoticeType } from "@/types/noticeType"
+import { formatDate } from "@/utils/dateFormate"
+
+import Loader from "../../Loader"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { Button } from "@/components/ui/button"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+
+
 export function NoticeLists() {
+
   const [notices, setNotices] = useState<NoticeType[]>([])
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [editNotice, setEditNotice] = useState<NoticeType | null>(null)
   const [updatedData, setUpdatedData] = useState<Partial<NoticeType>>({})
+  const [loading, setLoading] = useState(true)
 
   const fetchNotices = async () => {
     try {
+      setLoading(true)
       const response = await fetch(
         `${import.meta.env.VITE_PRODUCTION_API_URI}/api/notice/get-notices`,
         {
@@ -42,10 +35,12 @@ export function NoticeLists() {
       )
       if (!response.ok) throw new Error(`Error: ${response.statusText}`)
       const apiData = await response.json()
-    console.log(apiData, "apiData")
+      console.log(apiData, "apiData")
       setNotices(apiData.noticesData || [])
     } catch (error) {
       console.error("Error fetching notices:", error)
+    } finally{
+      setLoading(false)
     }
   }
 
@@ -105,6 +100,14 @@ export function NoticeLists() {
   useEffect(() => {
     fetchNotices()
   }, [])
+
+  if (loading && notices.length === 0) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Loader />
+      </div>
+    )
+  }
 
   return (
     <>

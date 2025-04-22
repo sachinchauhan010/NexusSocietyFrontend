@@ -2,14 +2,17 @@ import { useState, useEffect } from "react";
 import { EventType } from "@/types/eventType";
 import { formatDate } from "@/utils/dateFormate";
 import { ResultForm } from "./ResultForm";
+import Loader from "../../Loader";
 
 function DeclareResult() {
   const [events, setEvents] = useState<EventType[]>([]);
   const [completedEvents, setCompletedEvents] = useState<EventType[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
+        setLoading(true)
         const response = await fetch(
           `${import.meta.env.VITE_PRODUCTION_API_URI}/api/event/get-events`,
           {
@@ -27,6 +30,8 @@ function DeclareResult() {
         setEvents(apiData.events || []);
       } catch (error) {
         console.error("Error fetching events:", error);
+      } finally{
+        setLoading(false);
       }
     };
 
@@ -44,6 +49,14 @@ function DeclareResult() {
 
     setCompletedEvents(filteredEvents);
   }, [events]);
+
+  if (loading && completedEvents.length === 0) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Loader />
+      </div>
+    );
+  }
 
 
   return (
