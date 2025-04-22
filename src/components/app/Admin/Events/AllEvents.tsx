@@ -1,14 +1,20 @@
 import { useState, useEffect } from "react";
-import { EventType } from "@/types/eventType";
+
 import { Link } from "react-router-dom";
 import { CalendarDays,  Clock, MapPin, Ticket, Users } from "lucide-react";
 
+import { EventType } from "@/types/eventType";
+import Loader from "../../Loader";
+
 function AllEvents() {
+
   const [events, setEvents] = useState<EventType[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
+        setLoading(true);
         const response = await fetch(`${import.meta.env.VITE_PRODUCTION_API_URI}/api/event/get-events`, {
           method: "GET",
           headers: { "Content-Type": "application/json" },
@@ -23,11 +29,21 @@ function AllEvents() {
         setEvents(apiData.events || []);
       } catch (error) {
         console.error("Error fetching events:", error);
+      }finally{
+        setLoading(false);
       }
     };
 
     fetchEvents();
   }, []);
+
+  if (loading && events.length === 0) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Loader />
+      </div>
+    );
+  }
 
   return (
     <div>

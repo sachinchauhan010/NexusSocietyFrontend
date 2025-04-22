@@ -1,7 +1,10 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
 import { useAuth } from "@/context/AuthContext";
+import Loader from "@/components/app/Loader";
+
 
 interface FormData {
   name: string;
@@ -11,6 +14,8 @@ interface FormData {
 }
 
 const ContactUs = () => {
+
+  const [loading, setLoading] = useState(false);
   const { authState } = useAuth();
 
   const {
@@ -32,6 +37,7 @@ const ContactUs = () => {
     }
 
     try {
+      setLoading(true)
       const response = await fetch(
         `${import.meta.env.VITE_PRODUCTION_API_URI}/api/auth/contact-us`,
         {
@@ -51,8 +57,18 @@ const ContactUs = () => {
     } catch (error) {
       toast.error("Failed to send message. Please try again.");
       console.error("Error sending message:", error);
+    } finally{
+      setLoading(false)
     }
   };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Loader />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#e0c3fc] to-[#8ec5fc] flex items-center justify-center p-6">
