@@ -52,11 +52,11 @@ function Header() {
       <div className="flex justify-between items-center">
         {/* Logo */}
         <Link to={"/"} className="font-semibold text-2xl flex items-center">
-          <span className="text-black dark:text-white hover:bg-purple-500 transition-colors duration-300 px-0 rounded">
-            Nexus
+          <span className="text-black dark:text-white transition-colors duration-300 px-2 rounded">
+            Nexus  
           </span>
-          <span className="text-purple-600 hover:bg-gray-500 hover:text-white transition-colors duration-300 px-0 rounded">
-            Society
+          <span className="text-purple-600 transition-colors duration-300 px-0 rounded">
+              Society
           </span>
         </Link>
         {/* Toggler Button (shown below md) */}
