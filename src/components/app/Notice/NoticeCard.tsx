@@ -32,11 +32,11 @@ export default function NoticeCard({ notice }: { notice: NoticeType }) {
             </CardTitle>
             <CardDescription className="text-xs text-gray-500">
               <p className="">{formatDate(notice.date)}</p>
-              {notice.link && (
+              {/* {notice.link && (
                 <p className="truncate text-blue-600 max-w-[250px]">
                   {notice.link}
                 </p>
-              )}
+              )} */}
             </CardDescription>
           </CardHeader>
           <CardContent className="pt-2">

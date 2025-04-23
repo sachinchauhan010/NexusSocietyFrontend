@@ -178,12 +178,6 @@ export function NoticeLists() {
               placeholder="Description"
             />
             <Input
-              value={updatedData.link || ""}
-              onChange={(e) => setUpdatedData({ ...updatedData, link: e.target.value })}
-              placeholder="Link"
-              type="url"
-            />
-            <Input
               value={updatedData.date || ""}
               onChange={(e) => setUpdatedData({ ...updatedData, date: e.target.value })}
               type="date"
