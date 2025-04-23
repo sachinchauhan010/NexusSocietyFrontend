@@ -4,6 +4,7 @@ import { EventType } from "@/types/eventType";
 import { ExternalLink } from "lucide-react"; // 👈 Lucide icon import
 import Tilt from "react-parallax-tilt"; // 👈 Added for tilt effect
 import HowWeHelp from "../components/app/events/HowWeHelp";
+import { Link } from "react-router-dom";
 
 export default function AllUserEvents() {
   const [events, setEvents] = useState<EventType[]>([]);
@@ -44,52 +45,55 @@ export default function AllUserEvents() {
   );
 
   const renderCard = (event: EventType, showButton = true) => (
-    <Tilt
-      tiltMaxAngleX={20}
-      tiltMaxAngleY={20}
-      glareEnable={false}
-      key={event.id}
-    >
-      <div className="flex flex-col justify-between h-full rounded-lg overflow-hidden shadow-md bg-white dark:bg-neutral-900 transition-all hover:scale-[1.02] hover:shadow-lg">
-        <div className="w-full h-44 relative overflow-hidden bg-neutral-200 dark:bg-neutral-800">
-          <img
-            src={event.banner || "/default-banner.jpg"}
-            alt={event.name}
-            className="w-full h-full object-cover object-center"
-          />
-        </div>
-
-        <div className="p-3 flex flex-col justify-between flex-grow">
-          <div>
-            <h2 className="text-base font-semibold mb-1">{event.name}</h2>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">
-              {event.description?.slice(0, 70)}...
-            </p>
-            <p className="text-sm">
-              <strong>Date:</strong> {event.start_date} to {event.end_date}
-            </p>
-            <p className="text-sm">
-              <strong>Time:</strong> {event.start_time} - {event.end_time}
-            </p>
-            <p className="text-sm">
-              <strong>Venue:</strong> {event.venue}
-            </p>
+    <Link to={`/event/${event.id}`} key={event.id}>
+      <Tilt
+        tiltMaxAngleX={20}
+        tiltMaxAngleY={20}
+        glareEnable={false}
+        key={event.id}
+      >
+        <div className="flex flex-col justify-between h-full rounded-lg overflow-hidden shadow-md bg-white dark:bg-neutral-900 transition-all hover:scale-[1.02] hover:shadow-lg">
+          <div className="w-full h-44 relative overflow-hidden bg-neutral-200 dark:bg-neutral-800">
+            <img
+              src={event.banner || "/default-banner.jpg"}
+              alt={event.name}
+              className="w-full h-full object-cover object-center"
+            />
           </div>
 
-          {showButton && (
-            <a
-              href={event.registration_link ?? "#"}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-3 inline-flex items-center justify-center gap-2 px-3 py-1.5 text-sm font-medium bg-purple-600 text-white rounded hover:bg-purple-700 transition w-fit"
-            >
-              <ExternalLink size={16} />
-              Register Now
-            </a>
-          )}
+          <div className="p-3 flex flex-col justify-between flex-grow">
+            <div>
+              <h2 className="text-base font-semibold mb-1">{event.name}</h2>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">
+                {event.description?.slice(0, 70)}...
+              </p>
+              <p className="text-sm">
+                <strong>Date:</strong> {event.start_date} to {event.end_date}
+              </p>
+              <p className="text-sm">
+                <strong>Time:</strong> {event.start_time} - {event.end_time}
+              </p>
+              <p className="text-sm">
+                <strong>Venue:</strong> {event.venue}
+              </p>
+            </div>
+
+            {showButton && (
+              <a
+                href={event.registration_link ?? "#"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 inline-flex items-center justify-center gap-2 px-3 py-1.5 text-sm font-medium bg-purple-600 text-white rounded hover:bg-purple-700 transition w-fit"
+              >
+                <ExternalLink size={16} />
+                Register Now
+              </a>
+            )}
+          </div>
         </div>
-      </div>
-    </Tilt>
+      </Tilt>
+    </Link>
+
   );
 
   return (
