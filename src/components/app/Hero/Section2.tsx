@@ -101,22 +101,28 @@ export default function EventsSection() {
     <section>
       {loading ? (
         <div className="flex justify-center items-center min-h-[50vh]">
-          <Loader /> 
+          <Loader />
         </div>
       ) : (
         <>
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-4xl font-bold mb-5">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-5 text-center sm:text-left">
               Upcoming <span className="text-purple-600">Events</span>
             </h2>
             <div className="flex space-x-2">
-              <Button variant="outline" size="sm" onClick={handleSort} className="text-md">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleSort}
+                className="text-md"
+              >
                 Sort {sortOrder === "asc" ? <ArrowDownAZ /> : <ArrowUpZA />}
               </Button>
 
               <form
-                className={`relative h-[40px] transition-all duration-500 border-4 border-white rounded-full p-1 bg-white flex items-center ${hovered ? "w-[300px]" : "w-[50px]"
-                  }`}
+                className={`relative h-[40px] transition-all duration-500 border-4 border-white rounded-full p-1 bg-white flex items-center ${
+                  hovered ? "w-[300px]" : "w-[50px]"
+                }`}
                 onMouseEnter={() => setHovered(true)}
                 onMouseLeave={() => setHovered(false)}
               >
@@ -125,12 +131,14 @@ export default function EventsSection() {
                   placeholder="Search here ..."
                   value={searchTerm}
                   onChange={handleSearchChange}
-                  className={`absolute top-0 left-0 h-[30px] w-full px-5 text-sm rounded-full outline-none border-none transition-opacity duration-500 ${hovered ? "opacity-100" : "opacity-0 pointer-events-none"
-                    }`}
+                  className={`absolute top-0 left-0 h-[30px] w-full px-5 text-sm rounded-full outline-none border-none transition-opacity duration-500 ${
+                    hovered ? "opacity-100" : "opacity-0 pointer-events-none"
+                  }`}
                 />
                 <div
-                  className={`flex items-center justify-center rounded-full transition-colors duration-500 ${hovered ? "bg-[#07051a] text-white" : "text-[#07051a]"
-                    }`}
+                  className={`flex items-center justify-center rounded-full transition-colors duration-500 ${
+                    hovered ? "bg-[#07051a] text-white" : "text-[#07051a]"
+                  }`}
                 >
                   <Search size={18} />
                 </div>
@@ -142,7 +150,9 @@ export default function EventsSection() {
             {visibleEvents?.length > 0 ? (
               <FocusCards event={visibleEvents} />
             ) : (
-              <p className="text-center col-span-full">No matching events found.</p>
+              <p className="text-center col-span-full">
+                No matching events found.
+              </p>
             )}
           </div>
 
@@ -156,10 +166,8 @@ export default function EventsSection() {
               </Button>
             </div>
           )}
-
         </>
-      )
-      }
+      )}
     </section>
   );
 }
