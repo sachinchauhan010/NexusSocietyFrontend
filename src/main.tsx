@@ -45,13 +45,13 @@ const AppLayout = () => {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <AuthProvider>
-        <div className="min-h-screen flex flex-col bg-purple-100 ">
+        <div className="min-h-screen flex flex-col bg-purple-100 font-playwrite">
           <Header />
-          <div className="mx-auto">
+          <div className="mx-auto font-playwrite">
           <SecondaryHeader />
           </div>
           <Separator/>
-          <main className="flex-grow px-6 py-2 min-h-screen">
+          <main className="flex-grow px-6 py-2 min-h-screen font-playwrite">
             <Outlet />
             <Toaster />
           </main>
