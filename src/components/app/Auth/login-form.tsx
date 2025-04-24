@@ -3,6 +3,9 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { Link } from "react-router-dom";
 
+// ✅ NEW: Import DialogClose from Radix UI
+import { DialogClose } from "@radix-ui/react-dialog";
+
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -12,6 +15,7 @@ import { Loader2 } from "lucide-react";
 type LoginFormProps = {
   onLogin: (data: { email: string; password: string }) => Promise<void>;
   onToggleView: () => void;
+  // ❌ Removed closeDialog prop — no longer needed
 };
 
 export function LoginForm({ onLogin, onToggleView }: LoginFormProps) {
@@ -40,8 +44,8 @@ export function LoginForm({ onLogin, onToggleView }: LoginFormProps) {
   return (
     <>
       <div className="flex items-center mb-4 text-xl md:text-2xl">
-        <span className="font-bold ">Nexus </span>
-        <span className="font-bold text-purple-600"> Society</span>
+        <span className="font-bold">Nexus </span>
+        <span className="font-bold text-purple-600">Society</span>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -68,13 +72,18 @@ export function LoginForm({ onLogin, onToggleView }: LoginFormProps) {
             >
               PASSWORD
             </Label>
-            <Link
-              to="#"
-              className="text-xs text-gray-500 hover:text-purple-600"
-            >
-              Forgot your password?
-            </Link>
+
+            {/* ✅ WRAPPED Link with DialogClose to auto-close dialog */}
+            <DialogClose asChild>
+              <Link
+                to="/forget-password"
+                className="text-xs text-gray-500 hover:text-purple-600"
+              >
+                Forgot your password?
+              </Link>
+            </DialogClose>
           </div>
+
           <Input
             id="password"
             type="password"
@@ -92,17 +101,17 @@ export function LoginForm({ onLogin, onToggleView }: LoginFormProps) {
           disabled={isLoading}
           className="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-md flex items-center justify-center space-x-2"
         >
-          {isLoading && (
+          {isLoading ? (
             <span className="flex items-center">
               <Loader2 className="w-4 h-4 animate-spin mr-2" />
               Loading...
             </span>
+          ) : (
+            "Sign In"
           )}
-          {!isLoading && "Sign In"}
         </AnimatedButton>
       </form>
 
-      {/* Mobile toggle button */}
       <div className="mt-6 text-center md:hidden">
         <p className="text-sm text-gray-600 mb-2">Don't have an account?</p>
         <Button

@@ -39,6 +39,8 @@ import UserProfileHome from "./components/app/Profile/UserProfileHome.tsx";
 import UserOrderProducts from "./components/app/Profile/UserOrderProducts.tsx";
 import UserSidebar from "./components/app/Profile/UserSidebar.tsx";
 import { Separator } from "./components/ui/separator.tsx";
+import ForgetPassword from "./components/app/Auth/forget-password.tsx";
+import ResetPassword from "./components/app/Auth/resetPassword.tsx";
 
 
 const AppLayout = () => {
@@ -106,6 +108,14 @@ const appRouter = createBrowserRouter([
       {
         path: "/faq",
         element: <FAQs />,
+      },
+      {
+        path: "/forget-password",
+        element: <ForgetPassword />,
+      },
+      {
+        path: "/reset-password/:token",
+        element: <ResetPassword />,
       },
       {
         path: "/get-in-touch",
