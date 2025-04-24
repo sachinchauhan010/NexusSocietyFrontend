@@ -15,7 +15,7 @@ const hoverSlide = "hover:translate-y-[2px]";
 
 const SecondaryHeader = () => {
   return (
-    <div className="hidden md:flex gap-x-10 items-center font-semibold ml-auto justify-center mb-5 my-4">
+    <div className="hidden md:flex gap-x-10 items-center font-semibold ml-auto justify-center my-4">
       <Link className={`${navLinkClass} ${underlineEffect} ${hoverSlide}`} to="/event">
         Events
       </Link>
