@@ -109,11 +109,11 @@ function Section1({ event }: { event: EventType }) {
               Back
             </Link>
 
-            <div className="mt-6 md:mt-12">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
+            <div className="mt-6 md:my-12">
+              <h1 className="text-xl md:text-2xl lg:text-4xl font-bold text-white my-4">
                 {event.name ?? "No Name of Event"}
               </h1>
-              <h2 className="text-2xl md:text-3xl font-semibold text-white mb-6">
+              <h2 className="text-lg md:text-xl lg:text-2xl font-semibold text-white my-6">
                 Organized by NexusSociety @ {event.venue}
               </h2>
 
@@ -127,11 +127,11 @@ function Section1({ event }: { event: EventType }) {
           <div className="lg:col-span-1">
             <div className="bg-white rounded-lg p-6 mt-10 shadow-lg">
               <h3 className="text-lg font-semibold mb-4">Event Date & Time</h3>
-              <p className="text-gray-700 mb-4">
+              <p className="text-gray-700 mb-4 text-sm">
                 {formatDate(event.start_date ?? "")} -{" "}
                 {formatDate(event.end_date ?? "")}
               </p>
-              <p className="text-gray-700 mb-4">
+              <p className="text-gray-700 mb-4 text-sm">
                 {event.start_time} - {event.end_time}
               </p>
 
