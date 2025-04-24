@@ -15,7 +15,7 @@ import { AnimatedButton } from "@/components/AnimateButton"
 const departments = ["Computer Science", "Mechanical", "Electrical", "Civil", "Electronics", "Chemical", "Biotechnology", "ITCA", "Business Management"];
 const years = ["I", "II", "III", "IV"]
 const courses = ["B.Tech", "M.Tech", "MCA", "MBA", "BBA", "BCA"]
-const branches = ["CSE", "IT", "ECE", "EE", "ME", "CE", "AE", "PE", "MME", "CHE", "BT", "AG", "MT", "ECM", "MBA", "MCA", "BBA", "BCA"];
+const branches = ["CSE", "IT", "ECE", "EE", "ME", "CE", "AE", "PE", "MME", "CHE", "BT", "AG", "MT", "ECM", "Management", "ITCA"];
 
 type SignupFormProps = {
   onSignup: (data: any, userprofile: File | null) => Promise<void>

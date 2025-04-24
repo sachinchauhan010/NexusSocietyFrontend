@@ -3,6 +3,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { MoreHorizontal, Calendar, MapPin } from "lucide-react";
 import { useEffect, useState } from "react";
 import { EventType } from "@/types/eventType";
+import { Link } from "react-router-dom";
 
 export default function TrendingEventsSection() {
   const [events, setEvents] = useState<EventType[]>([]);
@@ -57,36 +58,38 @@ export default function TrendingEventsSection() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {visibleEvents.map((event) => (
-          <Card key={event.id} className="overflow-hidden">
-            <div className="relative">
-              <img
-                src={event.banner || "/placeholder.svg"}
-                alt={event.name}
-                className="w-full h-48 object-cover"
-              />
-              <div className="absolute bottom-2 left-2 flex items-center gap-1 bg-white rounded-full px-2 py-0.5">
-                <Calendar className="h-3 w-3 text-gray-500" />
-                <span className="text-xs font-medium">
-                  {event.start_date} {event.start_time}
-                </span>
+          <Link to={`/event/${event.id}`} key={event.id}>
+            <Card key={event.id} className="overflow-hidden">
+              <div className="relative">
+                <img
+                  src={event.banner || "/placeholder.svg"}
+                  alt={event.name}
+                  className="w-full h-48 object-cover"
+                />
+                <div className="absolute bottom-2 left-2 flex items-center gap-1 bg-white rounded-full px-2 py-0.5">
+                  <Calendar className="h-3 w-3 text-gray-500" />
+                  <span className="text-xs font-medium">
+                    {event.start_date} {event.start_time}
+                  </span>
+                </div>
               </div>
-            </div>
-            <CardContent className="p-4">
-              <h3 className="font-bold">{event.name}</h3>
-              <p className="text-gray-500 text-sm flex items-center gap-1">
-                <MapPin className="h-4 w-4 text-gray-500" />
-                {event.venue}
-              </p>
-            </CardContent>
-            <CardFooter className="p-4 pt-0 flex justify-between items-center">
-              <div className="text-sm text-gray-500">
-                Participants: {event.participants || "N/A"}
-              </div>
-              <button className="text-gray-500">
-                <MoreHorizontal className="h-5 w-5" />
-              </button>
-            </CardFooter>
-          </Card>
+              <CardContent className="p-4">
+                <h3 className="font-bold">{event.name}</h3>
+                <p className="text-gray-500 text-sm flex items-center gap-1">
+                  <MapPin className="h-4 w-4 text-gray-500" />
+                  {event.venue}
+                </p>
+              </CardContent>
+              <CardFooter className="p-4 pt-0 flex justify-between items-center">
+                <div className="text-sm text-gray-500">
+                  Participants: {event.participants || "N/A"}
+                </div>
+                <button className="text-gray-500">
+                  <MoreHorizontal className="h-5 w-5" />
+                </button>
+              </CardFooter>
+            </Card>
+          </Link>
         ))}
       </div>
 
