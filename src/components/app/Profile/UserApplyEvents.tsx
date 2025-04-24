@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { EventType } from "@/types/eventType";
 import { motion } from "framer-motion";
-import { MapPin, CalendarDays, Users } from "lucide-react";
+import { MapPin, CalendarDays, Users, Compass, CalendarX } from "lucide-react";
+import { Link } from "react-router-dom";
 
 function UserApplyEvents() {
   const [appliedEvents, setAppliedEvents] = useState<EventType[]>([]);
@@ -44,9 +45,24 @@ function UserApplyEvents() {
 
       <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4">
         {appliedEvents.length === 0 ? (
-          <p className="text-center col-span-full text-gray-500">
-            No events applied yet.
-          </p>
+          <div className="col-span-full text-center py-16">
+            <div className="flex flex-col items-center justify-center space-y-4">
+              <CalendarX className="w-12 h-12 text-purple-500" />
+              <h2 className="text-2xl md:text-3xl font-semibold text-gray-700">
+                No Events Yet
+              </h2>
+              <p className="text-base text-gray-500 max-w-md">
+                You haven’t applied to any events yet. When you do, they’ll
+                appear here.
+              </p>
+              <button className="bg-purple-600 hover:bg-purple-700 transition text-white px-4 py-2 rounded-md text-sm font-semibold">
+                <Link to="/event" className="flex items-center gap-2">
+                  <Compass className="w-4 h-4" />
+                  Explore Events
+                </Link>
+              </button>
+            </div>
+          </div>
         ) : (
           appliedEvents.map((event, index) => (
             <motion.div
