@@ -92,7 +92,7 @@ export function SignupForm({ onSignup, onToggleView }: SignupFormProps) {
 
           <div className="space-y-1">
             <Label htmlFor="id" className="text-sm font-medium text-gray-700">
-              ID
+              Roll Number
             </Label>
             <Input
               id="id"
