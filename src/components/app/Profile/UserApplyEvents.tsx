@@ -58,7 +58,7 @@ function UserApplyEvents() {
               <button className="bg-purple-600 hover:bg-purple-700 transition text-white px-4 py-2 rounded-md text-sm font-semibold">
                 <Link to="/event" className="flex items-center gap-2">
                   <Compass className="w-4 h-4" />
-                  Explore Events
+                  Discover Exciting Events
                 </Link>
               </button>
             </div>
