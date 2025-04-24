@@ -5,6 +5,7 @@ import { ExternalLink } from "lucide-react"; // 👈 Lucide icon import
 import Tilt from "react-parallax-tilt"; // 👈 Added for tilt effect
 import HowWeHelp from "../components/app/events/HowWeHelp";
 import { Link } from "react-router-dom";
+import { formatDate } from "@/utils/dateFormate";
 
 export default function AllUserEvents() {
   const [events, setEvents] = useState<EventType[]>([]);
@@ -61,20 +62,22 @@ export default function AllUserEvents() {
             />
           </div>
 
-          <div className="p-3 flex flex-col justify-between flex-grow">
+          <div className="p-6 flex flex-col justify-between flex-grow">
             <div>
               <h2 className="text-base font-semibold mb-1">{event.name}</h2>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">
-                {event.description?.slice(0, 70)}...
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                {event.description?.slice(0, 100)}...
               </p>
-              <p className="text-sm">
-                <strong>Date:</strong> {event.start_date} to {event.end_date}
+              <p className="text-sm mb-3">
+                <strong>Date:</strong> {formatDate(event.start_date || "")} to
+                {"  "}
+                {formatDate(event.end_date || "")}
               </p>
-              <p className="text-sm">
+              <p className="text-sm mb-3">
                 <strong>Time:</strong> {event.start_time} - {event.end_time}
               </p>
-              <p className="text-sm">
-                <strong>Venue:</strong> {event.venue}
+              <p className="text-sm mb-3">
+                <strong>Venue:</strong> {event.venue?.slice(0, 40)}...
               </p>
             </div>
 
@@ -93,7 +96,6 @@ export default function AllUserEvents() {
         </div>
       </Tilt>
     </Link>
-
   );
 
   return (

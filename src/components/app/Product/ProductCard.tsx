@@ -56,14 +56,14 @@ function ProductCard({ product }: { product: ProductType }) {
 
           {/* Price & Category */}
           <div className="mt-2 flex justify-between items-center">
-            <span className="text-purple-700 font-bold text-lg">
-              ₹{product.price}
+            <span className="text-purple-700 font-bold text-sm">
+              ₹ {product.price}
             </span>
             <span className=" text-purple-500">{product.category}</span>
           </div>
 
           {/* Stock Info */}
-          <div className="mt-1 text-s text-gray-900">
+          <div className="mt-1 text-xs text-gray-900">
             Stock: <span className="font-medium">{product.stock}</span>
           </div>
         </div>
