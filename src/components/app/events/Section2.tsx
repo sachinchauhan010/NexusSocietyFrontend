@@ -4,7 +4,7 @@ import { EventType } from "@/types/eventType";
 function Section2({ event }: { event: EventType }) {
   
   return (
-    <div className="px-4 py-12 md:px-6 lg:px-8 max-w-7xl mx-auto">
+    <div className="py-12 md:px-6 w-full mx-auto">
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
       {/* Left Column */}
       <div>
