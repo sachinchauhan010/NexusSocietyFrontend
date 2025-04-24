@@ -32,7 +32,7 @@ export default function FAQ() {
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="text-5xl gradient-title text-center mb-6"
+        className="text-4xl gradient-title text-center mb-6 font-semibold my-6"
       >
         Frequently Asked Questions
       </motion.h1>
@@ -58,7 +58,7 @@ export default function FAQ() {
                 layout
               >
                 <AccordionItem value={`faq-${index}`}>
-                  <AccordionTrigger className="text-lg font-medium hover:gradient-title hover:no-underline transition-all duration-300">
+                  <AccordionTrigger className="text-base font-medium hover:gradient-title hover:no-underline transition-all duration-300">
                     {faq.question}
                   </AccordionTrigger>
                   <AccordionContent className="text-gray-600 text-base hover:gradient-title hover:no-underline transition-all duration-300">
