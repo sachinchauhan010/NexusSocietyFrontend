@@ -79,11 +79,11 @@ export const HoverEffect = ({
 
             {/* Header */}
             <CardHeader className="text-center">
-              <CardTitle className="text-xl font-bold">{user.name}</CardTitle>
-              <CardDescription className="text-gray-600 text-lg">
+              <CardTitle className="font-bold my-2">{user.name}</CardTitle>
+              <CardDescription className="text-gray-600 my-2">
                 {user.course} {user.year} year
               </CardDescription>
-              <p className="text-gray-500 text-sm">{user.email}</p>
+              <p className="text-gray-500 text-sm my-2">{user.email}</p>
             </CardHeader>
 
             {/* Details */}
@@ -91,14 +91,14 @@ export const HoverEffect = ({
               <div className="flex items-center space-x-2">
                 <BadgeCheck className="text-blue-600" size={26} />
                 <p className="text-gray-700 font-semibold">
-                  <span className="font-bold">Roll No:</span> {user.id}
+                  <span className="font-semibold">Roll No:</span> <span className="text-sm">{user.id}</span>
                 </p>
               </div>
 
               <div className="flex items-center space-x-2">
                 <Phone className="text-green-600" size={26} />
                 <p className="text-gray-700 font-semibold">
-                  <span className="font-bold">Phone:</span> {user.phone}
+                  <span className="font-bold">Phone:</span> <span className="text-sm">{user.phone}</span>
                 </p>
               </div>
 
@@ -106,14 +106,14 @@ export const HoverEffect = ({
                 <Building className="text-purple-600" size={26} />
                 <p className="text-gray-700 font-semibold">
                   <span className="font-bold">Department:</span>{" "}
-                  {user.department}
+                  <span className="text-sm">{user.department}</span>
                 </p>
               </div>
 
               <div className="flex items-center space-x-2">
                 <GraduationCap className="text-orange-600" size={26} />
                 <p className="text-gray-700 font-semibold">
-                  <span className="font-bold">Branch:</span> {user.branch}
+                  <span className="font-bold">Branch:</span> <span className="text-sm">{user.branch}</span>
                 </p>
               </div>
             </CardContent>

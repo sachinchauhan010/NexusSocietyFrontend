@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 
 import { Link } from "react-router-dom";
-import { CalendarDays,  Clock, MapPin, Ticket, Users } from "lucide-react";
+import { CalendarDays, Clock, MapPin, Ticket } from "lucide-react";
 
 import { EventType } from "@/types/eventType";
 import Loader from "../../Loader";
+import { formatDate } from "@/utils/dateFormate";
 
 function AllEvents() {
 
@@ -29,7 +30,7 @@ function AllEvents() {
         setEvents(apiData.events || []);
       } catch (error) {
         console.error("Error fetching events:", error);
-      }finally{
+      } finally {
         setLoading(false);
       }
     };
@@ -47,16 +48,13 @@ function AllEvents() {
 
   return (
     <div>
-      <div className="max-w-7xl mx-auto px-0 py-0 flex flex-col lg:flex-row items-center lg:items-start gap-6 w-full mt-6">
-        <div className="lg:w-1/3 text-center lg:text-left">
-          <p className="text-sm text-black font-semibold">
+      <div className="max-w-8xl mx-auto px-0 py-0 flex flex-col lg:flex-row justify-between items-center lg:items-start gap-6 w-full mt-6">
+        <div className="text-center lg:text-left my-auto">
+          <p className="text-lg text-black font-semibold">
             Thriving Above Event Expectations.
           </p>
-          <h1 className="text-4xl md:text-6xl font-bold leading-normal mt-0">
-            Event<span className="text-purple-500">Hive</span>-ing
-            <br />
-            the Best Day
-            <br /> Ever.
+          <h1 className="text-3xl md:text-6xl font-bold leading-normal mt-6">
+            the Best Day Ever.
           </h1>
           <div className="mt-6 flex flex-wrap justify-center lg:justify-start gap-6">
             <div className="bg-purple-500 text-white font-bold text-lg px-4 py-8 rounded-lg shadow">
@@ -74,7 +72,7 @@ function AllEvents() {
           </div>
         </div>
 
-        <div className="lg:w-2/3 w-full flex justify-center lg:justify-end">
+        <div className="w-full flex justify-center lg:justify-end lg:w-1/2">
           <img
             src="/image6.jpg"
             alt="Event Image"
@@ -84,7 +82,7 @@ function AllEvents() {
       </div>
 
       <div className="mt-4 flex flex-col items-center justify-center py-4 mb-2">
-        <h2 className="text-3xl font-bold text-black">All Events</h2>
+        <h2 className="text-3xl font-bold text-black my-4">All Events</h2>
         <p className="text-black text-lg mt-1 font-semibold">
           Every Moment Counts , Be Part of Something Amazing!
         </p>
@@ -103,40 +101,50 @@ function AllEvents() {
                 alt={`${event.name} banner`}
                 className="w-full h-52 object-cover rounded-lg shadow-md"
               />
-              <h3 className="text-2xl font-bold mt-4 text-gray-800">
-                {event.name}
-              </h3>
-              <p className="text-gray-600 mt-2">{event.description}</p>
+              <div className="mt-4 flex flex-col justify-between gap-y-4 text-base">
 
-              <div className="mt-4 space-y-2 text-gray-700">
-                <p className="flex items-center gap-2">
-                  <MapPin size={22} className="text-red-500" />
-                  <strong>Venue:</strong> {event.venue}
+                <h3 className="text-2xl font-bold mt-4 text-gray-800">
+                  {event.name}
+                </h3>
+                <p className="text-gray-600 mt-2">
+                  {event.description && event.description.length > 100
+                    ? `${event.description.slice(0, 100)}...`
+                    : event.description ?? ""}{" "}
+                  {event.description && event.description.length > 100 && (
+                    <span className="text-blue-500 font-semibold">See More</span>
+                  )}
                 </p>
-                <p className="flex items-center gap-2">
-                  <Users size={22} className="text-blue-500" />
-                  {/* <strong>DC Team:</strong> {event.dc_team.join(", ")} */}
-                </p>
-                <p className="flex items-center gap-2">
-                  <Ticket size={22} className="text-green-500" />
-                  <strong>Participants:</strong> {event.participants}
-                </p>
-                <p className="flex items-center gap-2">
-                  <CalendarDays size={22} className="text-yellow-500" />
-                  <strong>Start Date:</strong> {event.start_date}
-                </p>
-                <p className="flex items-center gap-2">
-                  <CalendarDays size={22} className="text-orange-500" />
-                  <strong>End Date:</strong> {event.end_date}
-                </p>
-                <p className="flex items-center gap-2">
-                  <Clock size={22} className="text-purple-500" />
-                  <strong>Start Time:</strong> {event.start_time}
-                </p>
-                <p className="flex items-center gap-2">
-                  <Clock size={22} className="text-pink-500" />
-                  <strong>End Time:</strong> {event.end_time}
-                </p>
+
+                <div className="mt-4 space-y-2 text-gray-700">
+                  <p className="flex items-center gap-2">
+                    <MapPin size={22} className="text-red-500" />
+                    <strong>Venue:</strong> {event.venue}
+                  </p>
+                  {/* <p className="flex items-center gap-2">
+                    <Users size={22} className="text-blue-500" />
+                    <strong>DC Team:</strong> {event.dc_team.join(", ")}
+                  </p> */}
+                  <p className="flex items-center gap-2 ">
+                    <Ticket size={22} className="text-green-500" />
+                    <strong>Participants:</strong> {event.participants}
+                  </p>
+                  <p className="flex items-center gap-2">
+                    <CalendarDays size={22} className="text-yellow-500" />
+                    <strong>Start Date:</strong> <span className="text-sm">{formatDate(event.start_date || "")}</span>
+                  </p>
+                  <p className="flex items-center gap-2">
+                    <CalendarDays size={22} className="text-orange-500" />
+                    <strong>End Date:</strong> <span className="text-sm">{formatDate(event.end_date || "")}</span>
+                  </p>
+                  <p className="flex items-center gap-2">
+                    <Clock size={22} className="text-purple-500" />
+                    <strong>Start Time:</strong> <span className="text-sm">{event.start_time}</span>
+                  </p>
+                  <p className="flex items-center gap-2">
+                    <Clock size={22} className="text-pink-500" />
+                    <strong>End Time:</strong> <span className="text-sm">{event.end_time}</span>
+                  </p>
+                </div>
               </div>
 
               {event.registration_link && (
