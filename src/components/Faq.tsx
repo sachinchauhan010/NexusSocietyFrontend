@@ -34,7 +34,7 @@ export default function FAQ() {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="text-4xl gradient-title text-center mb-6 font-semibold my-6"
       >
-        Frequently Asked Questions
+        Things You Might Ask
       </motion.h1>
 
       {/* 👇 FAQ Section */}
