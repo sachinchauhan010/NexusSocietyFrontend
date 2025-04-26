@@ -76,11 +76,11 @@ function DeclareResult() {
                 alt={event.name}
                 className="w-full h-40 object-cover rounded-md mb-4"
               />
-              <h2 className="text-lg font-semibold">{event.name}</h2>
-              <p className="text-sm text-gray-600">
+              <h2 className="text-lg font-semibold my-2">{event.name}</h2>
+              <p className="text-sm text-gray-600 my-2">
                 <span className="font-medium">Event ID:</span> {event.id}
               </p>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-600 my-2">
                 <span className="font-medium">Date:</span>{" "}
                 {formatDate(event?.start_date || "")} - {formatDate(event?.end_date || "")}
               </p>

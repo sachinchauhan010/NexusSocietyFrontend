@@ -38,7 +38,7 @@ import UserApplyEvents from "./components/app/Profile/UserApplyEvents.tsx";
 import UserProfileHome from "./components/app/Profile/UserProfileHome.tsx";
 import UserOrderProducts from "./components/app/Profile/UserOrderProducts.tsx";
 import UserSidebar from "./components/app/Profile/UserSidebar.tsx";
-import { Separator } from "./components/ui/separator.tsx";
+// import { Separator } from "./components/ui/separator.tsx";
 import ForgetPassword from "./components/app/Auth/forget-password.tsx";
 import ResetPassword from "./components/app/Auth/resetPassword.tsx";
 import OfficialBearer from "./components/app/Admin/member/OfficialBearer.tsx";
@@ -53,7 +53,7 @@ const AppLayout = () => {
           <div className="mx-auto font-playwrite">
           <SecondaryHeader />
           </div>
-          <Separator/>
+          {/* <Separator/> */}
           <main className="flex-grow px-6 py-2 min-h-screen font-playwrite">
             <Outlet />
             <Toaster />

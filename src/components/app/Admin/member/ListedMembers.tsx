@@ -79,31 +79,31 @@ export const ListedMembers = ({
             {/* Details */}
             <CardContent className="flex flex-col gap-y-2 mt-2 mx-auto">
               <div className="flex items-center space-x-2">
-                <BadgeCheck className="text-blue-600" size={26} />
+                <BadgeCheck className="text-blue-600" size={20} />
                 <p className="text-gray-700 font-semibold">
-                  <span className="font-bold text-sm">Roll No:</span> <span className="text-sm">{item.id}</span>
+                  <span className="font-bold text-sm text-[13px]">Roll No:</span> <span className="text-[13px]">{item.id}</span>
                 </p>
               </div>
 
               <div className="flex items-center space-x-2">
-                <Phone className="text-green-600" size={26} />
+                <Phone className="text-green-600" size={20} />
                 <p className="text-gray-700 font-semibold">
-                  <span className="font-bold text-sm">Phone:</span> <span className="text-sm">{item.phone}</span>
+                  <span className="font-bold text-[13px]">Phone:</span> <span className="text-[13px]">{item.phone}</span>
                 </p>
               </div>
 
               <div className="flex items-center space-x-2">
-                <Building className="text-purple-600" size={26} />
+                <Building className="text-purple-600" size={20} />
                 <p className="text-gray-700 font-semibold">
-                  <span className="font-bold text-sm">Department:</span>{" "}
-                  <span className="text-sm">{item.department}</span>
+                  <span className="font-bold text-[13px]">Department:</span>{" "}
+                  <span className="text-[13px]">{item.department}</span>
                 </p>
               </div>
 
               <div className="flex items-center space-x-2">
-                <GraduationCap className="text-orange-600" size={26} />
+                <GraduationCap className="text-orange-600" size={20} />
                 <p className="text-gray-700 font-semibold">
-                  <span className="font-bold text-sm">Branch:</span> <span className="text-sm">{item.branch}</span>
+                  <span className="font-bold text-[13px]">Branch:</span> <span className="text-[13px]">{item.branch}</span>
                 </p>
               </div>
             </CardContent>
