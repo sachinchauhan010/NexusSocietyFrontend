@@ -41,6 +41,7 @@ import UserSidebar from "./components/app/Profile/UserSidebar.tsx";
 import { Separator } from "./components/ui/separator.tsx";
 import ForgetPassword from "./components/app/Auth/forget-password.tsx";
 import ResetPassword from "./components/app/Auth/resetPassword.tsx";
+import OfficialBearer from "./components/app/Admin/member/OfficialBearer.tsx";
 
 
 const AppLayout = () => {
@@ -157,6 +158,10 @@ const appRouter = createBrowserRouter([
           {
             path: "list-members",
             element: <ListMembers />,
+          },
+          {
+            path: "official-bearers",
+            element: <OfficialBearer />,
           },
           {
             path: "membership",
