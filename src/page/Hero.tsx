@@ -6,6 +6,7 @@ import TrendingEventsSection from "@/components/app/Hero/Section5"
 import MerchandiseList from "@/components/app/Product/MerchandiseList"
 import { useEffect, useState } from "react"
 import Loader from "@/components/app/Loader"
+import Result from "@/components/app/Hero/Result"
 
 function Hero() {
 
@@ -30,6 +31,7 @@ function Hero() {
     <div>
       <HeroSection />
       <div className="mx-auto px-4 py-12 space-y-20">
+        <Result/>
         <BrandsSection />
         <EventsSection />
         <CreateEventSection />
