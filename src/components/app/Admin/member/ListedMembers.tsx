@@ -18,7 +18,7 @@ export const ListedMembers = ({
   return (
     <div
       className={cn(
-        "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 py-10",
+        "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4",
         className
       )}
     >
@@ -33,7 +33,7 @@ export const ListedMembers = ({
           <AnimatePresence>
             {hoveredIndex === idx && (
               <motion.span
-                className="absolute inset-0 h-full w-full bg-neutral-200 dark:bg-slate-800/[0.8] block rounded-3xl"
+                className="absolute inset-0 h-full w-full bg-neutral-200 dark:bg-slate-800/[0.8] block rounded-md"
                 layoutId="hoverBackground"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1, transition: { duration: 0.15 } }}
@@ -48,7 +48,7 @@ export const ListedMembers = ({
           {/* Card Design Same as First Card */}
           <Card
             className={cn(
-              "rounded-2xl h-full w-full pt-8 shadow-md border border-gray-200 dark:border-white/[0.2] transition-all group-hover:border-gray-500 group-hover:shadow-lg bg-white dark:bg-gray-900 relative z-20",
+              "rounded-md h-full w-full shadow-md border border-gray-200 dark:border-white/[0.2] transition-all group-hover:border-gray-500 group-hover:shadow-lg bg-white dark:bg-gray-900 relative z-20",
               className
             )}
           >
@@ -69,41 +69,41 @@ export const ListedMembers = ({
 
             {/* Header */}
             <CardHeader className="text-center">
-              <CardTitle className="text-xl font-bold p-0">{item.name}</CardTitle>
-              <CardDescription className="text-gray-600 text-lg p-0">
+              <CardTitle className="text-lg font-bold p-0">{item.name}</CardTitle>
+              <CardDescription className="text-gray-600 p-0 text-base">
                 {item.course} {item.year} year
               </CardDescription>
-              <p className="text-gray-500 text-sm">{item.email}</p>
+              <p className="text-gray-500 text-base">{item.email}</p>
             </CardHeader>
 
             {/* Details */}
-            <CardContent className="mt-0">
+            <CardContent className="flex flex-col gap-y-2 mt-2 mx-auto">
               <div className="flex items-center space-x-2">
                 <BadgeCheck className="text-blue-600" size={26} />
                 <p className="text-gray-700 font-semibold">
-                  <span className="font-bold">Roll No:</span> {item.id}
+                  <span className="font-bold text-sm">Roll No:</span> <span className="text-sm">{item.id}</span>
                 </p>
               </div>
 
               <div className="flex items-center space-x-2">
                 <Phone className="text-green-600" size={26} />
                 <p className="text-gray-700 font-semibold">
-                  <span className="font-bold">Phone:</span> {item.phone}
+                  <span className="font-bold text-sm">Phone:</span> <span className="text-sm">{item.phone}</span>
                 </p>
               </div>
 
               <div className="flex items-center space-x-2">
                 <Building className="text-purple-600" size={26} />
                 <p className="text-gray-700 font-semibold">
-                  <span className="font-bold">Department:</span>{" "}
-                  {item.department}
+                  <span className="font-bold text-sm">Department:</span>{" "}
+                  <span className="text-sm">{item.department}</span>
                 </p>
               </div>
 
               <div className="flex items-center space-x-2">
                 <GraduationCap className="text-orange-600" size={26} />
                 <p className="text-gray-700 font-semibold">
-                  <span className="font-bold">Branch:</span> {item.branch}
+                  <span className="font-bold text-sm">Branch:</span> <span className="text-sm">{item.branch}</span>
                 </p>
               </div>
             </CardContent>
@@ -124,7 +124,7 @@ export const Card = ({
   return (
     <div
       className={cn(
-        "rounded-2xl h-full w-full p-4 overflow-hidden bg-white dark:bg-gray-900 border border-gray-200 dark:border-white/[0.2] group-hover:border-gray-500 group-hover:shadow-lg relative z-20",
+        "rounded-md h-full w-full overflow-hidden bg-white dark:bg-gray-900 border border-gray-200 dark:border-white/[0.2] group-hover:border-gray-500 group-hover:shadow-lg relative z-20",
         className
       )}
     >
