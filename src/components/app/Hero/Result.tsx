@@ -44,7 +44,7 @@ function Result() {
           <h2 className="text-2xl font-semibold text-gray-700 mb-4 text-center">{event.eventName}</h2>
           <ul className="space-y-4">
             {event.winners.map((winner: any) => (
-            <li key={`${winner.groupName}-${winner.rank}`} className="bg-blue-100 text-blue-700 rounded-lg p-4">
+            <li key={`${winner.groupName}-${winner.rank}`} className="bg-blue-50 text-blue-700 rounded-lg p-4">
               <div className="font-bold">Rank: {winner.rank}</div>
               <div className="font-bold">Group: {winner.groupName}</div>
               <ul className="mt-2 space-y-2">

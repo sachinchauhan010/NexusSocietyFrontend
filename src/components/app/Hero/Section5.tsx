@@ -77,7 +77,9 @@ export default function TrendingEventsSection() {
                 <h3 className="font-bold">{event.name}</h3>
                 <p className="text-gray-500 text-sm flex items-center gap-1">
                   <MapPin className="h-4 w-4 text-gray-500" />
-                  {event.venue}
+                    {(event.venue ?? "").length > 50
+                    ? `${(event.venue ?? "").slice(0, 50)}...`
+                    : event.venue ?? ""}
                 </p>
               </CardContent>
               <CardFooter className="p-4 pt-0 flex justify-between items-center">
