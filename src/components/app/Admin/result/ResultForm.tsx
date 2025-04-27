@@ -1,4 +1,5 @@
-import { useForm } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -18,63 +19,79 @@ type Props = {
   event: EventType & { participants: number }; // Ensure participants is always defined
 };
 
+type Member = {
+  name: string;
+  email: string;
+};
+
 type Winner = {
-  winnerName: string;
-  winnerEmail: string;
+  groupName?: string;
+  rank: number;
+  members: Member[];
 };
 
 type FormData = {
-  groupName?: string;
   winners: Winner[];
 };
 
 export function ResultForm({ event }: Props) {
+  const [isResultDeclared, setIsResultDeclared] = useState(false); // Track if the result is declared
+
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<FormData>({
+    defaultValues: {
+      winners: [{ groupName: "", rank: 1, members: [{ name: "", email: "" }] }],
+    },
+  });
+
+  const { fields: winnerFields, append: appendWinner } = useFieldArray({
+    control,
+    name: "winners",
+  });
 
   const onSubmit = async (data: FormData) => {
-    const finalPayload: FormData = {
-      ...(event.participants && event.participants > 1 && { groupName: data.groupName }),
-      winners: data.winners,
-    };
-  
     try {
-      const response = await fetch(`${import.meta.env.VITE_PRODUCTION_API_URI}/api/event/declare-result/${event.id}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(finalPayload),
-        credentials: "include",
-      });
-  
+      const response = await fetch(
+        `${import.meta.env.VITE_PRODUCTION_API_URI}/api/event/declare-result/${event.id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ winners: data.winners }),
+          credentials: "include",
+        }
+      );
+
       if (!response.ok) {
         const errorData = await response.json();
         console.error("Error declaring result:", errorData);
         toast.error("Failed to declare result");
         return;
       }
-  
+
       const resultData = await response.json();
       console.log(resultData);
       toast.success("Result declared successfully");
+      setIsResultDeclared(true); // Disable the button after successful declaration
     } catch (error) {
       console.error("Error declaring result:", error);
       toast.error("Failed to declare result");
     }
-  
-    console.log("Final Submitted Result:", finalPayload);
   };
-  
+
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Declare Result</Button>
+        <Button variant="outline" disabled={isResultDeclared}>
+          {isResultDeclared ? "Result Declared" : "Declare Result"}
+        </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[600px]">
         <DialogHeader>
           <DialogTitle>Declare Winners</DialogTitle>
           <DialogDescription>
@@ -82,67 +99,89 @@ export function ResultForm({ event }: Props) {
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4 py-4">
-          {event.participants && event.participants > 1 && (
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label className="text-right" htmlFor="groupName">
+            {winnerFields.map((winner, winnerIndex) => (
+            <div key={winner.id} className="space-y-4 border-b pb-4">
+              {event.participants > 1 && (
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label className="text-right" htmlFor={`winners.${winnerIndex}.groupName`}>
                 Group Name
+                </Label>
+                <Input
+                id={`winners.${winnerIndex}.groupName`}
+                {...register(`winners.${winnerIndex}.groupName`, { required: true })}
+                className="col-span-3"
+                />
+                {errors.winners?.[winnerIndex]?.groupName && (
+                <span className="text-red-500 col-span-4">Group name is required</span>
+                )}
+              </div>
+              )}
+
+              <div className="grid grid-cols-4 items-center gap-4">
+              <Label className="text-right" htmlFor={`winners.${winnerIndex}.rank`}>
+                Rank
               </Label>
               <Input
-                id="groupName"
-                {...register("groupName", { required: true })}
+                id={`winners.${winnerIndex}.rank`}
+                type="number"
+                {...register(`winners.${winnerIndex}.rank`, { required: true, min: 1, max: 3 })}
                 className="col-span-3"
               />
-              {errors.groupName && (
-                <span className="text-red-500 col-span-4">
-                  This field is required
-                </span>
+              {errors.winners?.[winnerIndex]?.rank && (
+                <span className="text-red-500 col-span-4">Rank is required and must be between 1 and 3</span>
               )}
-            </div>
-          )}
+              </div>
 
-          {[...Array(event.participants)].map((_, index) => (
-            <div key={index} className="space-y-2">
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label
-                  className="text-right"
-                  htmlFor={`winnerEmail${index}`}
-                >
-                  Email {event.participants && event.participants > 1 && index + 1}
-                </Label>
-                <Input
-                  id={`winnerEmail${index}`}
-                  {...register(`winners.${index}.winnerEmail`, { required: true })}
-                  className="col-span-3"
-                />
-                {errors.winners?.[index]?.winnerEmail && (
-                  <span className="text-red-500 col-span-4">
-                    Email is required
-                  </span>
-                )}
+              <div className="space-y-2">
+              <Label>Members</Label>
+              <div className="space-y-4">
+                {Array.from({ length: event.participants }).map((_, memberIndex) => (
+                <div key={memberIndex} className="grid grid-cols-4 items-center gap-4">
+                  <Input
+                  placeholder="Member Name"
+                  {...register(`winners.${winnerIndex}.members.${memberIndex}.name`, {
+                    required: true,
+                  })}
+                  className="col-span-2"
+                  />
+                  <Input
+                  placeholder="Member Email"
+                  {...register(`winners.${winnerIndex}.members.${memberIndex}.email`, {
+                    required: true,
+                  })}
+                  className="col-span-2"
+                  />
+                  {errors.winners?.[winnerIndex]?.members?.[memberIndex]?.name && (
+                  <span className="text-red-500 col-span-4">Name is required</span>
+                  )}
+                  {errors.winners?.[winnerIndex]?.members?.[memberIndex]?.email && (
+                  <span className="text-red-500 col-span-4">Email is required</span>
+                  )}
+                </div>
+                ))}
               </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label
-                  className="text-right"
-                  htmlFor={`winnerName${index}`}
-                >
-                  Name {event.participants && event.participants > 1 && index + 1}
-                </Label>
-                <Input
-                  id={`winnerName${index}`}
-                  {...register(`winners.${index}.winnerName`, { required: true })}
-                  className="col-span-3"
-                />
-                {errors.winners?.[index]?.winnerName && (
-                  <span className="text-red-500 col-span-4">
-                    Name is required
-                  </span>
-                )}
               </div>
             </div>
-          ))}
+            ))}
+
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => {
+              if (winnerFields.length < 3) {
+                appendWinner({ groupName: "", rank: winnerFields.length + 1, members: [{ name: "", email: "" }] });
+              } else {
+                toast.error("You can only add up to 3 winners.");
+              }
+            }}
+          >
+            Add Winner
+          </Button>
 
           <DialogFooter>
-            <Button type="submit">Save Result</Button>
+            <Button type="submit" className="bg-indigo-700 hover:bg-blue-500" disabled={isResultDeclared}>
+              Save Result
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>
