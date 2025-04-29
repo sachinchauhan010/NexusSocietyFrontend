@@ -99,15 +99,15 @@ export default function FeatureRotator() {
   const CurrentIcon = features[index].icon;
 
   return (
-    <div className="bg-purple-100 w-full py-12 px-4 flex items-center justify-center">
+    <div className="bg-purple-100 w-full py-12 md:px-4 flex items-center justify-center">
       <div
-        className={`max-w-3xl w-full text-center p-6 transition-opacity duration-500 ease-in-out ${
+        className={`max-w-3xl w-full text-center md:p-6 transition-opacity duration-500 ease-in-out ${
           fade ? "opacity-100" : "opacity-0"
         }`}
       >
         <div className="flex flex-col items-center gap-4">
           <CurrentIcon className="w-12 h-12 text-purple-700" />
-          <h2 className="text-3xl md:text-4xl font-bold text-purple-800">
+          <h2 className="text-xl lg:text-3xl xl:text-4xl md:text-2xl font-bold text-purple-800">
             {features[index].title}
           </h2>
           <p className="text-lg md:text-xl text-gray-800 leading-relaxed max-w-xl">

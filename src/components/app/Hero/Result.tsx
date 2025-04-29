@@ -29,8 +29,8 @@ function Result() {
   console.log(eventWinners);
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <h1 className="text-3xl font-bold mb-8 text-center text-gray-800">🏆 Event Winners 🏆</h1>
+    <div className="min-h-screen bg-gray-50">
+      <h1 className=" text-2xl sm:text-3xl font-bold mb-8 text-center text-gray-800">Event Winners</h1>
 
       {loading ? (
       <div className="flex justify-center items-center mt-20">
@@ -40,7 +40,7 @@ function Result() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {eventWinners.length > 0 ? (
         eventWinners.map((event) => (
-          <div key={event.eventId} className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-2xl transition duration-300">
+          <div key={event.eventId} className="bg-white rounded-2xl shadow-lg p-2 sm:p-6 hover:shadow-2xl transition duration-300">
           <h2 className="text-2xl font-semibold text-gray-700 mb-4 text-center">{event.eventName}</h2>
           <ul className="space-y-4">
             {event.winners.map((winner: any) => (
