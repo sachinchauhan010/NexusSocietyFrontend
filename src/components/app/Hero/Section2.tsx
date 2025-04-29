@@ -107,7 +107,7 @@ export default function EventsSection() {
         <>
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-5 text-center sm:text-left">
-              Upcoming <span className="text-purple-600">Events</span>
+              <span>Upcoming</span> <span className="text-purple-600">Events</span>
             </h2>
             <div className="flex space-x-2">
               <Button

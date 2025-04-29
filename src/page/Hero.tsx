@@ -30,7 +30,7 @@ function Hero() {
   return (
     <div>
       <HeroSection />
-      <div className="mx-auto px-4 py-12 space-y-20">
+      <div className="mx-auto py-12 space-y-20">
         <Result/>
         <BrandsSection />
         <EventsSection />
