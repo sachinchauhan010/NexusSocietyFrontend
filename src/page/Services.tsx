@@ -112,7 +112,7 @@ const ServicesTimeline: React.FC = () => {
       <div className="relative px-4 md:px-20 py-20 bg-gradient-to-br from-purple-100 to-purple-50 min-h-screen">
         <div className="relative flex flex-col items-center">
           {/* Center vertical line */}
-          <div className="absolute w-1 h-full bg-purple-500 left-1/2 transform -translate-x-1/2 z-0" />
+          <div className="absolute w-1 h-0 sm:h-full bg-purple-500 left-1/2 transform -translate-x-1/2 z-0" />
 
           {/* Timeline Cards */}
           {services.map((service, index) => (
