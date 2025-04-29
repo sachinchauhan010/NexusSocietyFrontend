@@ -1,15 +1,10 @@
 import { ProductType } from "@/types/productType";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ShoppingCart } from "lucide-react"; 
 
 function ProductCard({ product }: { product: ProductType }) {
-  const [readMore, setReadMore] = useState(false);
-  const descriptionLimit = 100;
-
-  const toggleReadMore = () => setReadMore(!readMore);
 
   return (
     <Link to={`/merchandise/${product.id}`}>
@@ -26,7 +21,7 @@ function ProductCard({ product }: { product: ProductType }) {
           <img
             src={product.image || "/product-placeholder.jpg"}
             alt={product.name}
-            className="h-full w-auto object-contain transition-transform duration-300 ease-in-out"
+            className="h-full w-full object-fit transition-transform duration-300 ease-in-out"
           />
         </div>
 
@@ -36,23 +31,10 @@ function ProductCard({ product }: { product: ProductType }) {
             {product.name}
           </h3>
 
-          {/* Description with Read More */}
-          <p className="text-sm text-gray-500 mt-1">
-            {readMore || product.description.length <= descriptionLimit
-              ? product.description
-              : `${product.description.slice(0, descriptionLimit)}... `}
-            {product.description.length > descriptionLimit && (
-              <span
-                onClick={(e) => {
-                  e.preventDefault();
-                  toggleReadMore();
-                }}
-                className="text-blue-500 cursor-pointer ml-1"
-              >
-                {readMore ? "Read Less" : "Read More"}
-              </span>
-            )}
-          </p>
+            {/* Description */}
+            <p className="text-sm text-gray-500 mt-1">
+            {product.description.slice(0, 25)}{product.description.length > 25 && "..."}
+            </p>
 
           {/* Price & Category */}
           <div className="mt-2 flex justify-between items-center">
