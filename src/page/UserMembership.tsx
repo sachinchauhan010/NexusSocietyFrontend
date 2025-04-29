@@ -7,6 +7,7 @@ import { useAuth } from "../context/AuthContext"
 import { LoginForm } from "../components/app/Auth/login-form.tsx"
 import { SignupForm } from "../components/app/Auth/signup-form"
 
+
 type AuthInput = {
   email: string
   password: string
@@ -29,7 +30,6 @@ export default function UserMembership() {
   // Function for handling Login
   const handleLogin = async (data: { email: string; password: string }) => {
     try {
-      setIsLoading(true);
       const endpoint = `${import.meta.env.VITE_PRODUCTION_API_URI}/api/auth/user/login`
 
       const response = await fetch(endpoint, {
@@ -62,40 +62,65 @@ export default function UserMembership() {
       toast.error("Login failed", {
         description: "Please check your details",
       })
-    } finally {
-      setIsLoading(false)
     }
   }
 
   // Function for handling Signup
   const handleSignup = async (data: AuthInput, userprofile: File | null) => {
-    const endpoint = `${import.meta.env.VITE_PRODUCTION_API_URI}/api/auth/user/register`
+    try {
+      setIsLoading(true)
+      const endpoint = `${import.meta.env.VITE_PRODUCTION_API_URI}/api/auth/user/register`
 
-    const formData = new FormData()
-    Object.keys(data).forEach((key) => {
-      formData.append(key, data[key as keyof AuthInput] as string)
-    })
-    if (userprofile) {
-      formData.append("userprofile", userprofile)
-    }
-
-    const response = await fetch(endpoint, {
-      method: "POST",
-      body: formData,
-      credentials: "include",
-    })
-
-    const apiData = await response.json()
-    if(apiData.isStudent === false) {
-      toast.error("You are not a student of this college", {
-        description: "Please contact the admin for more details",
+      const formData = new FormData()
+      Object.keys(data).forEach((key) => {
+        formData.append(key, data[key as keyof AuthInput] as string)
       })
-      return;
+      if (userprofile) {
+        formData.append("userprofile", userprofile)
+      }
+
+      const response = await fetch(endpoint, {
+        method: "POST",
+        body: formData,
+        credentials: "include",
+      })
+
+      const apiData = await response.json()
+      
+      if (apiData.isStudent === false) {
+        toast.error("You are not a student of this college", {
+          description: "Please contact the admin for more details",
+        })
+        return;
+      }
+
+      if (apiData.verified === false) {
+        toast.error("Please verify your email address to login", {
+          description: "Check your email for the verification link",
+        })
+        return;
+      }
+
+
+      if (apiData.isCreated === false) {
+        toast.error("User already exists", {
+          description: "Please login with your credentials",
+        })
+        return;
+      }
+
+      if (!response.ok) throw new Error(apiData.message || "Signup failed")
+
+      await handleLogin({ email: data.email, password: data.password })
+    } catch (error) {
+      console.error(error)
+      toast.error("Signup failed", {
+        description: "Please check your details",
+      })
+
+    } finally {
+      setIsLoading(false);
     }
-
-    if (!response.ok) throw new Error(apiData.message || "Signup failed")
-
-    await handleLogin({ email: data.email, password: data.password })
   }
 
   const toggleView = () => {
@@ -107,10 +132,18 @@ export default function UserMembership() {
   }
 
   if (isLoading) {
-    return(
+    return (
       <div className="flex justify-center items-center min-h-[50vh]">
-      <Loader />
-    </div>
+        <Loader />
+      </div>
+    )
+  }
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-[50vh]">
+        <Loader />
+      </div>
     )
   }
 
