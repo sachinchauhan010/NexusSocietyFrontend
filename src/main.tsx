@@ -54,7 +54,7 @@ const AppLayout = () => {
           <SecondaryHeader />
           </div>
           {/* <Separator/> */}
-          <main className="flex-grow px-6 py-2 min-h-screen font-playwrite">
+          <main className="flex-grow px-[2px] sm:px-2 md:px-6 py-2 min-h-screen font-playwrite">
             <Outlet />
             <Toaster />
           </main>
