@@ -37,7 +37,7 @@ export default function AdminSidebar() {
       ),
     },
     {
-      label: "Broadcast",
+      label: "Hybrid Messaging System",
       href: "/admin/broadcast",
       icon: (
         <RadioTower className="text-neutral-700 dark:text-neutral-200 size-5 flex-shrink-0" />
