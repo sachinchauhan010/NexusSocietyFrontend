@@ -1,6 +1,6 @@
 import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "@/components/ui/dialog"
 
-
+import Loader from "@/components/app/Loader.tsx"
 import { useState } from "react"
 import { toast } from "sonner"
 import { useAuth } from "../context/AuthContext"
@@ -24,31 +24,47 @@ export default function UserMembership() {
   const [isLogin, setIsLogin] = useState(true)
   const [isAnimating, setIsAnimating] = useState(false)
   const { dispatch: dispatchAuthState } = useAuth()
+  const [isLoading, setIsLoading] = useState(false)
 
   // Function for handling Login
   const handleLogin = async (data: { email: string; password: string }) => {
-    const endpoint = `${import.meta.env.VITE_PRODUCTION_API_URI}/api/auth/user/login`
+    try {
+      setIsLoading(true);
+      const endpoint = `${import.meta.env.VITE_PRODUCTION_API_URI}/api/auth/user/login`
 
-    const response = await fetch(endpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-      credentials: "include",
-    })
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+        credentials: "include",
+      })
 
-    const loginApiData = await response.json()
+      const loginApiData = await response.json()
+      if (loginApiData.verify === false) {
+        toast.error("Please verify your email address to login", {
+          description: "Check your email for the verification link",
+        })
+        return;
+      }
 
-    if (!response.ok) throw new Error(loginApiData.message || "Login failed")
+      if (!response.ok) throw new Error(loginApiData.message || "Login failed")
 
-    toast.success(`Welcome, ${loginApiData.userdata.username}!`, {
-      description: "Login successful",
-    })
+      toast.success(`Welcome, ${loginApiData.userdata.username}!`, {
+        description: "Login successful",
+      })
 
-    
-    dispatchAuthState({
-      type: "LOGIN",
-      payload: { name: loginApiData.userdata.username || "", email: loginApiData.userdata.useremail || "" },
-    })
+      dispatchAuthState({
+        type: "LOGIN",
+        payload: { name: loginApiData.userdata.username || "", email: loginApiData.userdata.useremail || "" },
+      })
+    } catch (error) {
+      console.error(error)
+      toast.error("Login failed", {
+        description: "Please check your details",
+      })
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   // Function for handling Signup
@@ -82,6 +98,14 @@ export default function UserMembership() {
       setIsLogin(!isLogin)
       setIsAnimating(false)
     }, 300)
+  }
+
+  if (isLoading) {
+    return(
+      <div className="flex justify-center items-center min-h-[50vh]">
+      <Loader />
+    </div>
+    )
   }
 
   return (
