@@ -75,8 +75,8 @@ const TimelineCard: React.FC<TimelineCardProps> = ({
 
   return (
     <div
-      className={`w-full md:w-1/2 p-4 my-10 relative ${
-        isLeft ? "md:pr-10 md:self-start" : "md:pl-10 md:self-end"
+      className={`w-full md:w-1/2 p-4 my-4 relative ${
+        isLeft ? "lg:pr-10 md:self-start" : "lg:pl-10 md:self-end"
       }`}
     >
       {/* Numbered Circle */}
@@ -109,10 +109,10 @@ const ServicesTimeline: React.FC = () => {
   return (
     <div>
       <ServiceCrousal />
-      <div className="relative px-4 md:px-20 py-20 bg-gradient-to-br from-purple-100 to-purple-50 min-h-screen">
+      <div className="relative px-4 xl:px-10 bg-gradient-to-br from-purple-100 to-purple-50 min-h-screen">
         <div className="relative flex flex-col items-center">
           {/* Center vertical line */}
-          <div className="absolute w-1 h-0 sm:h-full bg-purple-500 left-1/2 transform -translate-x-1/2 z-0" />
+          <div className="absolute w-1 h-0 md:h-full bg-purple-500 left-1/2 transform -translate-x-1/2 z-0" />
 
           {/* Timeline Cards */}
           {services.map((service, index) => (
