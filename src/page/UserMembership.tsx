@@ -86,7 +86,7 @@ export default function UserMembership() {
       })
 
       const apiData = await response.json()
-      
+
       if (apiData.isStudent === false) {
         toast.error("You are not a student of this college", {
           description: "Please contact the admin for more details",
