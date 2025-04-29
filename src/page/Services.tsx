@@ -75,7 +75,7 @@ const TimelineCard: React.FC<TimelineCardProps> = ({
 
   return (
     <div
-      className={`w-full md:w-1/2 p-4 my-4 relative ${
+      className={`w-full md:w-1/2 my-4 relative ${
         isLeft ? "lg:pr-10 md:self-start" : "lg:pl-10 md:self-end"
       }`}
     >
@@ -85,7 +85,7 @@ const TimelineCard: React.FC<TimelineCardProps> = ({
         whileInView={{ scale: 1 }}
         transition={{ duration: 0.5 }}
         className={`absolute top-1/2 transform -translate-y-1/2 bg-purple-600 text-white w-10 h-10 flex items-center justify-center rounded-full z-10 font-bold shadow-lg ${
-          isLeft ? "right-[-1.25rem]" : "left-[-1.25rem]"
+          isLeft ? "md:right-[-1.25rem] right-[-1rem]" : "md:left-[-1.25rem] left-[-1rem]"
         }`}
       >
         {index + 1}
