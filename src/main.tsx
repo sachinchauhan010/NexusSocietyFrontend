@@ -46,7 +46,7 @@ import OfficialBearer from "./components/app/Admin/member/OfficialBearer.tsx";
 
 const AppLayout = () => {
   return (
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+    <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
       <AuthProvider>
         <div className="min-h-screen flex flex-col bg-purple-100 font-playwrite">
           <Header />
