@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { User } from "@/types/userType";
-import { CardContent , CardHeader } from "@/components/ui/card";
+import { CardContent, CardHeader, CardTitle, Card, CardDescription } from "@/components/ui/card";
 import { BadgeCheck, Building, GraduationCap, Phone } from "lucide-react";
 
 export const ListedMembers = ({
@@ -25,7 +25,7 @@ export const ListedMembers = ({
       {items.map((item, idx) => (
         <Link
           to={"#"}
-          key={item?.id}
+          key={item?.id || idx}
           className="relative group block p-2 h-full w-full"
           onMouseEnter={() => setHoveredIndex(idx)}
           onMouseLeave={() => setHoveredIndex(null)}
@@ -45,22 +45,19 @@ export const ListedMembers = ({
             )}
           </AnimatePresence>
 
-          {/* Card Design Same as First Card */}
           <Card
             className={cn(
               "rounded-md h-full w-full shadow-md border border-gray-200 dark:border-white/[0.2] transition-all group-hover:border-gray-500 group-hover:shadow-lg bg-white dark:bg-gray-900 relative z-20",
               className
             )}
           >
-         
-
-            {/* Profile Image  */}
+            {/* Profile Image */}
             <div className="flex justify-center">
               <img
                 src={item.profileimage ? item.profileimage : "/avatar.png"}
                 alt={item.name}
                 className={`w-32 h-32 rounded-full border-4 shadow-lg ${
-                  item.role.includes("member")
+                  Array.isArray(item.role) && item.role.includes("member")
                     ? "border-green-500"
                     : "border-gray-300"
                 }`}
@@ -81,14 +78,16 @@ export const ListedMembers = ({
               <div className="flex items-center space-x-2">
                 <BadgeCheck className="text-blue-600" size={20} />
                 <p className="text-gray-700 font-semibold">
-                  <span className="font-bold text-sm text-[13px]">Roll No:</span> <span className="text-[13px]">{item.id}</span>
+                  <span className="font-bold text-sm text-[13px]">Roll No:</span>{" "}
+                  <span className="text-[13px]">{item.rollNo}</span>
                 </p>
               </div>
 
               <div className="flex items-center space-x-2">
                 <Phone className="text-green-600" size={20} />
                 <p className="text-gray-700 font-semibold">
-                  <span className="font-bold text-[13px]">Phone:</span> <span className="text-[13px]">{item.phone}</span>
+                  <span className="font-bold text-[13px]">Phone:</span>{" "}
+                  <span className="text-[13px]">{item.phone}</span>
                 </p>
               </div>
 
@@ -103,7 +102,8 @@ export const ListedMembers = ({
               <div className="flex items-center space-x-2">
                 <GraduationCap className="text-orange-600" size={20} />
                 <p className="text-gray-700 font-semibold">
-                  <span className="font-bold text-[13px]">Branch:</span> <span className="text-[13px]">{item.branch}</span>
+                  <span className="font-bold text-[13px]">Branch:</span>{" "}
+                  <span className="text-[13px]">{item.branch}</span>
                 </p>
               </div>
             </CardContent>
@@ -111,62 +111,5 @@ export const ListedMembers = ({
         </Link>
       ))}
     </div>
-  );
-};
-
-export const Card = ({
-  className,
-  children,
-}: {
-  className?: string;
-  children: React.ReactNode;
-}) => {
-  return (
-    <div
-      className={cn(
-        "rounded-md h-full w-full overflow-hidden bg-white dark:bg-gray-900 border border-gray-200 dark:border-white/[0.2] group-hover:border-gray-500 group-hover:shadow-lg relative z-20",
-        className
-      )}
-    >
-      <div className="relative z-50 p-4">{children}</div>
-    </div>
-  );
-};
-
-export const CardTitle = ({
-  className,
-  children,
-}: {
-  className?: string;
-  children: React.ReactNode;
-}) => {
-  return (
-    <h4
-      className={cn(
-        "text-gray-900 dark:text-white font-bold tracking-wide mt-4",
-        className
-      )}
-    >
-      {children}
-    </h4>
-  );
-};
-
-export const CardDescription = ({
-  className,
-  children,
-}: {
-  className?: string;
-  children: React.ReactNode;
-}) => {
-  return (
-    <p
-      className={cn(
-        "text-gray-600 dark:text-zinc-400 tracking-wide leading-relaxed text-sm",
-        className
-      )}
-    >
-      {children}
-    </p>
   );
 };

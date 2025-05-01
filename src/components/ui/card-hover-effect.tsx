@@ -31,7 +31,7 @@ export const HoverEffect = ({
       {items.map((user, idx) => (
         <Link
           to={`/user/${user._id}`}
-          key={user._id}
+          key={idx}
           className="relative group block p-2 h-full w-full"
           onMouseEnter={() => setHoveredIndex(idx)}
           onMouseLeave={() => setHoveredIndex(null)}
@@ -56,7 +56,7 @@ export const HoverEffect = ({
               className
             )}
           >
-            {user.role.includes("member") && (
+            {Array.isArray(user.role) && user.role.includes("member") && ( // Ensure user.role is an array
               <div className="absolute top-0 right-0 w-0 h-0 border-t-[85px] border-t-green-600 border-l-[85px] border-l-transparent rounded-tr-[16px] transition-all group-hover:scale-105 duration-200">
                 <span className="absolute top-[-65px] right-[0px] text-white text-[14px] font-bold italic tracking-wide rotate-45">
                   Member
@@ -70,7 +70,7 @@ export const HoverEffect = ({
                 src={user.profileimage ? user.profileimage : "/avatar.png"}
                 alt={user.name}
                 className={`w-32 h-32 rounded-full border-4 shadow-lg ${
-                  user.role.includes("member")
+                  Array.isArray(user.role) && user.role.includes("member")
                     ? "border-green-500"
                     : "border-gray-300"
                 }`}
@@ -91,14 +91,16 @@ export const HoverEffect = ({
               <div className="flex items-center space-x-2">
                 <BadgeCheck className="text-blue-600" size={26} />
                 <p className="text-gray-700 font-semibold">
-                  <span className="font-semibold">Roll No:</span> <span className="text-sm">{user.id}</span>
+                  <span className="font-semibold">Roll No:</span>{" "}
+                  <span className="text-sm">{user.rollNo}</span>
                 </p>
               </div>
 
               <div className="flex items-center space-x-2">
                 <Phone className="text-green-600" size={26} />
                 <p className="text-gray-700 font-semibold">
-                  <span className="font-bold">Phone:</span> <span className="text-sm">{user.phone}</span>
+                  <span className="font-bold">Phone:</span>{" "}
+                  <span className="text-sm">{user.phone}</span>
                 </p>
               </div>
 
@@ -113,7 +115,8 @@ export const HoverEffect = ({
               <div className="flex items-center space-x-2">
                 <GraduationCap className="text-orange-600" size={26} />
                 <p className="text-gray-700 font-semibold">
-                  <span className="font-bold">Branch:</span> <span className="text-sm">{user.branch}</span>
+                  <span className="font-bold">Branch:</span>{" "}
+                  <span className="text-sm">{user.branch}</span>
                 </p>
               </div>
             </CardContent>

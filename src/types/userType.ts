@@ -8,6 +8,7 @@ export type User = {
   department: string;
   year: string;
   profileimage: string;
+  rollNo: string;
   course: string;
   branch: string;
   eventApply?: {

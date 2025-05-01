@@ -27,7 +27,7 @@ function ListMembers() {
   return (
     <div>
       <Link to="/admin/official-bearers" className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition flex items-center gap-2 w-fit">
-        <UserPlus size={18} /> Add Member
+        <UserPlus size={18} /> Add Offici al Bearer
       </Link>
       <ListedMembers items={members} />
     </div>

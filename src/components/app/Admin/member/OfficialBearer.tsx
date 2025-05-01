@@ -72,9 +72,16 @@ export default function OfficialBearer() {
         }
       );
 
+
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.message || "Failed to assign official bearer.");
+      }
+      const data = await response.json();
+
+      if(data.isAssigned === false){
+        toast.error("This user is already an official bearer.");
+        return;
       }
 
       toast.success("Official bearer assigned successfully!");

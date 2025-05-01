@@ -17,13 +17,15 @@ function Membership() {
         credentials: 'include',
       })
       const apiData = await response.json();
-      setMembershipStudents(apiData.users)
+      setMembershipStudents(apiData.users || []);
+      console.log(membershipStudents)
     } catch (error) {
       console.error("Error fetching membership data:", error);
     }finally {
       setLoading(false);
     }
   }
+  console.log(membershipStudents)
   
   useEffect(()=>{
     fetchMembership()
