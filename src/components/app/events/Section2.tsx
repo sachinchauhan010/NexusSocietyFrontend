@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import { EventType } from "@/types/eventType";
-import LoactionImage from '../../../../public/Location.png'
+import LoactionImage from '/Location.png'
 
 function Section2({ event }: { event: EventType }) {
 
