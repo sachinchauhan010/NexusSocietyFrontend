@@ -13,7 +13,9 @@ theme: {
 				'Roboto',
 				'sans-serif'
 			],
-			playwrite: ['"Playwrite AU SA"', 'cursive']
+			playwrite: ['"Playwrite AU SA"', 'cursive'],
+			asap: ['Asap', 'sans-serif'],
+			lato: ['Lato', 'sans-serif'],
 		},
 		animation: {
 			move: 'move 5s linear infinite',
