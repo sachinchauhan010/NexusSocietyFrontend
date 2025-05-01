@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { Loader } from "lucide-react";
+import { Loader, Trophy } from "lucide-react";
 
 function Result() {
   const [eventWinners, setEventWinners] = useState<any[]>([]);
@@ -31,7 +31,13 @@ function Result() {
 
   return (
     <div className="min-h-[200px] bg-gray-50 py-4">
-      <h1 className=" text-2xl sm:text-3xl font-bold mb-8 text-center text-gray-800">Event Winners</h1>
+      <div className="flex items-center justify-center gap-2 mb-8">
+        <Trophy className="text-purple-500 size-7" />
+        <h1 className="text-2xl sm:text-3xl font-bold text-center text-gray-800">
+          Event Winners
+        </h1>
+        <Trophy className="text-purple-500 size-7" />
+      </div>
 
       {loading ? (
         <div className="flex justify-center items-center mt-20">
@@ -45,7 +51,9 @@ function Result() {
                 key={event.eventId}
                 className="bg-white rounded-2xl shadow-lg p-2 sm:p-6 hover:shadow-2xl transition duration-300"
               >
-                <h2 className="text-2xl font-semibold text-gray-700 mb-4 text-center">{event.eventName}</h2>
+                <h2 className="text-2xl font-semibold text-gray-700 mb-4 text-center">
+                  {event.eventName}
+                </h2>
                 <ul className="space-y-4">
                   {event.winners &&
                     event.winners.map((winner: any) => (
@@ -54,12 +62,16 @@ function Result() {
                         className="bg-blue-50 text-blue-700 rounded-lg p-4"
                       >
                         <div className="font-bold">Rank: {winner.rank}</div>
-                        <div className="font-bold">Group: {winner.groupName}</div>
+                        <div className="font-bold">
+                          Group: {winner.groupName}
+                        </div>
                         <ul className="mt-2 space-y-2">
                           {winner.members &&
                             winner.members.map((member: any, index: number) => (
                               <li key={index} className="text-sm">
-                                <div className="font-bold">Name: {member.name}</div>
+                                <div className="font-bold">
+                                  Name: {member.name}
+                                </div>
                                 <div>Email: {member.email}</div>
                               </li>
                             ))}
