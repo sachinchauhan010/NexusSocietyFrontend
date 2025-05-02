@@ -17,6 +17,14 @@ function Section2({ event }: { event: EventType }) {
               </p>
             </div>
           </section>
+          <section className="mb-12">
+            <h2 className="text-xl font-bold mb-4">Participants</h2>
+            <div className="space-y-4 text-gray-600">
+              <p>
+                {event.participants ?? "Not available o of Participants for this event."}
+              </p>
+            </div>
+          </section>
 
           <section className="mb-12">
             <h2 className="text-xl font-bold mb-4">Hours</h2>
