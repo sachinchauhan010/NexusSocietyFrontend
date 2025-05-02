@@ -91,16 +91,6 @@ export const Card = React.memo(
             </p>
             <p>Venue: {card.venue ?? "N/A"}</p>
             <p>Participants: {card.participants ?? "N/A"}</p>
-            <p>
-              <a
-                href={card.registration_link ?? "#"}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-400 underline"
-              >
-                Registration Link
-              </a>
-            </p>
           </motion.div>
         </motion.div>
       </AnimatePresence>
