@@ -31,14 +31,32 @@ import UserEvent from "./page/EventDetails.tsx";
 import ParticularNotice from "./components/app/Notice/ParticularNotice.tsx";
 import AllUserEvents from "./page/AllUserEvents.tsx";
 import ProductDetail from "./components/app/Product/ProductDetail.tsx";
+import AllUserMerchandise from "./page/AllUserMerchandize.tsx";
+import SecondaryHeader from "./components/app/SecondaryHeader.tsx";
+import ScrollToTop from "./components/ScrollToTop.tsx";
+
+import UserApplyEvents from "./components/app/Profile/UserApplyEvents.tsx";
+import UserProfileHome from "./components/app/Profile/UserProfileHome.tsx";
+import UserOrderProducts from "./components/app/Profile/UserOrderProducts.tsx";
+import UserSidebar from "./components/app/Profile/UserSidebar.tsx";
+// import { Separator } from "./components/ui/separator.tsx";
+import ForgetPassword from "./components/app/Auth/forget-password.tsx";
+import ResetPassword from "./components/app/Auth/resetPassword.tsx";
+import OfficialBearer from "./components/app/Admin/member/OfficialBearer.tsx";
+
 
 const AppLayout = () => {
   return (
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+    <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
       <AuthProvider>
-        <div className="min-h-screen flex flex-col bg-purple-100">
+        <div className="min-h-screen flex flex-col bg-purple-100 font-lato font-medium">
           <Header />
-          <main className="flex-grow px-6 py-2 min-h-screen">
+          <div className="mx-auto font-lato">
+          <SecondaryHeader />
+          </div>
+          {/* <Separator/> */}
+          <main className="flex-grow px-2 sm:px-4 md:px-6 py-2 min-h-screen font-lato overflow-x-hidden">
+            <ScrollToTop/>
             <Outlet />
             <Toaster />
           </main>
@@ -67,6 +85,10 @@ const appRouter = createBrowserRouter([
         element: <ProductDetail />,
       },
       {
+        path: "/get-merchandise",
+        element: <AllUserMerchandise />,
+      },
+      {
         path: "/event/:id",
         element: <UserEvent />,
       },
@@ -83,8 +105,20 @@ const appRouter = createBrowserRouter([
         element: <About />,
       },
       {
+        path: "/profile/home",
+        element: <UserProfileHome/>,
+      },
+      {
         path: "/faq",
         element: <FAQs />,
+      },
+      {
+        path: "/forget-password",
+        element: <ForgetPassword />,
+      },
+      {
+        path: "/reset-password/:token",
+        element: <ResetPassword />,
       },
       {
         path: "/get-in-touch",
@@ -128,6 +162,10 @@ const appRouter = createBrowserRouter([
             element: <ListMembers />,
           },
           {
+            path: "official-bearers",
+            element: <OfficialBearer />,
+          },
+          {
             path: "membership",
             element: <Membership />,
           },
@@ -149,6 +187,22 @@ const appRouter = createBrowserRouter([
           },
         ],
       },
+
+      {
+        path: "/profile",
+        element: <UserSidebar />,
+        children: [
+          { index: true, element: <UserProfileHome /> },
+          { path: "home", element: <UserProfileHome /> },
+          { path: "apply-events", element: <UserApplyEvents /> },
+          { path: "orders", element: <UserOrderProducts /> },
+          {
+            path: "notifications",
+            element: <div>Notifications Page Coming Soon</div>,
+          },
+        ],
+      },
+      
     ],
   },
   // Catch-all route for 404 error, rendered outside of AppLayout

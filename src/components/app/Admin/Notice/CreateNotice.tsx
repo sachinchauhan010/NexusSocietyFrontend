@@ -85,7 +85,7 @@ const CreateNotice = () => {
             />
           </div>
 
-          <div>
+          {/* <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Link (optional)</label>
             <input
               {...register("link")}
@@ -93,7 +93,7 @@ const CreateNotice = () => {
               className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-purple-300"
               placeholder="https://example.com"
             />
-          </div>
+          </div> */}
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>

@@ -6,7 +6,6 @@ import { toast } from "sonner";
 import { motion } from "framer-motion";
 import {
   FaCalendarAlt,
-  FaLink,
   FaUserCircle,
   FaFileDownload,
   FaRegEye,
@@ -91,20 +90,6 @@ export default function ParticularNotice() {
           <p className="text-gray-700 dark:text-gray-200 whitespace-pre-line">
             {notice.description}
           </p>
-
-          {notice.link && (
-            <div className="mt-4 flex items-center gap-2 text-blue-600 dark:text-blue-400">
-              <FaLink />
-              <a
-                href={notice.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:underline hover:text-blue-800 dark:hover:text-blue-300"
-              >
-                {notice.link}
-              </a>
-            </div>
-          )}
 
           <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
             <button className="flex items-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-xl shadow-lg hover:scale-105 transition-transform">

@@ -1,11 +1,14 @@
-import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
+import { toast } from "sonner";
+import { useForm } from "react-hook-form";
+
+import Loader from "../../Loader";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
-import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
+
 
 type EventInput = {
   name: string;
@@ -23,6 +26,7 @@ type EventInput = {
 
 export default function CreateEvent() {
   const [banner, setBanner] = useState<File | null>(null);
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -45,6 +49,7 @@ export default function CreateEvent() {
         toast.error("Banner image is required");
         return;
       }
+      setLoading(true);
 
       const formData = new FormData();
       Object.keys(data).forEach((key) => {
@@ -82,8 +87,18 @@ export default function CreateEvent() {
       toast.error("Event creation failed", {
         description: "Please check your details",
       });
+    }finally{
+      setLoading(false);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Loader />
+      </div>
+    );
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="w-full">

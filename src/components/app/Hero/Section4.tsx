@@ -29,9 +29,9 @@ export default function BrandsSection() {
 
   return (
     <section>
-      <h1 className="text-4xl my-10 font-bold ">
-        Notices And
-        <span className="text-purple-600 text-4xl my-10 font-bold">   Alerts</span>
+      <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl my-10 font-bold flex flex-wrap">
+        <span>Notices And</span>
+        <span className="text-purple-600 block sm:inline ml-2"> Alerts</span>
       </h1>
 
       <Marquee speed={100}>

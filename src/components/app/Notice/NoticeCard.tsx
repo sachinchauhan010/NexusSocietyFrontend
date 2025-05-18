@@ -23,24 +23,29 @@ export default function NoticeCard({ notice }: { notice: NoticeType }) {
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
+      className=""
     >
-      <Link to={`/notice/${notice.id}`} className="block">
-        <Card className="bg-white border shadow-sm hover:shadow-md transition duration-300 w-[300px] h-[170px]">
-          <CardHeader className="pb-1 space-y-1">
-            <CardTitle className="text-base font-semibold truncate text-primary">
+      <Link to={`/notice/${notice.id}`} className="items-center justify-center">
+        <Card className="bg-white border shadow-sm hover:shadow-md transition duration-300 w-[400px] h-auto">
+          <CardHeader className="pb-1 space-y-1 leading-relaxed">
+            <CardTitle className="text-base font-semibold truncate text-primary mb-3">
               {notice.title}
             </CardTitle>
-            <CardDescription className="text-xs text-gray-500">
-              <p className="">{formatDate(notice.date)}</p>
-              {notice.link && (
+            <CardDescription className="text-xs mb-3">
+              <p className="text-black font-semibold mb-3">
+                {formatDate(notice.date)}
+              </p>
+              {/* {notice.link && (
                 <p className="truncate text-blue-600 max-w-[250px]">
                   {notice.link}
                 </p>
-              )}
+              )} */}
             </CardDescription>
           </CardHeader>
-          <CardContent className="pt-2">
-            <p className="text-sm text-muted-foreground">{shortDescription}</p>
+          <CardContent className="">
+            <p className="text-sm font-semibold">
+              {shortDescription.split(" ").slice(0, 6).join(" ")}...
+            </p>
           </CardContent>
         </Card>
       </Link>

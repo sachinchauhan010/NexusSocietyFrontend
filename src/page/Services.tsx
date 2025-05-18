@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import ServiceCrousal from "../components/app/ServiceCrousal";
 
 interface Service {
   title: string;
@@ -74,8 +75,8 @@ const TimelineCard: React.FC<TimelineCardProps> = ({
 
   return (
     <div
-      className={`w-full md:w-1/2 p-4 my-10 relative ${
-        isLeft ? "md:pr-10 md:self-start" : "md:pl-10 md:self-end"
+      className={`w-full md:w-1/2 my-4 relative ${
+        isLeft ? "lg:pr-10 md:self-start" : "lg:pl-10 md:self-end"
       }`}
     >
       {/* Numbered Circle */}
@@ -84,7 +85,7 @@ const TimelineCard: React.FC<TimelineCardProps> = ({
         whileInView={{ scale: 1 }}
         transition={{ duration: 0.5 }}
         className={`absolute top-1/2 transform -translate-y-1/2 bg-purple-600 text-white w-10 h-10 flex items-center justify-center rounded-full z-10 font-bold shadow-lg ${
-          isLeft ? "right-[-1.25rem]" : "left-[-1.25rem]"
+          isLeft ? "md:right-[-1.25rem] right-[-1rem]" : "md:left-[-1.25rem] left-[-1rem]"
         }`}
       >
         {index + 1}
@@ -106,25 +107,23 @@ const TimelineCard: React.FC<TimelineCardProps> = ({
 
 const ServicesTimeline: React.FC = () => {
   return (
-    <div className="relative px-4 md:px-20 py-20 bg-gradient-to-br from-purple-100 to-purple-50 min-h-screen">
-      {/* <h2 className="text-4xl font-bold text-center text-purple-800 mb-16">
-        Our Services
-      </h2> */}
-      <p className="text-lg my-10">We offer a comprehensive set of features designed to streamline every aspect of college society operations</p>
+    <div>
+      <ServiceCrousal />
+      <div className="relative px-4 xl:px-10 bg-gradient-to-br from-purple-100 to-purple-50 min-h-screen">
+        <div className="relative flex flex-col items-center">
+          {/* Center vertical line */}
+          <div className="absolute w-1 h-0 md:h-full bg-purple-500 left-1/2 transform -translate-x-1/2 z-0" />
 
-      <div className="relative flex flex-col items-center">
-        {/* Center vertical line */}
-        <div className="absolute w-1 h-full bg-purple-500 left-1/2 transform -translate-x-1/2 z-0" />
-
-        {/* Timeline Cards */}
-        {services.map((service, index) => (
-          <TimelineCard
-            key={index}
-            title={service.title}
-            description={service.description}
-            index={index}
-          />
-        ))}
+          {/* Timeline Cards */}
+          {services.map((service, index) => (
+            <TimelineCard
+              key={index}
+              title={service.title}
+              description={service.description}
+              index={index}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

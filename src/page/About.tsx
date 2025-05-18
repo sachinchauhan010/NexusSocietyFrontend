@@ -10,7 +10,9 @@ const About = () => {
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
-        <h1 className="text-5xl gradient-title">About Nexus Society</h1>
+        <h1 className="text-5xl gradient-title font-semibold">
+          About Nexus Society
+        </h1>
       </motion.section>
 
       {/* Our Mission Section */}
@@ -31,7 +33,7 @@ const About = () => {
           transition={{ duration: 0.8, delay: 0.1 }}
         >
           <h2 className="text-3xl font-bold mb-5">Our Mission</h2>
-          <p className="text-gray-800 font-semibold">
+          <p className="text-gray-800 font-semibold leading-normal tracking-wider">
             At NexusSociety, our mission is to redefine the way college
             societies operate and host events. We aim to provide a centralized
             platform that simplifies planning, coordination, and communication
@@ -42,7 +44,7 @@ const About = () => {
             inclusive, and well-organized.
           </p>
           <br />
-          <p className="text-gray-800 font-semibold">
+          <p className="text-gray-800 font-semibold leading-normal tracking-wider">
             We strive to build a culture where collaboration meets innovation.
             NexusSociety bridges the gap between students, coordinators, and
             administration, making event approvals, updates, and registrations
@@ -53,10 +55,6 @@ const About = () => {
             we celebrate ideas, energy, and student spirit.
           </p>
           <br />
-          <p className="text-gray-800 font-semibold">
-            Our vision is to create a digital ecosystem where societies are not
-            just functional, but exceptional.
-          </p>
         </motion.div>
       </section>
 
@@ -68,7 +66,7 @@ const About = () => {
           transition={{ duration: 0.8, delay: 0.1 }}
         >
           <h2 className="text-3xl font-bold mb-4">Why NexusSociety?</h2>
-          <p className="text-gray-800 font-semibold">
+          <p className="text-gray-800 font-semibold leading-normal tracking-wider">
             NexusSociety isn't just a tool—it's a complete solution crafted
             specifically for the dynamic world of college societies and event
             management. We understand the hustle behind every fest, every
@@ -80,7 +78,7 @@ const About = () => {
             and more organized.
           </p>
           <br />
-          <p className="text-gray-800 font-semibold">
+          <p className="text-gray-800 font-semibold leading-normal tracking-wider">
             What sets us apart is our deep focus on empowering student leaders
             with real-time tools that mirror professional event management. Our
             platform enhances collaboration, boosts productivity, and encourages

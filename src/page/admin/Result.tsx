@@ -1,8 +1,9 @@
+import DeclareResult from "@/components/app/Admin/result/DeclareResult"
 
 function Result() {
   return (
     <div>
-      Result
+      <DeclareResult/>
     </div>
   )
 }
