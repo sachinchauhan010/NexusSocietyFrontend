@@ -13,6 +13,7 @@ const About = () => {
         <h1 className="text-5xl gradient-title font-semibold">
           About Nexus Society
         </h1>
+        
       </motion.section>
 
       {/* Our Mission Section */}
